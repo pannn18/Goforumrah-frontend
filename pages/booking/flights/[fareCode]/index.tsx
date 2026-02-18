@@ -114,10 +114,100 @@ export default function Page({
   const { data: session, status } = useSession()
   const { changePrice, currencySymbol } = UseCurrencyConverter();
 
+  // ========================================
+  // ALL HOOKS MUST BE HERE - BEFORE ANY EARLY RETURN
+  // ========================================
+
   // Client-side state for Booking.com flights
   const [bookingComData, setBookingComData] = useState<any>(null)
   const [bookingComLoading, setBookingComLoading] = useState<boolean>(false)
   const [bookingComError, setBookingComError] = useState<string | null>(null)
+
+  const MYSTIFLY_PASSENGERS = {
+    'ADT': 'Adult',
+    'CHD': 'Children',
+    'INF': 'Baby'
+  }
+
+  const newFareSourceCode = data?.flights?.AirItineraryPricingInfo?.FareSourceCode
+
+  const firstLeg = data?.flights?.OriginDestinationOptions?.length ? data?.flights?.OriginDestinationOptions[0] : null
+  const secondLeg = data?.flights?.OriginDestinationOptions?.length > 1 ? data?.flights?.OriginDestinationOptions[1] : null
+
+  const firstLegOrigin = firstLeg?.FlightSegments?.length ? firstLeg?.FlightSegments[0] : null
+  const firstLegDestination = firstLeg?.FlightSegments?.length ? firstLeg?.FlightSegments[firstLeg?.FlightSegments.length - 1] : null
+  const secondLegOrigin = secondLeg ? (secondLeg?.FlightSegments?.length ? secondLeg?.FlightSegments[0] : null) : null
+  const secondLegDestination = secondLeg ? (secondLeg?.FlightSegments?.length ? secondLeg?.FlightSegments[secondLeg?.FlightSegments.length - 1] : null) : null
+
+  const firstLegOriginKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === firstLegOrigin?.DepartureAirportLocationCode)
+  const firstLegDestinationKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === firstLegDestination?.ArrivalAirportLocationCode)
+  const secondLegOriginKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === secondLegOrigin?.DepartureAirportLocationCode)
+  const secondLegDestinationKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === secondLegDestination?.ArrivalAirportLocationCode)
+
+  const firstLegOriginName = data?.airports?.[firstLegOriginKey]?.name
+  const firstLegDestinationName = data?.airports?.[firstLegDestinationKey]?.name
+  const secondLegOriginName = data?.airports?.[secondLegOriginKey]?.name
+  const secondLegDestinationName = data?.airports?.[secondLegDestinationKey]?.name
+
+  const passengerPerFare = (data?.flights?.AirItineraryPricingInfo?.PTC_FareBreakdowns || []).map((fare) => (fare?.PassengerTypeQuantity?.Code && fare?.PassengerTypeQuantity?.Quantity) && ({ ...fare.PassengerTypeQuantity })).filter(value => value)
+  let formattedPassenger: string[] = []
+  passengerPerFare.map((value, index) => Array.from({ length: value.Quantity || 0 }, (_, number) => {
+    formattedPassenger = [...formattedPassenger, value.Code]
+  }))
+
+  const [passengerForm, setPassengerForm] = useState<{
+    passengerCode: string
+    sectionTitle: string
+    title: string
+    firstName: string
+    lastName: string
+    nationality: string
+    birth: Date | null
+    passport: string
+    issuedDate: Date | null
+    issuedCountry: string
+    expiryDate: Date | null
+  }[]>(formattedPassenger.map((passengerCode) => ({
+    passengerCode: passengerCode,
+    sectionTitle: '',
+    title: '',
+    firstName: '',
+    lastName: '',
+    nationality: '',
+    birth: null,
+    passport: '',
+    issuedDate: null,
+    issuedCountry: '',
+    expiryDate: null
+  })))
+
+  const fieldShapes = {
+    title: yup.string().notRequired(),
+    fullName: yup.string().required('Full name is required'),
+    country: yup.string().required('Country/Region is required'),
+    phone: yup.string().required('Phone number is required'),
+    email: yup.string().email().required('Email address is required'),
+    postcode: yup.string().required('Postcode is required'),
+  }
+
+  const schema = yup.object().shape(fieldShapes)
+
+  const defaultPhoneCountry = 'US'
+
+  const [phoneCountry, setPhoneCountry] = useState<string>()
+  const [phone, setPhone] = useState<string>()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>()
+  const { register, handleSubmit, reset, formState: { errors, isValid }, getValues, setValue, clearErrors, setError: setFieldError } = useForm({ resolver: yupResolver(schema) })
+
+  const [agreement, setAgreement] = useState<boolean>(false)
+  const [tktTimeLimit, setTktTimeLimit] = useState<string>()
+
+  useEffect(() => {
+    if (tktTimeLimit) {
+      localStorage.setItem('tktTimeLimit', tktTimeLimit)
+    }
+  }, [tktTimeLimit])
 
   // Fetch Booking.com flight details on client side (Solution 1)
   useEffect(() => {
@@ -177,6 +267,10 @@ export default function Page({
       fetchFlightDetails()
     }
   }, [router.query.fareCode])
+
+  // ========================================
+  // NOW SAFE TO DO CONDITIONAL RENDERING
+  // ========================================
 
   // Combine data from SSR (Mystifly) or client-side (Booking.com)
   const flights = bookingComData || data?.flights
@@ -248,97 +342,6 @@ export default function Page({
       </Layout>
     )
   }
-
-  // console.log(session)
-
-  const MYSTIFLY_PASSENGERS = {
-    'ADT': 'Adult',
-    'CHD': 'Children',
-    'INF': 'Baby'
-  }
-
-  const newFareSourceCode = data?.flights?.AirItineraryPricingInfo?.FareSourceCode
-
-  const firstLeg = data?.flights?.OriginDestinationOptions?.length ? data?.flights?.OriginDestinationOptions[0] : null
-  const secondLeg = data?.flights?.OriginDestinationOptions?.length > 1 ? data?.flights?.OriginDestinationOptions[1] : null
-
-  const firstLegOrigin = firstLeg?.FlightSegments?.length ? firstLeg?.FlightSegments[0] : null
-  const firstLegDestination = firstLeg?.FlightSegments?.length ? firstLeg?.FlightSegments[firstLeg?.FlightSegments.length - 1] : null
-  const secondLegOrigin = secondLeg ? (secondLeg?.FlightSegments?.length ? secondLeg?.FlightSegments[0] : null) : null
-  const secondLegDestination = secondLeg ? (secondLeg?.FlightSegments?.length ? secondLeg?.FlightSegments[secondLeg?.FlightSegments.length - 1] : null) : null
-
-  const firstLegOriginKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === firstLegOrigin?.DepartureAirportLocationCode)
-  const firstLegDestinationKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === firstLegDestination?.ArrivalAirportLocationCode)
-  const secondLegOriginKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === secondLegOrigin?.DepartureAirportLocationCode)
-  const secondLegDestinationKey = Object.keys(data?.airports || {}).find(key => data?.airports[key]?.iata === secondLegDestination?.ArrivalAirportLocationCode)
-
-  const firstLegOriginName = data?.airports?.[firstLegOriginKey]?.name
-  const firstLegDestinationName = data?.airports?.[firstLegDestinationKey]?.name
-  const secondLegOriginName = data?.airports?.[secondLegOriginKey]?.name
-  const secondLegDestinationName = data?.airports?.[secondLegDestinationKey]?.name
-
-  const passengerPerFare = (data?.flights?.AirItineraryPricingInfo?.PTC_FareBreakdowns || []).map((fare) => (fare?.PassengerTypeQuantity?.Code && fare?.PassengerTypeQuantity?.Quantity) && ({ ...fare.PassengerTypeQuantity })).filter(value => value)
-  let formattedPassenger: string[] = []
-  passengerPerFare.map((value, index) => Array.from({ length: value.Quantity || 0 }, (_, number) => {
-    formattedPassenger = [...formattedPassenger, value.Code]
-  }))
-
-  const [passengerForm, setPassengerForm] = useState<{
-    passengerCode: string
-    sectionTitle: string
-    title: string
-    firstName: string
-    lastName: string
-    nationality: string
-    birth: Date | null
-    passport: string
-    issuedDate: Date | null
-    issuedCountry: string
-    expiryDate: Date | null
-  }[]>(formattedPassenger.map((passengerCode) => ({
-    passengerCode: passengerCode,
-    sectionTitle: '',
-    title: '',
-    firstName: '',
-    lastName: '',
-    nationality: '',
-    birth: null,
-    passport: '',
-    issuedDate: null,
-    issuedCountry: '',
-    expiryDate: null
-  })))
-
-  // Form Handling
-  const fieldShapes = {
-    title: yup.string().notRequired(),
-    fullName: yup.string().required('Full name is required'),
-    country: yup.string().required('Country/Region is required'),
-    phone: yup.string().required('Phone number is required'),
-    email: yup.string().email().required('Email address is required'),
-    postcode: yup.string().required('Postcode is required'),
-  }
-
-  const schema = yup.object().shape(fieldShapes)
-
-  const defaultPhoneCountry = 'US'
-
-  const [phoneCountry, setPhoneCountry] = useState<string>()
-  const [phone, setPhone] = useState<string>()
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>()
-  const { register, handleSubmit, reset, formState: { errors, isValid }, getValues, setValue, clearErrors, setError: setFieldError } = useForm({ resolver: yupResolver(schema) })
-
-  const [agreement, setAgreement] = useState<boolean>(false)
-
-  const [tktTimeLimit, setTktTimeLimit] = useState<string>()
-
-  useEffect(() => {
-    if (tktTimeLimit) {
-      localStorage.setItem('tktTimeLimit', tktTimeLimit)
-    }
-  }, [tktTimeLimit])
-
 
   // Submit and validate whether is valid or invalid
   // We will need more logic because of step method & grouped form
