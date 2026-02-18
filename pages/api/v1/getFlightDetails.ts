@@ -92,7 +92,8 @@ export default async function handler(
         data: response.data,
         error: response.error
       })
-      res.status(response.status === 'Unknown status' ? 500 : Number(response.status)).json({
+      const statusCode = response.status || 500
+      res.status(statusCode).json({
         error: response.error,
         message: 'Failed to fetch flight details',
         status: false,
