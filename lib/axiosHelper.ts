@@ -16,7 +16,7 @@ const AXIOS_CONFIG = {
 }
 
 type CallAPIReturn = {
-  status: number
+  status: number | string
   data: any
   ok: boolean
   error: string
