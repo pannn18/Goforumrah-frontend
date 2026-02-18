@@ -1,0 +1,265 @@
+.company-detail{
+    background-color: $neutral-light;
+
+    &__content-container {
+        max-width: toRem(1120);
+        margin: 0 auto;
+        padding: toRem(56) 0;
+    }
+
+    &__content-form {
+        padding: 1.5rem;
+        border-radius: 16px;
+        background-color: $white;
+        margin-bottom: 1.5rem;
+    
+        &--row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+
+        &--column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @include media-breakpoint-down(sm) {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    &__content-title-heading {
+        color: $neutral-primary;
+
+        &--popup{
+            text-align: center;
+            margin-bottom: toRem(16);
+        }
+    }
+
+    &__content-title {
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+        justify-content: center;
+        width: 100%;
+        color: $neutral-primary;
+        font-weight: 600;
+        margin-bottom: toRem(24);
+        @extend .fs-xl;
+
+        &--alert-info{
+            margin-bottom: toRem(8);
+        }
+    }
+
+    &__content-flag-desc{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+    }
+
+    &__content-caption{
+        @extend .fs-sm;
+        color: $neutral-primary;
+
+        &--popup{
+            text-align: center;
+        }
+    }
+
+    &__content-title-caption {
+        @extend .fs-lg;
+    }
+
+    &__button-reservation{
+        grid-column: 1 / -1;
+    }
+
+    &__content-label{
+        margin-bottom: toRem(24);
+
+        &--setting{
+            @include media-breakpoint-down(lg){
+                width: 100%;
+            }
+        }
+
+        &--reservation{
+            width: 100%;
+            max-width: toRem(160);
+            display: flex;
+            flex-direction: column;
+            gap: toRem(8);
+
+            @include media-breakpoint-down(lg){
+                max-width: none;
+            }
+        }
+
+        &--reservation-input{
+            max-width: toRem(200);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: toRem(8);
+
+            @include media-breakpoint-down(lg){
+                max-width: none;
+            }
+        }
+    }
+
+    &__button-list {
+        text-align: right;
+        margin-top: 1.5rem;
+        border-radius: 16px;
+        background-color: $white;
+        padding: 1.5rem;
+    
+        &--payment{
+          justify-content: flex-end;
+          display: flex;
+          align-items: center;
+        }
+    }
+
+    &__button-list-group {
+        display: flex;
+
+        &--no-show{
+            padding-top: toRem(24);
+        }
+      }
+    
+    &__button-list-item {
+    padding: 1rem 1rem;
+    width: 100%;
+
+        &--form{
+            padding: 1rem 0.2rem;
+        }
+
+        &--save{
+            padding: toRem(14) toRem(63) !important;
+        }
+
+        @include media-breakpoint-down(sm) {
+            margin-bottom: toRem(16);
+        }
+    }
+
+    //popup
+
+    &__popup{
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba($modal-backdrop-bg, .4);
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .3s;
+    
+        &:target {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__popup:target &__popup-form {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__popup-content{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+        padding-bottom: toRem(24);
+
+        &--border{
+            border-bottom: 1px solid $neutral-separator;
+        }
+    }
+
+    &__popup-content-form{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+    }
+
+    &__popup-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__popup-radio{
+        display: flex;
+        align-items: flex-start;
+        gap: toRem(16);
+
+        .form-check {
+            cursor: pointer !important;
+            
+            label {
+                cursor: pointer !important;
+            }
+        }
+
+    }
+
+    &__caption-popup{
+        color: $neutral-primary;
+        font-weight: $font-weight-bold;
+        @extend .fs-xl;
+
+        &--semibold{
+            font-weight: $font-weight-semibold;
+            color: $neutral-primary;
+        }
+    }
+
+    &__popup-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-width: 100%;
+        background-color: $white;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding: toRem(24);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.25);
+        transition: all .5s .2s;
+
+        &--lg{
+            width: toRem(642);
+        }
+        
+        @include media-breakpoint-down(md){
+            width: 85% !important;
+        }
+    }
+
+    &__popup-form-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: toRem(32);
+
+        @include media-breakpoint-down(sm){
+            padding: toRem(4) toRem(12);
+            gap: toRem(12);
+        }
+    }
+
+}

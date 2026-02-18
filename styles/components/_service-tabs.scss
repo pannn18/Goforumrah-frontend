@@ -1,0 +1,62 @@
+.service-tabs {
+  @include flex(row, center);
+  gap: toRem(4);
+  padding: 8px;
+  background-color: $white;
+  border-radius: $border-radius-pill;
+
+  .service-tabs__button {
+    @include flex(row, center);
+    gap: toRem(12);
+    padding: toRem(12) toRem(16);
+    background-color: $white;
+    border-radius: $border-radius-pill;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+
+    @include media-breakpoint-down(lg){
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    &:not(.active):hover,
+    &:not(.active):active {
+      background-color: shade-color($white, $btn-hover-bg-shade-amount);
+      color: $neutral-primary;
+    }
+
+    &.active {
+      background-color: $primary;
+      color: $white;
+
+      .service-tabs__button-text{
+        @include media-breakpoint-down(lg){
+          display: none;
+        }
+        @include media-breakpoint-down(md){
+          display: block;
+        }
+        @include media-breakpoint-down(xs-3){
+          display: none;
+        }
+      }
+    }
+
+    .service-tabs__button-text{
+      display: block;
+
+      @include media-breakpoint-down(md){
+        display: none;
+      }
+    }
+  }
+
+  .service-tabs__description {
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+}

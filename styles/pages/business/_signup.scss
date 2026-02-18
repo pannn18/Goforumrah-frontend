@@ -1,0 +1,204 @@
+.signup-business {
+  @include flex(row, center);
+  position: relative;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: calc(100vh - 80px);
+
+  @include media-breakpoint-down(xxl) {
+    max-width: 100%;
+  }
+
+  p {
+    @extend .fs-base;
+    color: $neutral-secondary;
+  }
+
+  &__nav {
+    margin-bottom: 2rem;
+  }
+
+  &__nav-link {
+    @extend .fs-xl;
+    font-weight: 600;
+    color: $neutral-primary;
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav-image {
+    margin-right: 1rem;
+    color: $green-01;
+  }
+
+  &__container {
+    height: 100%;
+  }
+
+  &__left {
+    @include flex(column, stretch);
+    background-color: $white;
+    z-index: 5;
+    position: relative;
+  }
+
+  &__left-content {
+    flex: 1;
+    padding: 6rem 4.5rem 13.75rem 0;
+
+    @include media-breakpoint-down(xl) {
+      padding-right: 3rem;
+    }
+
+    @include media-breakpoint-down(lg) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  &__left-heading {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $neutral-primary;
+    margin-bottom: 0.75rem;
+  }
+
+  &__left-subheading {
+    @extend .fs-lg;
+    font-weight: 400;
+    color: $neutral-secondary;
+    margin-bottom: 2rem;
+
+    strong {
+      color: $blue-whale-01;
+      font-weight: 600;
+    }
+  }
+
+  &__form {
+    padding-bottom: 2.25rem;
+    border-bottom: 1px solid $neutral-separator;
+    margin-bottom: 2rem;
+  }
+
+  &__form-label {
+    margin-bottom: 0.5rem;
+  }
+
+  &__form-control {
+    margin-bottom: 1.5rem;
+  }
+
+  &__form-submit {
+    width: 100%;
+  }
+
+  &__form-button {
+    margin-bottom: 1.5rem;
+  }
+
+  &__form-dropdown {
+    margin-bottom: 1.5rem;
+  }
+
+  &__form-alert {
+    margin-bottom: 1.5rem;
+  }
+
+  &__left-content &__left-info {
+    text-align: center;
+
+    a {
+      color: $green-01;
+
+      &:hover {
+        text-decoration: underline;
+        color: $green-01;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__left-footer {
+    margin-bottom: 2rem;
+
+    @include media-breakpoint-down(lg) {
+      text-align: center;
+    }
+
+    p {
+      @extend .fs-base;
+      color: $neutral-subtle;
+      display: block;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 700px;
+    height: 100%;
+    object-fit: cover;
+    object-position: center left;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+
+  &__password-group {
+    position: relative;
+  }
+
+  &__pass-icon {
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    background-color: $neutral-light;
+    padding-left: .25rem;
+    padding-right: .25rem;
+  }
+
+  // Verify Account
+  &__verify-box {
+    width: 100%;
+    max-width: 640px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+  }
+  &__verify-icon {
+    margin-bottom: 1.5rem;
+  }
+  &__verify-title {
+    margin-bottom: .75rem;
+  }
+  &__verify-caption {
+    margin-bottom: 2.5rem;
+
+    strong {
+      font-weight: 600;
+      color: $blue-whale-01;
+    }
+  }
+
+  &__single-link {
+    font-weight: 600;
+    color: $green-01;
+    margin-bottom: 1.5rem;
+    
+    a {
+      color: $green-01;
+    }
+  }
+}

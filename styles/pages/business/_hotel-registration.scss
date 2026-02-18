@@ -1,0 +1,631 @@
+.hotel-registration {
+  background-color: $neutral-light;
+  
+  &__step {
+    background-color: $white;
+    border-bottom: 1px solid $neutral-separator;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  &__step-container {
+    overflow: hidden;
+  }
+  
+  &__step-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline-start: 0;
+    margin-bottom: 0;
+    
+    @include media-breakpoint-down(lg) {
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  &__step-list-item {
+    @extend .fs-base;
+    padding: .5rem 1rem;
+    border-left: 1px solid $neutral-input;
+    white-space: nowrap;
+
+    &:not(:last-child) {
+      margin-right: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+
+    a {
+      font-weight: 400;
+    }
+
+    &--active {
+      border-left: 2px solid $green-01;
+      
+      a {
+        font-weight: 600;
+      }
+    }
+    
+    &--visited {
+      border-left: 2px solid $blue-whale-01;
+      
+      a {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__step-number {
+    @extend .fs-base;
+    font-weight: 600;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    border: 1px solid $neutral-input;
+    border-radius: 100%;
+    text-align: center;
+    margin-right: .5rem;
+    color: $neutral-primary;
+
+    @include media-breakpoint-down(lg) {
+      display: block;
+    }
+
+    &--active {
+      border: 1px solid $green-01;
+      color: $green-01;
+    }
+
+    &--visited {
+      border-color: $blue-whale-01;
+      background-color: $blue-whale-01;
+      color: $white;
+    }
+  }
+
+  &__content-container {
+    max-width: 793px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+
+    &__registration-done{
+      max-width: toRem(1200);
+    }
+  }
+
+  &__content-title {
+    margin-bottom: 2rem;
+  }
+
+  &__content-title-heading {
+    margin-bottom: .625rem;
+    color: $neutral-primary;
+
+    @include media-breakpoint-down(xs-2){
+      text-align: center
+    }
+  }
+
+  &__content-title-caption {
+    @extend .fs-lg;
+  }
+
+  &__content-alert {
+    margin-bottom: 2rem;
+  }
+
+  &__content-form {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background-color: $white;
+    margin-bottom: 1.5rem;
+
+    &--row {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__content-form-title {
+    @extend .fs-lg;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: 1.5rem;
+  }
+
+  &__content-slice {
+    display: flex;
+    flex-direction: row;
+    margin-left: -.625rem;
+    margin-right: -.625rem;
+
+    // @include media-breakpoint-down(xs) {
+    //   flex-direction: column;
+    // }
+  }
+
+  &__content-slice-col {
+    padding-left: .625rem;
+    padding-right: .625rem;
+    flex: 0 0 50%;
+  }
+
+  &__content-inner {
+    padding: 1.5rem;
+    border: 1px solid $neutral-separator;
+    border-radius: 12px;
+  }
+
+  &__content-inner-title {
+    @extend .fs-lg;
+    font-weight: 500;
+    color: $neutral-primary;
+    margin-bottom: 1.5rem;
+  }
+  
+  &__content-inside {
+    padding: 1rem 1.5rem;
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid $neutral-separator;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__content-inside-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $neutral-separator;
+    margin-bottom: 1rem;
+  }
+
+  // Layout & Pricing
+  &__layout-title {
+    @include media-breakpoint-down(xs-3) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__layout-item {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $neutral-separator;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  &__layout-item-content {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    &--first {
+      flex-basis: 50%;
+
+      @include media-breakpoint-down(xs-3) {
+        flex-basis: 100%;
+      }
+    }
+    &--middle {
+      flex-basis: 25%;
+      
+      @include media-breakpoint-down(lg) {
+        flex-basis: 50%;
+      }
+      @include media-breakpoint-down(xs-3) {
+        margin-top: 1rem;
+        flex-basis: 100%;
+      }
+    }
+    &--last {
+      flex-basis: 25%;
+      display: flex;
+      align-items: center;
+
+      @include media-breakpoint-down(lg) {
+        flex-basis: 100%;
+        margin-top: 1rem;
+      }
+    }
+  }
+  // End Of Layout Pricing
+
+  // Facilities
+  &__facilities-lang {
+    flex-wrap: wrap;
+  }
+
+  &__facilities-lang-colbutton {
+    flex: 0 0 30%;
+
+    @include media-breakpoint-down(lg) {
+      flex-basis: 40%;
+    }
+
+    @include media-breakpoint-down(md) {
+      flex-basis: 50%;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-basis: 100%;
+      margin-top: 1rem;
+    }
+  }
+
+  &__facilities-lang-button {
+    width: 100%;
+  }
+
+  &__facilities-checkbox {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  &__facilities-checkbox-label {
+    width: 100%;
+  }
+  // End of Facilities
+
+  // Amenities
+  &__amenities-radio {
+    margin-bottom: .875rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__amenities-radio-help {
+    color: $neutral-secondary;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  // End of Amenities
+
+  // Policies
+  &__poli-form-title {
+    @extend .fs-xl;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: .5rem;
+  }
+
+  &__poli-switch {
+    & span:last-child::before {
+      top: 2px;
+    }
+  }
+
+  &__poli-left-col {
+    margin-right: 1.5rem;
+  }
+
+  &__poli-child-title {
+    @extend .fs-xl;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: 1rem;
+  }
+
+  &__poli-child-label {
+    display: block;
+  }
+
+  // End of Policies
+
+  // Payment
+
+  &__payment-checkbox {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  &__payment-checkbox-label {
+    width: 100%;
+    display: flex;
+    gap: toRem(16);
+    align-items: center;
+  }
+
+  &__payment-option-font{
+    color: $neutral-primary;
+  }
+
+  &__payment-option-image{
+    width: 20%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: auto;
+  }
+
+  &__content-comm-payment{
+    display: flex;
+    gap: toRem(48);
+    align-items: flex-start;
+    margin-bottom: toRem(24);
+
+    @include media-breakpoint-down(md){
+      gap: toRem(24);
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      gap: toRem(16);
+      flex-direction: column;
+      margin-bottom: toRem(16);
+    }
+
+    &__left{
+      width: 62.7%;
+      color: $neutral-primary;
+
+      @include media-breakpoint-down(xs-3){
+        width: 100%;
+      }
+    }
+
+    &__right{
+      border: 1px solid $success-main;
+      border-radius: 32px;
+      padding: toRem(3) toRem(16);
+      color: $success-main;
+      background: $success-surface;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+  }
+
+  &__payment-comm-label{
+    color: $neutral-secondary;
+  }
+
+  &__payment-terms{
+    padding-left: 2.5rem;
+
+    &:first-child{
+      margin-bottom: toRem(24);
+    }
+
+  }
+
+  // End of Payment
+
+  // Registration done
+
+  &__content-registration-done{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: toRem(12);
+
+    &:nth-child(2){
+      @include media-breakpoint-down(xs-3){
+        padding: toRem(24) 0 !important;
+      }
+    }
+    
+
+    p{
+      text-align: center;
+    }
+  }
+
+  // Step progress bar
+
+  &__stepper-wrapper {
+    margin-top: toRem(24);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  &__stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    @include media-breakpoint-down(xs-3){
+      flex: 0.5;
+    }
+
+  
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+
+  &__step-content-active{
+    @include media-breakpoint-down(lg){
+      display: flex !important;
+    }
+  }
+
+  &__step-content{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+
+    @include media-breakpoint-down(lg){
+      display: none;
+    }
+  }
+
+  &__step-title,
+  &__step-paragraph{
+    text-align: center;
+  }
+  
+  // &__stepper-item::before {
+  //   position: absolute;
+  //   content: "";
+  //   border-bottom: 2px solid $neutral-input;
+  //   width: 100%;
+  //   top: 20px;
+  //   left: -50%;
+  //   z-index: 2;
+  // }
+  
+  &__stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid $neutral-input;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+  }
+
+  &__step-counter-active,
+  &__step-counter-done{
+    border: none !important;
+  }
+
+  &__step-counter{
+
+    &__img{
+      width: 100%;
+    }
+  }
+  
+  &__stepper-item &__step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: toRem(48);
+    height: toRem(48);
+    border-radius: 50%;
+    background: $neutral-light;
+    margin-bottom: toRem(24);
+    border: 2px solid $neutral-input;
+
+    @include media-breakpoint-down(xs-3){
+      // width: toRem(32);
+      // height: toRem(32);
+    }
+  }
+
+  &__stepper-item.active{
+    flex: 1;
+  }
+  
+  &__stepper-item.completed::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px dashed $blue-whale-01 !important;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 3;
+
+    @include media-breakpoint-down(xs-3){
+      left: 70%;
+    }
+  }
+  
+  &__stepper-item:first-child::before {
+    content: none;
+  }
+
+  &__stepper-item:last-child::after {
+    content: none;
+  }
+
+  // End of step progress bar
+
+  // End of Registration done
+
+  &__layout-item-label {
+    font-weight: 400;
+  }
+
+  &__layout-item-data {
+    @extend .fs-lg;
+    font-weight: 500;
+  }
+
+  &__layout-item-button {
+    padding: .875rem 1.75rem;
+    margin-right: 1rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__button-list {
+    text-align: right;
+    margin-top: 1.5rem;
+    border-radius: 16px;
+    background-color: $white;
+    padding: 1.5rem;
+
+    &--payment{
+      justify-content: flex-end;
+      display: flex;
+      align-items: center;
+    }
+
+    &--draft {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
+    }
+  }
+  
+  &__button-draft {
+    color: $green-01;
+    
+    @include media-breakpoint-down(xs-3) {
+      margin-bottom: 1.5rem;  
+    }
+  }
+  
+  &__button-list-group {
+    @include media-breakpoint-down(xs-3) {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__button-list-item {
+    @extend .fs-lg;
+    padding: 1rem 2rem;
+
+    @include media-breakpoint-down(xs-3) {
+      display: block;
+      width: 100%;
+    }
+
+    &:first-child {
+      margin-right: 1.5rem;
+
+      @include media-breakpoint-down(xs-3) {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

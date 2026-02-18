@@ -1,0 +1,86 @@
+.booking-flight {
+  &__summary-item {
+    @include flex(row);
+    gap: toRem(16);
+  }
+
+  &__summary-item-brand {
+    padding: toRem(6);
+    @include flex(column, center, center);
+    border: 1px solid $neutral-separator;
+    border-radius: toRem(4);
+    width: 72px;
+    height: 36px;
+    margin-bottom: toRem(8);
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  &__summary-item-title {
+    @extend .fw-bold;
+    color: $neutral-primary;
+  }
+
+  &__summary-item-details {
+    @include flex(row, center);
+    gap: toRem(12);
+    @extend .fs-sm;
+    color: $neutral-secondary;
+    margin-top: toRem(8);
+  }
+
+  &__summary-item-details-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: $neutral-separator;
+  }
+
+  &__summary-item-cta {
+    margin-top: toRem(8);
+  }
+
+  &__confirmation-item {
+    @include flex(row);
+    gap: toRem(24);
+  }
+
+  &__confirmation-item-brand {
+    padding: toRem(10);
+    @include flex(column, center, center);
+    border: 1px solid $neutral-separator;
+    border-radius: toRem(4);
+    width: 112px;
+    height: 56px;
+    margin-bottom: toRem(8);
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  &__confirmation-item-title {
+    color: $neutral-primary;
+  }
+
+  &__confirmation-item-details {
+    @include flex(row, center);
+    gap: toRem(12);
+    @extend .fs-lg;
+    color: $neutral-secondary;
+    margin-top: toRem(12);
+  }
+
+  &__confirmation-item-details-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: $neutral-separator;
+  }
+}

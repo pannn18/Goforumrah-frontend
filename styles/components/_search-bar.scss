@@ -1,0 +1,421 @@
+.search-bar {
+  position: relative;
+  @include flex(row, stretch);
+  gap: toRem(7);
+  padding: toRem(12) toRem(12) toRem(12) toRem(24);
+  background-color: $white;
+  border: 1px solid $neutral-input;
+  border-radius: $border-radius-pill;
+  box-shadow: 0px 12px 44px rgba(5, 44, 71, 0.05);
+  height: 86px;
+
+  &--homepage{
+    @include media-breakpoint-down(lg){
+      flex-direction: column;
+      height: unset;
+      border-radius: toRem(24);
+      padding: toRem(24);
+      gap: toRem(16);
+    }
+  }
+
+  &--variant {
+    gap: toRem(32);
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+
+    @include media-breakpoint-down(lg){
+      flex-direction: column;
+      gap: toRem(16);
+      padding: toRem(20);
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(16);
+    }
+  }
+
+  &--single {
+    justify-content: space-between;
+  }
+
+  &--col{
+    flex-direction: column;
+    gap: toRem(32);
+    align-items: stretch;
+    height: auto;
+    border-radius: toRem(12);
+    padding: toRem(40);
+  }
+
+  &__inner{
+    @include flex(row, stretch);
+    gap: toRem(16);
+
+    @include media-breakpoint-down(lg) {
+        @include flex(column);
+        gap: toRem(32);
+    }
+  }
+
+  &__radio-fields {
+    background-color: $white;
+    position: absolute;
+    top: 0;
+    left: 64px;
+    transform: translateY(-100%);
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    border: 1px solid $neutral-input;
+    @include flex(row, center);
+    gap: toRem(24);
+    padding: toRem(12) toRem(24);
+
+    @include media-breakpoint-down(xs-2) {
+        left: 45px;
+        transform: translate(-5%, -100%);
+    }
+  }
+
+  &__item {
+    position: relative;
+    overflow: hidden;
+    flex: 0 1 auto;
+    width: auto;
+
+    &:last-child {
+      overflow: visible;
+    }
+
+    &--grow {
+      flex: 1 0 auto;
+      padding-left: toRem(12);
+
+      @include media-breakpoint-down(lg) {
+        padding-left: 0;
+      }
+    }
+
+    &--active {
+      overflow: visible;
+      z-index: $zindex-dropdown;
+    }
+
+    .dropdown {
+      height: 100%;
+    }
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+  }
+
+  &__item-title {
+    color: $neutral-subtle;
+    margin-bottom: toRem(12);
+  }
+
+  &__item-content {
+    display: flex;
+    gap: toRem(12);
+    align-items: center;
+
+    @include media-breakpoint-down(lg) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__field {
+    height: 100%;
+    @include flex(row, center);
+    gap: toRem(3);
+    padding-right: toRem(10);
+    padding-left: toRem(2);
+    @extend .fs-lg;
+    color: $neutral-subtle;
+    overflow: hidden;
+    min-width: 0;        
+
+    &--variant {
+      height: auto;
+      padding: 0;
+    }
+
+    &>* {
+      @include text-truncate();
+      min-width: 0;
+    }
+
+    &.has-value {
+      color: $neutral-primary;
+      @extend .fw-semibold;
+
+      input {
+        @extend .fw-semibold;
+      }
+
+      @include media-breakpoint-down(lg) {
+        margin-left: unset !important;
+      }
+    }
+
+    &--transfer {
+      max-width: toRem(124);
+    }
+  }
+
+  &__input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: $neutral-subtle;
+    }
+  }  
+
+  &__field-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: $neutral-separator;
+  }
+
+  &__field-bordered{
+    width: 100%;
+    background-color: transparent;
+    border: toRem(1) solid $neutral-input;
+    border-radius: toRem(100);
+    padding: toRem(19) toRem(32);
+    outline: none;    
+  }
+
+  &__separator {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 1px;
+    background-color: $neutral-separator;
+    @include media-breakpoint-down(lg){
+      height: 1px;
+      width: 100%;
+    }
+  }
+
+  &__search-button {
+    height: 100%;
+    padding-right: toRem(40);
+    padding-left: toRem(40);
+
+    @include media-breakpoint-down(lg){
+      padding-right: toRem(24);
+      padding-left: toRem(24);
+      width: 100%;
+    }
+    @include media-breakpoint-down(md){
+    }
+
+    &--text{
+      display: block;
+      
+    }
+    &--icon{
+      display: none !important;
+      // @include media-breakpoint-down(lg){
+      //   display: flex !important;
+      // }
+    }
+  }
+
+  &__date-range {
+    @include media-breakpoint-down(xs-3) {
+      margin-left: toRem(-32) !important;
+    }
+    
+    &--homepage {
+      @include media-breakpoint-down(xs-3) {
+        margin-left: toRem(-24) !important;
+      }
+    }
+    
+  }
+
+  &__date-split {
+    @include flex(row, center);
+    gap: toRem(40);
+  }
+
+  &__date-night-indicator {
+    @include flex(column, center);
+    text-align: center;
+    @extend .fs-sm;
+    color: $neutral-subtle;
+
+    &>*:first-child {
+      @include flex(row, center);
+      gap: toRem(2);
+    }
+
+    .react-svg {
+      color: $neutral-primary;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__date-icon {
+    color: $green-01;
+  }
+
+  &__location-dropdown {
+    width: 100%;
+    max-width: 396px;
+    max-height: 370px;
+    overflow-y: auto;
+
+    &--blog {
+      max-height: unset !important;
+
+      @include media-breakpoint-down(sm) {
+        max-width: toRem(396) !important;
+        width: unset !important;
+      }
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      width: unset !important;
+    }
+
+  }
+
+  &__passenger-dropdown {
+    width: 100%;
+
+    &--flex {
+      @include flex(row, stretch);
+    }
+
+    @include media-breakpoint-down(sm) {
+      @include flex(column);
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      max-width: toRem(275) !important;
+    }
+
+  }
+
+  &__passenger-dropdown-column {
+    flex: 0 0 auto;
+    width: 50%;
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+    }
+  }
+
+  &__passenger-option {
+    position: relative;
+    @include flex(row, center);
+    gap: toRem(12);
+    width: 100%;
+
+    &--checked {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: toRem(20);
+        transform: translateY(-50%);
+        width: toRem(24);
+        height: toRem(24);
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.25 6.75047L9.75 17.25L4.5 12.0005' stroke='%231CB78D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  &__passenger-option-type {
+    @extend .fs-lg;
+    @extend .fw-semibold;
+    flex: 1;
+  }
+
+  &__passenger-option-type-small {
+    @extend .fs-base;
+    @extend .fw-normal;
+  }
+
+  &__passenger-option-type,
+  &__passenger-option-value {
+    @extend .fs-lg;
+    @extend .fw-semibold;
+  }
+
+  &__passenger-option-value {
+    width: 28px;
+    text-align: center;
+  }
+
+  &__passenger-option-button {
+    @include flex(row, center, center);
+    overflow: hidden;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: $green-01;
+    color: $white;
+    border: none;
+    outline: none;
+
+    &[disabled] {
+      cursor: not-allowed;
+      background-color: $neutral-subtle;
+    }
+  }
+
+  .search-bar__field--text{
+    position: relative;
+    height: 100%;
+    &:before{
+      opacity: 0;
+      visibility: hidden;
+      content: '';
+      position: absolute;
+      bottom: toRem(0); /* Adjust this value to control the spacing between the arrow and the element above it */
+      left: toRem(5);
+      width: 0;
+      height: 0;
+      border-left: toRem(6) solid transparent;
+      border-right: toRem(6) solid transparent;
+      border-top: toRem(8) solid $blue-whale-01; /* Same color as the arrow */
+      transform: rotate(180deg);
+      // transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    }
+    &:after{
+      opacity: 0;
+      visibility: hidden;
+      content: 'Enter a destination to start searching...';
+      position: absolute;
+      bottom: toRem(-24);
+      left: 0;
+      width: max-content;
+      padding: toRem(4);
+      color: $white;
+      background: $blue-whale-01;
+      font-size: toRem(12);
+      // transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    }
+    &:focus, &:focus-within, &:active{
+      &:before, &:after{
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import "header";
+@import "sidebar";
+
+.user-layout {
+  width: 100%;
+  @include flex(row, stretch);
+  gap: toRem(24);
+  margin-top: toRem(40);
+  padding-bottom: toRem(80);
+
+  @include media-breakpoint-down(lg){
+    flex-direction: column;
+  }
+
+  .user-layout-sidebar {
+    flex: 0 0 auto;
+    width: 326px;
+    padding: toRem(24);
+    border-radius: toRem(16);
+    background-color: $white;
+    height: fit-content;
+
+    @include media-breakpoint-down(lg){
+      flex: 1;
+      width: 100%;
+    }
+  }
+
+  .user-layout-content {
+    flex: 1;
+  }
+}

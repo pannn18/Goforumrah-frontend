@@ -1,0 +1,221 @@
+.admin-rate-availability {
+    &__top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        &-header {
+            display: flex;
+            flex-direction: row;
+            gap: toRem(24);
+
+            @include media-breakpoint-down(lg) {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
+    }
+
+    &__custom-text {
+        text-align: left;
+
+        @include media-breakpoint-down(lg) {
+            text-align: center !important;
+        }
+        
+    }
+
+    &__summary {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+        max-width: toRem(294);
+        width: 100%;
+
+        &-date {
+            display: flex;
+            flex-direction: column;
+            background-color: $white;
+            gap: toRem(16);
+            padding: toRem(20);
+            border-radius: toRem(16);
+
+            &-desc {
+                color: $neutral-primary;
+                font-style: normal;
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+            }
+        }
+
+        &-room {
+            display: flex;
+            flex-direction: column;
+            background-color: $white;
+            gap: toRem(16);
+            padding: toRem(20);
+            border-radius: toRem(16);
+
+            &-desc {
+                display: flex;
+                flex-direction: column;
+
+                &--title {
+                    color: $neutral-primary;
+                    font-style: normal;
+                    font-size: $font-size-xl;
+                    font-weight: $font-weight-bold;
+                }
+
+                &--subtitle {
+                    color: $neutral-primary;
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-base;
+                }
+            }
+
+            &-input {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: toRem(10);
+
+                &--label {
+                    color: $neutral-primary;
+                    font-size: $font-size-base;
+                    font-weight: $font-weight-semibold;
+                }
+            }
+        }
+
+        &-status {
+            display: flex;
+            flex-direction: column;
+            background-color: $white;
+            gap: toRem(16);
+            padding: toRem(20);
+            border-radius: toRem(16);
+
+            &-desc {
+                color: $neutral-primary;
+                font-style: normal;
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+            }
+
+            &-form {
+                display: flex;
+                flex-direction: column;
+                gap: toRem(10);
+
+                &--check {
+                    display: flex;
+                    gap: toRem(32);
+                }
+            }
+
+            &-dropdown {
+                .custom-dropdown-toggle {
+                    justify-content: space-between !important;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    flex-wrap: nowrap;
+                    background-color: $white !important;
+                    padding: 0.5rem 1.5rem;
+                    border-radius: 50rem;
+                    border: toRem(1) solid #d9e0e4;
+                    color: $neutral-primary;
+                    cursor: pointer;
+                }
+
+                display: flex;
+                flex-direction: column;
+                gap: toRem(8);
+
+                label {
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-secondary;
+                }
+            }
+
+            &-price {
+                &--form {
+                    display: flex;
+                    align-items: center;
+                }
+
+                &--input {
+                    input#payment-expiryDate {
+                        padding: toRem(12) toRem(24) toRem(12) toRem(12);
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-left: 0;
+                        background-color: white;
+                    }
+                }
+
+                &--icon-wrap {
+                    display: flex;
+                    padding: toRem(8) toRem(1) toRem(8) toRem(16);
+                    align-items: center;
+                    border: toRem(1) solid #d9e0e4;
+                    border-top-left-radius: toRem(12);
+                    border-bottom-left-radius: toRem(12);
+                    gap: toRem(12);
+                    border-right: 0;
+                    align-self: stretch;
+                }
+
+                &--icon {
+                    display: flex;
+                    width: toRem(14);
+                    height: toRem(22);
+                    flex-direction: column;
+                    font-size: $font-size-base;
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-primary;
+                }
+            }
+            
+        }
+
+        &-footer {
+            display: flex;
+            flex-direction: row;
+            gap: toRem(16);
+
+            &-desc {
+                color: $neutral-subtle;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-base
+            }
+        }
+
+
+        @include media-breakpoint-down(lg) {
+            max-width: 100% !important;
+        }
+    }
+
+}
+
+
+.container {
+    &-rate-availability {
+        display: flex;
+        gap: toRem(24);
+        width: 100%;
+
+        @include media-breakpoint-down(lg) {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(24);
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,232 @@
+%card {
+  position: relative;
+  @include flex(column, stretch);
+  width: 100%;
+  height: 100%;
+}
+
+%card-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-bottom: toRem(24);
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: $border-radius-lg;
+  }
+}
+
+%card-details {
+  flex: 1;
+  @include flex(column, stretch, space-between);
+  gap: toRem(16);
+}
+
+.hotel-card {
+  @extend %card;
+
+  &__image {
+    @extend %card-image;
+  }
+
+  &__details {
+    @extend %card-details;
+  }
+
+  &__title {
+    @include text-truncate();
+    color: $neutral-primary;
+  }
+
+  &__location {
+    @include flex(row, center);
+    gap: toRem(8);
+    margin-top: toRem(12);
+  }
+
+  &__location-icon {
+    flex: none;
+    color: $green-01;
+  }
+
+  &__location-name {
+    flex: 1;
+    @include text-truncate();
+  }
+
+  &__price {
+    @include flex(row, flex-end);
+    @include text-truncate();
+    gap: toRem(4);
+    color: $neutral-primary;
+  }
+}
+
+.article-card {
+  @extend %card;
+
+  &__image {
+    @extend %card-image;
+    aspect-ratio: unset;
+    height: 248px;
+
+    @include media-breakpoint-only(lg) {
+      height: 224px;
+    }
+  }
+
+  &__details {
+    @extend %card-details;
+  }
+
+  &__title {
+    @include text-shorten(2);
+  }
+
+  &__description {
+    @include text-truncate();
+    margin-top: toRem(12);
+  }
+}
+
+.destination-card {
+  @extend %card;
+
+  &__image {
+    @extend %card-image;
+  }
+
+  &__details {
+    @extend %card-details;
+    gap: toRem(12);
+  }
+
+  &__title {
+    @include text-truncate();
+  }
+
+  &__price {
+    @include flex(row, flex-end);
+    @include text-truncate();
+    gap: toRem(4);
+  }
+}
+
+.tour-card {
+  @extend %card;
+
+  &__image {
+    @extend %card-image;
+  }
+
+  &__details {
+    @extend %card-details;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(sm) {
+      text-align: center;
+    }
+  }
+
+  &__location {
+    @include flex(row, center);
+    gap: toRem(4);
+    margin-bottom: toRem(8);
+  }
+
+  &__location-icon {
+    flex: none;
+    color: $green-01;
+  }
+
+  &__location-name {
+    flex: 1;
+    @include text-truncate();
+    color: $neutral-subtle;
+  }
+
+  &__title {
+    @include text-shorten(2);
+    color: $neutral-primary;
+  }
+
+  &__bottom-content {
+    @include flex(row, center, space-between);
+    gap: toRem(8);
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__duration {
+    @include flex(row, center);
+    gap: toRem(4);
+    color: $neutral-subtle;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__price {
+    @include flex(row, center);
+    gap: toRem(8);
+    color: $neutral-primary;
+  }
+}
+
+.hotel-category-card {
+  margin-bottom: 1.5rem;
+
+  &__box {
+    @extend %card;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 2px solid $neutral-input;
+    background-color: $white;
+
+    &.selected,
+    &:hover {
+      border-color: $green-01;
+    }
+
+    &--full-width {
+      flex-direction: row;
+      justify-content: flex-start;
+      // align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  &__thumbnail {
+    width: 72px;
+    height: 72px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+
+    &--full-width {
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+  }
+
+  &__thumbnail-image {
+    margin-bottom: 0.5rem;
+  }
+
+  &__full-width-content {
+    @include media-breakpoint-down(sm) {
+      flex: 0 0 60%;
+    }
+  }
+
+  &__caption {
+    @extend .fs-sm;
+    color: $neutral-secondary;
+  }
+}

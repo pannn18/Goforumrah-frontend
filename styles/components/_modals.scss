@@ -1,0 +1,115 @@
+.login-modal,
+.create-account-modal {
+  @extend .fs-base;
+  @extend .fw-normal;
+  color: $neutral-secondary;
+
+  .modal-header {
+    border: none;
+    padding-bottom: 0;
+
+    &>*:first-child:not(:last-child) {
+      padding-left: toRem(36);
+    }
+  }
+
+  .btn-close {
+    background: transparent $btn-close-bg-neutral-primary center/1.25rem auto no-repeat;
+  }
+
+  .form-control-wrapper {
+    position: relative;
+  }
+
+  .form-control-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: toRem(16);
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    &~.form-control {
+      padding-right: toRem(52);
+    }
+  }
+
+  &__title {
+    color: $neutral-primary;
+  }
+
+  &__subtitle {
+    margin-top: toRem(8);
+  }
+
+  &__form {
+    margin-top: toRem(32);
+
+    &>*:not(:last-child) {
+      margin-bottom: toRem(24);
+    }
+
+    .form-label {
+      @extend .fs-base;
+      @extend .fw-normal;
+      color: $neutral-secondary;
+      margin-bottom: toRem(8);
+    }
+
+    .form-control {
+      @extend .fw-normal;
+    }
+  }
+
+  &__cta-link {
+    @include flex(column, center);
+    text-align: center;
+    margin-top: toRem(32);
+
+    &--info {
+      @extend .fs-base;
+      color: $neutral-primary;
+    }
+  }
+
+  &__or-divider {
+    margin: toRem(32) 0;
+    color: $neutral-subtle;
+    text-align: center;
+  }
+
+  &__login-options {
+    @include flex(column, stretch);
+    gap: toRem(16);
+  }
+
+  &__footer {
+    max-width: 358px;
+    margin-right: auto;
+    margin-left: auto;
+    @extend .fs-sm;
+    color: $neutral-primary;
+    text-align: center;
+    margin-top: toRem(32);
+
+    a {
+      @extend .link-green-01;
+      @extend .fw-normal;
+    }
+  }
+
+  &__success {
+    @include flex(column, center);
+    gap: toRem(32);
+    text-align: center;
+  }
+
+  &__success-icon {
+    padding: toRem(12);
+
+    .react-svg {
+      color: $success-main;
+    }
+  }
+}

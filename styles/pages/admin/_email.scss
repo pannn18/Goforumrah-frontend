@@ -1,0 +1,577 @@
+.admin-email{
+    background-color: $neutral-light;
+
+    &__content-wrapper{
+        background-color: $white;
+        padding: toRem(24);
+        border-radius: toRem(24);
+
+        &--mail{
+            display: flex;
+            gap: toRem(24);
+            align-items: flex-start;
+
+            @include media-breakpoint-down(lg){
+                flex-direction: column;
+            }
+
+            @include media-breakpoint-down(md){
+                width: 100% !important;
+            }
+        }
+    }
+
+    &__email-content{
+        display: flex;
+        gap: toRem(24);
+        align-items: flex-start;
+
+        @include media-breakpoint-down(md){
+            flex-direction: column;
+        }
+    }
+
+    &__menu{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        max-width: toRem(170);
+        width: 100%;
+
+        @include media-breakpoint-down(md){
+            max-width: none;
+        }
+    }
+
+    &__action-button{
+        padding: toRem(12) toRem(28);
+        display: flex;
+        gap: toRem(10);
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: toRem(10);
+        width: 100%;
+        background-color: $green-01;
+    }
+
+    &__menu-btn-caption{
+        color: $white;
+    }
+
+    &__menu-list{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &__menu-list-wrapper{
+        padding: toRem(12) toRem(16);
+        display: flex;
+        justify-content: space-between;
+        border-radius: 12px;
+        border: none;
+        background-color: $white;
+
+        &__menu-icon:hover{
+            color: $green-01;
+        }
+
+        &.active{
+            background-color: $neutral-light;
+        }
+
+        &:hover,
+        &:active{
+            background-color: $neutral-light;
+        }
+    }
+
+    &__menu-list-wrapper:hover &__menu-icon path,
+    &__menu-list-wrapper:active &__menu-icon path,
+    &__menu-list-wrapper.active &__menu-icon path {
+        color: $green-01;
+    }
+
+    &__menu-list-wrapper:hover &__menu-btn-arrow path,
+    &__menu-list-wrapper:active &__menu-btn-arrow path,
+    &__menu-list-wrapper.active &__menu-btn-arrow path{
+        color: $blue-whale-03;
+    }
+
+    &__menu-list-wrapper:hover &__menu-caption,
+    &__menu-list-wrapper:active &__menu-caption,
+    &__menu-list-wrapper.active &__menu-caption{
+        color: $neutral-primary;
+        font-weight: 600;
+    }
+
+    &__menu-list-content{
+        display: flex;
+        gap: toRem(12);
+    }
+
+    &__menu-caption{
+        color: $neutral-secondary;
+    }
+
+    &__separator{
+        width: 2px;
+        min-height: toRem(708);
+        background-color: $neutral-separator;
+        height: 100%;
+    }
+
+    &__sender{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        max-width: toRem(265);
+        max-height: toRem(752);
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        border-left: 1px solid $neutral-separator;
+        padding-left: toRem(24);
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+
+        &-wrapper{
+            display: flex;
+            flex-direction: column;
+            gap: toRem(16);
+            list-style-type: none;
+            padding: 0 !important;
+
+            @include media-breakpoint-down(lg){
+                flex-direction: row;
+            }
+        }
+
+        &-list{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            gap: toRem(16);
+            padding: toRem(16);
+            border-radius: toRem(16);
+            border: 1px solid $neutral-input;
+            background-color: $white;
+        }
+        &-list:hover,
+        &-list:active{
+            border-color: $green-01;
+            background-color: $green-06;
+        }
+        &-list:hover &-mail,
+        &-list:active &-mail{
+            color: $green-01;
+            @extend .fs-sm;
+            font-weight: 400;
+        }
+        &-header{
+            display: flex;
+            gap: toRem(8);
+        }
+        &-profile{
+            display: flex;
+            flex-direction: column;
+            // gap: toRem(8);
+            align-items: flex-start;
+        }
+        &-image{
+            border-radius: 50%;
+        }
+        &-name{
+            color: $neutral-primary;
+            font-weight: $font-weight-bold;
+        }
+        &-mail{
+            @extend .fs-sm;
+            font-weight: 400;
+        }
+        &-description{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: toRem(212);
+            white-space: nowrap;
+            color: $neutral-primary;
+            font-weight: 400;
+        }
+
+        @include media-breakpoint-down(xxl){
+            max-height: 57rem;
+        }
+        @include media-breakpoint-down(lg){
+            max-width: none;
+            max-height: none;
+            border: none;
+            padding: 0;
+        }
+
+    }
+
+    &__content{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+    }
+
+    &__content-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        @include media-breakpoint-down(sm){
+            flex-direction: column;
+            gap: toRem(16);
+        }
+        
+    }
+
+    &__content-receiver{
+        display: flex;
+        gap: toRem(8);
+        align-items: flex-start;
+    }
+
+    &__content-header-mail{
+        display: flex;
+        flex-direction: column;
+
+        span{
+            color: $neutral-primary;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    &__content-header-icon{
+        background-color: $white;
+        border: none;
+        padding: 0;
+    }
+
+    &__separator-column{
+        width: 100%;
+        height: 1px;
+        background-color: $neutral-separator;
+    }
+
+    &__content-chat{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        margin-bottom: toRem(136);
+    }
+
+    &__content-action-header{
+        display: flex;
+        gap: toRem(16);
+    }
+
+    &__content-action{
+        display: flex;
+        justify-content: flex-end;
+        gap: toRem(16);
+
+        &--reply,
+        &--forward{
+            justify-content: flex-start !important;
+        }
+
+        &-btn{
+            display: flex;
+            gap: toRem(10);
+            border: 1.5px solid $green-01;
+            background-color: $white;
+            padding: toRem(12) toRem(24);
+            border-radius: 8px;
+
+            @include media-breakpoint-down(xs-2){
+                justify-content: center;
+            }
+
+            &:hover{
+                opacity: (.5);
+            }
+        }
+
+        @include media-breakpoint-down(xs-3) {
+            flex-direction: column;
+            justify-content: unset;
+            align-items: unset;
+
+            button {
+                justify-content: center;
+            }
+        }
+
+        &--horizontal {
+            flex-direction: row !important;
+        }
+    }
+
+    &__content-caption-btn{
+        color: $neutral-primary;
+        font-weight: 600;
+        @extend .fs-sm;
+    }
+
+     &__content-reply {
+        display: none;
+        padding: toRem(16);
+        border: 1px solid $neutral-input;
+        border-radius: 10px;
+        background-color: $neutral-light;
+        transition: opacity 0.5s ease;
+        opacity: 1;
+    }
+    .showReply.admin-email__content-reply {
+        display: block;
+    }
+    .showReply.admin-email__content-chat {
+        margin-bottom: 0; 
+    }
+    .showReply.admin-email__content-action{
+        display: none;
+    }
+
+    &__reply-header{
+        display: flex;
+        gap: toRem(8);
+
+        @include media-breakpoint-down(xs-2){
+            flex-direction: column;
+        }
+        
+        &-button{
+            border: none;
+            background-color: $neutral-light;
+            padding: 0;
+        }
+    }
+
+    &__reply-btn-wrapper{
+        display: flex;
+        gap: toRem(16);
+
+        @include media-breakpoint-down(xs-3){
+            width: 100%;
+        }
+
+        @include media-breakpoint-down(xs-2){
+            flex-direction: column;
+        }
+    }
+    &__reply-footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include media-breakpoint-down(sm){
+            @include flex(column, flex-start, flex-start);
+            gap: toRem(16);
+        }
+
+        &-button{
+            padding: toRem(12) toRem(36);
+            border: 1px solid;
+            border-radius: 8px;
+            font-weight: 600;
+            @extend .fs-sm;
+            
+            @include media-breakpoint-down(xs-3){
+                width: 100%;
+            }
+
+            &--outline-green{
+                background-color: $white;
+                border-color: $green-01;
+                color: $neutral-primary;
+            }
+            &--fill-green{
+                background-color: $green-01;
+                border-color: $green-01;
+                color: $white;
+            }
+        }
+    }
+
+    &__reply-textarea{
+        border: none;
+        background-color: $neutral-light;
+        resize: none;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    }
+    
+    &__content-forward {
+        display: none;
+        padding: toRem(16);
+        border: 1px solid $neutral-input;
+        border-radius: 10px;
+        background-color: $neutral-light;
+        transition: opacity 0.5s ease;
+        opacity: 1;
+   }
+   .showForward.admin-email__content-forward {
+        display: block;
+    }
+    .showForward.admin-email__content-chat {
+        margin-bottom: 0; 
+    }
+    .showForward.admin-email__content-action{
+        display: none;
+    }
+
+    &__forward-header{
+        display: flex;
+        gap: toRem(8);
+        align-items: flex-start;
+
+        @include media-breakpoint-down(xs-2){
+            flex-direction: column;
+        }
+        
+        &-button{
+            border: none;
+            background-color: $neutral-light;
+            padding: 0;
+        }
+    }
+    &__forward-header-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(4);
+    }
+
+    &__forward-input{
+        display: flex;
+        gap: toRem(8);
+
+        input,
+        input:focus{
+            color: $green-01;
+        }
+
+        &-form{
+            background-color: $neutral-light;
+            border: none;
+        }
+    }
+
+    // modal new message
+
+    &__modal{
+        max-width: toRem(770) ;
+        width: 100%;
+        margin: auto;
+        top: 50%;
+        transform: translateY(-50%) !important;
+
+        @include media-breakpoint-down(md){
+            max-width: none;
+            width: 80%;
+        }
+
+        @include media-breakpoint-down(sm) {
+            margin-top: toRem(88)
+        }
+
+        @include media-breakpoint-down(xs-2) {
+            top: 60%;
+        }
+    }
+
+    &__modal-content{
+        background-color: $white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+
+        &::-webkit-scrollbar{
+        display: none;
+        }
+    }
+
+    &__modal-textarea{
+        position: relative;
+        resize: none;
+        padding: toRem(16);
+
+        &-wrapper{
+            position: relative;
+        }
+    }
+
+    &__modal-form{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+        position: relative;
+    }
+    
+    &__character-count {
+        position: absolute;
+        bottom: toRem(16);
+        right: toRem(16);
+        @extend .fs-sm;
+        color: $neutral-subtle;
+        font-weight: 400;
+      }
+
+    &__modal-footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include media-breakpoint-down(xs-3){
+            @include flex(column, flex-start);
+            gap: toRem(16);
+        }
+    }
+
+    &__toast{
+        background: $blue-whale-01;
+        border-radius: toRem(8);
+        max-width: toRem(343);
+        @include flex(row, center);
+        gap: toRem(80);
+
+        .toast-body{
+            font-size: $font-size-xl;
+            font-weight: $font-weight-bold;
+            color: $white;
+        }
+    }
+    &__toast-action{
+        @include flex(row, center);
+        gap: toRem(16);        
+    }
+    &__toast-undo{
+        font-size: $font-size-sm;
+        font-weight: $font-weight-bold;
+        color: $green-01;
+        text-transform: uppercase;
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: unset;
+    }
+    &__toast-separator{
+        border-left: toRem(1) solid $blue-whale-02;
+        height: toRem(20);
+    }
+    &__toast-close{
+        color: $white;
+    }
+}

@@ -1,0 +1,379 @@
+.manage-account {
+  background: $neutral-light;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3){
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: toRem(20) toRem(24);
+    gap: toRem(16);
+    background: $white;
+    border-radius: toRem(16);
+  }
+  &__box-icon {
+    color: $neutral-secondary;
+  }
+  &__box-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+  &__box-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__box-desc {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+  }
+  &__card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(4);
+    color: $neutral-primary;
+  }
+  &__card-header-desc {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+  &__card-header-row {
+    display: flex;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(xs-3){
+      flex-direction: column;
+      gap: toRem(12);
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    gap: toRem(24);
+
+    input:not([type="tel"]) {
+      padding: toRem(13) toRem(16);
+    }
+
+    .PhoneInput {
+      input {
+        background-color: $neutral-light;
+      }
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+      cursor: pointer;
+
+      div.form-control-wrapper {
+        select {
+          cursor: pointer;
+
+          @include media-breakpoint-down(sm) {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+
+      @include media-breakpoint-down(sm){
+        flex-direction: column;
+      }
+
+      &--profile{
+        align-items: center;
+      }
+    }
+    &-profile{
+      width: toRem(100);
+      height: toRem(100);
+      overflow: hidden;
+      border-radius: 100%;
+
+      img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      &--button{
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $green-01;
+        cursor: pointer;
+        display: flex;
+        gap: toRem(8);
+      }
+    }
+    &-combobox {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: $neutral-light;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(10);
+
+      &-separator {
+        height: toRem(32);
+        border-left: toRem(1) solid $neutral-input;
+      }
+
+      select,
+      input {
+        border: none;
+      }
+    }
+    &-end {
+      display: flex;
+      align-items: flex-end;
+    }
+    &-input {
+      position: relative;
+
+      &--icon {
+        position: absolute;
+        right: toRem(16);
+        top: 50%;
+        transform: translateY(-50%);
+        color: $green-01;
+      }
+    }
+    &-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: toRem(24);
+
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+      }
+    }
+    &-icon {
+      display: flex;
+      gap: toRem(8);
+    }
+    &-payment-text {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-base;
+      color: $neutral-secondary;
+    }
+  }
+  &__security {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: toRem(24) 0;
+    gap: toRem(40);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+      gap: toRem(12);
+      align-items: flex-start;
+    }
+  }
+  &__security-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+  &__security-text-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__security-text-desc {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+  &__security-link {
+    color: $green-01;
+    &--delete {
+      color: $danger-main;
+    }
+  }
+  &__tab {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+    align-items: stretch;
+  }
+  &__tab-menu {
+    @include flex(row, stretch, center);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow: auto;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 1px;
+      background-color: $neutral-separator;
+      left: 0;
+      bottom: 0;
+    }
+
+    & > * {
+      border-radius: 0;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid $neutral-input;
+      padding: toRem(16) toRem(32);
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $blue-whale-01;
+      flex-grow: 1;
+
+      &:not(.active):hover {
+        background-color: shade-color(transparent, $btn-hover-bg-shade-amount);
+      }
+
+      &.active {
+        font-weight: $font-weight-bold;
+        color: $green-01;
+        border-bottom: 2px solid $green-01;
+      }
+    }
+  }
+  &__tab-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(4);
+  }
+  &__tab-header-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__tab-header-subtitle {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__email {
+    padding: toRem(12) 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &--reservation {
+      padding: toRem(24) 0;
+      cursor: pointer;
+      border-bottom: toRem(1) solid $neutral-separator;
+    }
+
+    @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: toRem(12);
+
+        input {
+          margin-left: unset !important;
+        }
+    }
+  }
+  &__email-label {
+    font-size: $font-size-lg !important;
+    font-weight: $font-weight-bold !important;
+    color: $neutral-primary;
+    cursor: pointer;
+  }
+  &__email-checkbox {
+    position: relative;
+    top: auto;
+    transform: none;
+    margin: 0 !important;
+    margin-left: auto !important;
+    cursor: pointer;
+  }
+  &__email-reservation {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+    cursor: pointer;
+  }
+
+  //Modal
+
+  &__modal{
+    width: 100%;
+    max-width: toRem(604) !important;
+
+    @include media-breakpoint-down(md){
+      width: 90%;
+    }
+
+    &-content{
+      background-color: $white;
+      padding: toRem(24);
+      display: flex;
+      flex-direction: column;
+      gap: toRem(40);
+    }
+
+    &-wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: toRem(32);
+      padding: toRem(32) toRem(24) toRem(0) toRem(24);
+    }
+
+    &-text{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: toRem(16);
+
+      h3{
+        text-align: center;
+      }
+    }
+
+    &-caption{
+      @extend .fs-lg;
+      color: $neutral-secondary;
+      font-weight: 400;
+    }
+  }
+}

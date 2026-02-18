@@ -1,0 +1,406 @@
+// Initialize first
+@import "../init";
+
+.search-tour-package {
+  background-color: $neutral-light;
+
+  // Breadcrumb
+  &__breadcrumb{
+    display: none;
+    gap: toRem(16);
+    padding: toRem(24) 0;
+    padding-top: 0;
+    font-size: $font-size-base;
+    color: $green-01;
+    font-weight: $font-weight-base;
+
+    @include media-breakpoint-down(xl-1){
+      display: flex;
+    }
+    
+    &--link{
+      font-weight: $font-weight-semibold;
+      color: $green-01;
+    }
+    &--current{
+      color: $neutral-subtle;
+    }
+  }
+
+  // Header Form
+  &__header-form {
+    background-color: $white;
+    border-bottom: 1px solid $neutral-separator;
+    padding: toRem(20) 0;
+  }
+
+  &__header-form-inner-wrapper {
+    @include flex(row, center);
+    gap: toRem(32);
+  }
+
+  // Header Filters
+  &__filters {
+    background-color: $white;
+    border-bottom: 1px solid $neutral-separator;
+    padding: toRem(16) 0;
+  }
+
+  &__filters-inner-wrapper {
+    @include flex(row, center);
+    gap: toRem(48);
+  }
+
+  &__filters-title {
+    @extend .fs-lg;
+    @extend .fw-bold;
+    color: $neutral-primary;
+  }
+
+  &__filters-content {
+    @include flex(row, center, flex-start, wrap);
+    gap: toRem(24);
+  }
+
+  &__filter-dropdown {
+    position: relative;
+  }
+
+  &__filter-dropdown-toggle {
+    @include flex(row, center, center);
+    padding: toRem(8) toRem(24);
+    border-radius: $border-radius-pill;
+    border: 1px solid $neutral-input;
+    @extend .fw-semibold;
+    color: $neutral-primary;
+
+    .react-svg {
+      color: $neutral-subtle;
+
+      &:not(.dropdown-toggle-arrow) {
+        margin-right: toRem(8);
+      }
+    }
+
+    .dropdown-toggle-arrow {
+      margin-left: toRem(12);
+    }
+  }
+
+  // Layout Wrapper
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(32);
+    padding-bottom: toRem(104);
+    padding-top: toRem(32);
+  }
+
+  // Sidebar
+  &__sidemenu {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    flex: 0 0 auto;
+    width: 25%;
+
+    @include media-breakpoint-down(lg){
+      display: none;
+    }
+
+    &-separator {
+      height: toRem(1);
+      width: 100%;
+      background-color: $neutral-separator;
+    }
+  }
+
+  &__sidemenu-search-place {
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    padding: toRem(24);
+    border-radius: toRem(16);
+  }
+
+  &__sidemenu-search-hotel-location {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: toRem(12);
+
+    &-name {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-base;
+      color: $neutral-subtle;
+    }
+
+  }
+
+  &__sidemenu-search-hotel-button {
+      padding: toRem(12) toRem(24) !important;
+      border-radius: $border-radius-sm;
+      min-height: unset !important;
+      font-size: $font-size-sm;
+  }
+
+  
+  &__sidemenu-filter {
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    border-radius: toRem(16);
+
+    &-button {
+    display: flex;  
+    justify-content: center; 
+    align-items: center; 
+    font-weight: $font-weight-bold; 
+    color: $green-01; 
+    font-size: $font-size-base;
+    }
+  }
+
+  &__sidemenu-filter-block {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+  }
+
+  &__sidemenu-filter-head {
+    display: flex;
+    justify-content: space-between;
+    gap: toRem(8);
+    font-weight: 600;
+    font-size: $font-size-lg;
+    color: $neutral-primary;
+    @extend .fs-lg;
+  }
+
+  &__sidemenu-filter-item {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+     .form-check-label {
+      font-size: $font-size-base;
+      font-weight: 600;
+      color: $neutral-secondary;
+      @extend .fs-base;
+    }
+
+    .form-check-label,
+    .form-check-input {
+      cursor: pointer;
+    }
+
+    .form-check-input:checked~.form-check-label {
+      color: $neutral-secondary;
+    }
+  }
+
+
+  // Content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    width: 100%;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @include media-breakpoint-down(sm){
+        flex-direction: column;
+        align-items: center;
+        gap: toRem(8);
+      }
+
+      &-title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+        @extend .fs-lg;
+      }
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+    }
+  }
+
+  &__hotel {
+    position: relative;
+    display: flex;
+    background-color: $white;
+    border-radius: toRem(16);
+    border: 1px solid $neutral-input;
+    gap: toRem(24);
+    // max-width: toRem(823);
+
+    @include media-breakpoint-down(md){
+      flex-direction: column;
+    }
+
+    &-image {
+      position: relative;
+
+      &-src {
+        border-top-left-radius: toRem(16);
+        border-bottom-left-radius: toRem(16);
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+
+        @include media-breakpoint-down(md){
+          width: 100%;
+          max-height: toRem(320);
+          border-top-right-radius: toRem(16);
+          border-bottom-left-radius: 0;
+        }
+        @include media-breakpoint-down(sm){
+          max-height: toRem(280);
+        }
+      }
+
+      &-favorite {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(10);
+        top: toRem(16);
+        left: toRem(16);
+        border-radius: toRem(100);
+        background: $white;
+        cursor: pointer;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(16);
+      padding: toRem(24);
+      padding-left: 0;
+      width: 100%;
+
+      @include media-breakpoint-down(md){
+        padding: toRem(24);
+        padding-top: 0;
+      }
+
+      &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(4);
+
+        &-row {
+          display: flex;
+          align-items: center;
+          gap: toRem(4);
+        }
+
+        &-chips {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: toRem(3) toRem(16);
+          background: $blue-whale-01;
+          color: $white;
+          border-radius: toRem(32);
+        }
+
+        &--desc {
+          color: $neutral-primary;
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+        }
+
+        &--location {
+          font-size: $font-size-base;
+          color: $neutral-subtle;
+          font-weight: $font-weight-base;
+          @extend .fs-lg;
+        }
+
+        &--pin {
+          color: $green-01;
+        }
+
+        &--overall {
+          font-size: $font-size-lg;
+          color: $neutral-primary;
+          @extend .fs-lg;
+        }
+      }
+
+      &__facilities {
+        display: flex;
+        align-items: center;
+        gap: toRem(12);
+        flex-wrap: wrap;
+
+        &-item {
+          display: flex;
+          align-items: center;
+          gap: toRem(4);
+          font-size: $font-size-base;
+          font-weight: $font-weight-semibold;
+          color: $neutral-primary;
+          @extend .fs-base;
+        }
+
+        &-pricing {     
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          color: $success-main;
+          font-size: $font-size-lg;
+        }
+
+        &-duration {
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          color: $neutral-primary;
+          font-size: $font-size-lg;
+        }
+      }
+
+      &__price {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: toRem(4);
+        color: $neutral-primary;
+
+        @include media-breakpoint-down(sm){
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        &-duration {
+          font-size: $font-size-base;
+          font-weight: $font-weight-normal;
+          @extend .fs-base;
+        }
+      }
+    }
+  }
+
+  &__pagination {
+    @include flex(row, center, flex-start);
+  }
+}
+

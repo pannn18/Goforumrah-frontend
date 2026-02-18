@@ -1,0 +1,271 @@
+.car-finishing{
+background-color: $neutral-light;
+
+    &__header{
+        border-bottom: 1px solid $neutral-separator;
+        background-color: $white;
+        width: 100%;
+    }
+
+    &__content-header{
+        display: flex;
+        gap: toRem(24);
+        align-items: center;
+        padding: toRem(24) toRem(24);
+    }
+
+    &__content-container {
+        max-width: toRem(1120);
+        margin: 0 auto;
+        padding: toRem(56) 0;
+    }
+
+    &__content-form {
+        padding: 1.5rem;
+        border-radius: 16px;
+        background-color: $white;
+        margin-bottom: 1.5rem;
+    
+        &--row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+
+        &--column {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(24);
+        }
+
+        &--column-center {
+          display: flex;
+          flex-direction: column;
+          gap: toRem(24);
+          align-items: center;
+        }
+    }
+
+    &__content-title {
+        margin-bottom: toRem(8);
+    }
+    
+    &__content-title-heading {
+    margin-bottom: 0;
+    color: $neutral-primary;
+    text-align: center;
+    
+        @include media-breakpoint-down(xs-2){
+          text-align: center
+        }
+    }
+
+    &__content-caption {
+        @extend .fs-lg;
+
+        &--bold{
+            font-weight: 500;
+            color: $neutral-primary;
+        }
+
+        &--center{
+            text-align: center;
+        }
+    }
+
+    .content-text{
+
+        &--banner{
+            max-width: toRem(960);
+            width: 100%;
+        }
+    }
+
+    &__banner{
+        background-color: $white;
+        border-radius: 12px;
+        border: 1px solid $neutral-input;
+        padding: toRem(40) toRem(32);
+        margin-bottom: toRem(24);
+
+        @include media-breakpoint-down(lg){
+            padding: toRem(40) toRem(24);
+        }
+    }
+
+    &__content-banner{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include media-breakpoint-down(lg){
+            gap: toRem(16);
+        }
+
+        @include media-breakpoint-down(xs-3){
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    &__banner-content{
+        display: flex;
+        gap: toRem(20);
+
+        @include media-breakpoint-down(md){
+            flex-direction: column;
+            gap: toRem(8);
+        }
+    }
+
+    &__button-car{
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
+    &__button-caption{
+        color: $green-01;
+        @extend .fs-lg;
+        font-weight: 600;
+        transition: all .2s ease;
+
+        @include media-breakpoint-down(xl){
+            width: max-content;
+        }
+    }
+
+    // allocate fleet
+
+    &__fleet{
+        padding: toRem(12) 0;
+        border-bottom: 1px solid $neutral-separator;
+        display: flex;
+        align-items: center;
+
+        @include media-breakpoint-down(sm){
+            padding: toRem(28) 0;
+            gap: toRem(16);
+        }
+    }
+
+    &__fleet-content{
+        display: flex;
+        gap: toRem(12);
+    }
+
+    &__content-label{
+        padding-right: 0;
+    }
+
+    &__fleet-text{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(4);
+    }
+
+    &__fleet-info{
+        display: flex;
+        gap: toRem(8);
+        align-items: center;
+
+        @include media-breakpoint-down(lg){
+            flex-direction: column;
+            gap: toRem(2);
+            align-items: flex-start;
+        }
+
+        @include media-breakpoint-down(sm){
+            flex-direction: row;
+            gap: toRem(8);
+        }
+
+        &--left,
+        &--right{
+            display: flex;
+            gap: toRem(8);
+            align-items: center;
+        }
+    }
+
+    &__fleet-img{
+        border-radius: 8px;
+    }
+
+    &__fleet-caption{
+        color: $neutral-primary;
+        font-weight: 400;
+    }
+
+    &__fleet-elipse{
+        width: toRem(6);
+        height: toRem(6);
+        background-color: #d9d9d9;
+        border-radius: 50%;
+
+        @include media-breakpoint-down(lg){
+            display: none;
+        }
+
+        @include media-breakpoint-down(sm){
+            display: block;
+        }
+
+        &--tablet{
+            width: toRem(6);
+            height: toRem(6);
+            background-color: #d9d9d9;
+            border-radius: 50%;
+            display: none;
+            
+            @include media-breakpoint-down(lg){
+                display: block;
+            }
+
+            @include media-breakpoint-down(sm){
+                display: none;
+            }
+        }
+    }
+
+    //pricing 
+
+    &__pricing-content{
+        display: flex;
+        gap: toRem(13);
+        padding: toRem(10) toRem(16);
+
+        @include media-breakpoint-down(xl){
+            padding: 0 toRem(12.8);
+        }
+    }
+
+    &__pricing-form {
+        &:focus {
+            box-shadow: unset !important;
+        }
+
+        &.form-control {
+            &.has-value {
+                color: $neutral-primary !important;
+            }
+        }
+    }
+
+    &__pricing-text{
+        font-weight: 400;
+        color: $neutral-subtle;
+
+        &.has-value {
+            color: $neutral-primary !important;
+        }
+    }
+
+    &__pricing-wrapper{
+        display: flex;
+
+        @include media-breakpoint-down(xl){
+            gap: toRem(12);
+        }
+    }
+}

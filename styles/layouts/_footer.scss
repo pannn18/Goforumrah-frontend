@@ -1,0 +1,130 @@
+.footer {
+  padding: toRem(96) 0;
+  background-color: $primary;
+  color: $white;
+
+  & > * {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: shade-color($white, $link-shade-percentage);
+    }
+  }
+
+  .footer-container{
+    @include media-breakpoint-down(md){
+      display: flex;
+      flex-direction: column;
+      gap: toRem(40);
+    }
+  }
+
+  .footer-menu {    
+    &__title {
+      margin-bottom: toRem(24);
+      color: $white;
+    }
+    &__links {
+      @include flex(column);
+      gap: toRem(16);
+
+      > a {
+        font-weight: $font-weight-semibold;
+      }
+    }
+  }
+
+  .subscribe-wrap{
+    @include media-breakpoint-down(xs-3){
+      text-align: center;
+    }
+  }
+
+  .subscribe-form {
+    @include flex(row, stretch);
+    gap: toRem(8);
+    margin-top: toRem(16);
+
+    @include media-breakpoint-down(xs-3){
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .footer-content-middle {
+    @include flex(row, flex-end, space-between);
+    gap: toRem(48);
+    margin-top: toRem(72);
+
+    @include media-breakpoint-down(md){
+      order: 1;
+      margin: unset;
+      flex-direction: column;
+      align-items: center;      
+      gap: toRem(34);
+    }    
+  }
+
+  .footer-brand {
+    color: $white;
+    margin-bottom: toRem(16);
+
+    img {
+      height: toRem(40);
+      width: auto;
+    }
+  }
+
+  .socials {
+    @include flex(row, center);
+    gap: toRem(24);
+
+    & > a {
+      @include flex(row, center, center);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: $blue-whale-02;
+      color: $white;
+      &:hover {
+        background-color: shade-color(
+          $blue-whale-02,
+          $btn-hover-bg-shade-amount
+        );
+      }
+    }
+  }
+
+  .footer-content-bottom {
+    @include flex(row, center);
+    gap: toRem(48);
+    margin-top: toRem(40);
+
+    > a {
+      font-weight: $font-weight-base;
+    }
+    @include media-breakpoint-down(md){
+      display: none;
+    }
+  }
+  .footer-content-top{
+    @include media-breakpoint-down(md){
+      order: 2;
+    }
+
+    &--separator{
+      display: none;
+      @include media-breakpoint-down(md){
+        display: block;
+        background-color: $blue-whale-02;
+        height: toRem(1);
+        width: 100%;
+        margin: toRem(40) 0;
+      }
+    }
+  }
+}

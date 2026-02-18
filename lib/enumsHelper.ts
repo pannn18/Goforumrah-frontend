@@ -1,0 +1,1 @@
+export const getEnumAsArray = (Enum: Object): (string | number | symbol)[] => Object.keys(Enum) as Array<keyof typeof Enum>

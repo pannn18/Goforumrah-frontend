@@ -1,0 +1,1036 @@
+.partnership {
+    @include flex(row, center);
+    position: relative;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: calc(100vh - 80px);
+
+    @include media-breakpoint-down(xxl) {
+        max-width: 100%;
+    }
+
+    &__about-content {
+        @include flex(row);
+        gap: toRem(40);
+
+        @include media-breakpoint-down(lg) {
+            @include flex(column);
+            gap: toRem(40);
+            width: 100%
+        }
+    }
+
+    &__about-content-left {
+        @include flex(column);
+        gap: toRem(16);
+        padding: toRem(120) 0;
+        max-width: toRem(332);
+        width: 100%;
+
+        &-wrapper {
+            @include flex(column);
+            height: toRem(412);
+            gap: toRem(16);
+            border-bottom: toRem(4) solid $green-01 ;
+        }
+
+        &-label {
+            @include flex(row);
+            justify-content: flex-start;
+            color: $green-01;
+            background: $green-05;
+            max-width: toRem(95);
+            padding: toRem(2) toRem(16);
+            border-radius: toRem(30);
+            font-size: $font-size-base;
+            font-weight: $font-weight-semibold;
+        }
+
+        p {
+            color: $neutral-secondary;
+            font-size: $font-size-xl;
+            font-weight: $font-weight-base;
+
+            @include media-breakpoint-down(xs-3) {
+                font-size: $font-size-lg;
+            }
+        }
+
+        @include media-breakpoint-down(lg) {
+            max-width: 100% !important;
+            padding: toRem(72) 0;
+        }
+
+        
+    }
+
+    &__about-content-right {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-row-gap: toRem(60);
+        grid-column-gap: toRem(32);
+        padding: toRem(140) 0;
+
+        &-item {
+            @include flex(column);
+            position: relative;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: $white;
+            border-radius: toRem(12);
+            gap: toRem(12);
+            padding: toRem(56) toRem(24) toRem(24);
+
+            p {
+                color: $neutral-secondary;
+                font-size: $font-size-lg;
+                font-weight: $font-weight-base;
+                text-align: center;
+            }
+        }
+
+        &-icon {
+            position: absolute;
+            color: $white;
+            top: 0;
+            transform: translateY(-32px);
+            padding: toRem(16);
+            border-radius: toRem(60);
+            border: toRem(8) solid #fafbfb;
+            background: $blue-whale-01;
+
+        }
+
+        @include media-breakpoint-down(lg) {
+            padding: 0 ;
+        }
+
+        @include media-breakpoint-down(xs-3) {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-row-gap: toRem(60);
+            grid-column-gap: toRem(32);
+        }
+    }
+
+    &__container {
+        height: 100%;
+    }
+
+    &__left {
+        @include flex(column, stretch);
+        background-color: $white;
+        z-index: 5;
+        position: relative;
+    }
+
+    &__left-btn {
+        &.btn {
+            font-size: $font-size-base;
+            font-weight: $font-weight-bold;
+            padding: toRem(20) toRem(40) !important;
+            border-radius: toRem(1000) !important;
+            
+            @include media-breakpoint-down(xs-3) {
+                font-size: $font-size-base;
+                font-weight: $font-weight-bold;
+                padding: toRem(16) toRem(32) !important;
+                border-radius: toRem(1000) !important;
+            }
+        }
+
+    }
+
+    &__left-content {
+        @include flex(column);
+        gap: toRem(40);
+        // padding: 6rem 4.5rem 13.75rem 0;
+
+        @include media-breakpoint-down(xl) {
+            padding-right: 3rem;
+        }
+
+        &-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(16);
+            width: toRem(565);
+
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                padding-right: 0;
+            }
+        }
+    }
+
+    &__left-heading {
+        &--green {
+            color: $green-01;
+        }
+
+        @include media-breakpoint-down(md) {
+            font-size: $h1-mobile-font-size !important;
+        }
+
+        @include media-breakpoint-down(xs-3) {
+            font-size: $h2-mobile-font-size !important;
+        }
+
+        @include media-breakpoint-down(xs-2) {
+            font-size: $h3-mobile-font-size !important;
+        }
+    }
+
+    &__left-subheading {
+        color: $neutral-secondary;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-base;
+
+        @include media-breakpoint-down(xs-3) {
+            font-size: $font-size-base !important;
+        }
+    }
+
+    &__left-content &__left-info {
+        text-align: center;
+
+        a {
+            color: $green-01;
+
+            &:hover {
+                text-decoration: underline;
+                color: $green-01;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__image {
+        width: 100%;
+        max-width: 633px;
+        height: 100%;
+        background: lightgray 50%;
+        object-fit: cover;
+        object-position: center left;
+        position: absolute;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        top: 0;
+        right: 0;
+        z-index: 3;
+
+     
+
+        @include media-breakpoint-down(lg) {
+            display: none;
+        }
+    }
+
+    &__content-tabs {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        justify-items: center;
+        align-items: center;
+        background: $neutral-light;
+
+        @include media-breakpoint-down(lg) {
+            padding-bottom: toRem(56);
+        }
+    }
+
+    &__content-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: toRem(16);
+        width: 100%;
+        border-bottom: toRem(1) solid $neutral-input;
+
+        @include media-breakpoint-down(md) {
+            @include flex(column, stretch, center);
+            width: 100%;
+            border-bottom: 0 ;
+        }
+    }
+
+    &__content-header-split {
+        display: flex;
+        align-items: center;
+        gap: toRem(24);
+
+        @include media-breakpoint-down(md) {
+            width: 100%;
+        }
+
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
+    }
+
+    &__content-header-separator {
+        height: toRem(53);
+        border-left: toRem(1) solid $neutral-separator;
+    }
+
+    &__content-header-tab-menu {
+        @include flex(row, stretch, center);
+        position: relative;
+        z-index: 1;
+        width: 100%;
+
+        .btn.partnership__btn {
+            @include media-breakpoint-down(md) {
+                width: 100% !important;
+            }
+
+            @include media-breakpoint-down(sm) {
+                min-width: toRem(102) !important;
+                padding: toRem(16) !important;
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            height: 1px;
+            background-color: $neutral-separator;
+            left: 0;
+            bottom: 0;
+        }
+
+        &>* {
+            border-radius: 0;
+            border: none;
+            outline: none;
+            padding: toRem(16) toRem(32);
+            font-size: $font-size-base;
+            font-weight: $font-weight-base;
+            color: $blue-whale-01;
+            flex-grow: 1;
+
+            &:not(.active):hover {
+                background-color: shade-color(transparent, $btn-hover-bg-shade-amount);
+            }
+
+            &.active {
+                font-weight: $font-weight-bold;
+                color: $blue-whale-01;
+                border-bottom: 2px solid $green-01 !important;
+
+                &::after {
+                    background-color: $blue-whale-01 !important;
+                    left: toRem(112) !important;
+
+                    @include media-breakpoint-down(sm) {
+                        left: toRem(111.6);
+                    }
+
+                    @include media-breakpoint-down(xs-3) {
+                        left: toRem(92.8) !important;
+                    }
+
+                    @include media-breakpoint-down(xs-2) {
+                        left: toRem(76.8) !important;
+                    }
+
+                }
+            }
+
+            @include media-breakpoint-down(md) {
+                border-bottom: 0.0625rem solid #d9e0e4;
+            }
+        }
+
+        @include media-breakpoint-down(md) {
+            @include flex(column, stretch, center);
+            width: 100%;
+            border-bottom: unset !important;
+        }
+    }
+
+    &-audiences {
+        @include flex(row, center);
+        position: relative;
+        max-width: 1600px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: calc(100vh - 80px);
+
+        @include media-breakpoint-down(xxl) {
+            max-width: 100%;
+        }
+
+
+        &__left {
+            @include flex(column, stretch);
+            background-color: $white;
+            z-index: 5;
+            position: relative;
+        }
+
+        &__left-btn {
+            &.btn {
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                padding: toRem(12) toRem(24) !important;
+                border-radius: toRem(8) !important;
+            }
+        }
+
+        &__left-content {
+            @include flex(column);
+            gap: toRem(40);
+            // padding: 6rem 4.5rem 13.75rem 0;
+
+            @include media-breakpoint-down(xl) {
+                padding-right: 3rem;
+            }  
+
+            &-wrapper {
+                @include flex(column);
+                gap: toRem(16);
+                width: toRem(565);
+
+                @include media-breakpoint-down(lg) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &__left-heading {
+            &--green {
+                color: $green-01;
+            }
+        }
+
+        &__left-subheading {
+            color: $neutral-secondary;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-base;
+        }
+
+        &__left-requirement {
+            @include flex(row, center);
+            gap: toRem(12);
+            color: $neutral-primary;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+        }
+
+        &__left-content &__left-info {
+            text-align: center;
+
+            a {
+                color: $green-01;
+
+                &:hover {
+                    text-decoration: underline;
+                    color: $green-01;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &__image {
+            object-fit: cover;
+            object-position: center left;
+            position: absolute;
+            overflow: visible;
+            width: 100%;
+            max-width: 445px;
+            height: 100%;
+            top: 30px;
+            right: 60px;
+            transform: translateX(-100px);
+            padding: toRem(80) 0;
+            z-index: 3;
+
+            @include media-breakpoint-down(xl-1) {
+                width: 100%;
+                max-width: 400px !important;
+            }
+
+            @include media-breakpoint-down(xl) {
+                width: 100%;
+                max-width: 300px !important;
+            }
+
+            @include media-breakpoint-down(lg) {
+                display: none;
+            }
+        }
+
+
+    }
+
+    &-benefits {
+
+        &__about {
+            @include flex(column, center, flex-start);
+            gap: toRem(57);
+            padding: toRem(80) 0;
+
+            h3 {
+                text-align: center;
+            }
+        }
+
+        &__about-content {
+            @include flex(row);
+            gap: toRem(32);
+
+            @include media-breakpoint-down(lg) {
+                @include flex(column);
+                gap: toRem(32);
+            }
+        }
+
+        &__about-content-left {
+            @include flex(column);
+            gap: toRem(24);
+            width: 100%;
+            max-width: toRem(332);
+            height: 100%;
+            max-height: toRem(474);
+            padding: toRem(32);
+            border: toRem(1) solid $neutral-separator;
+            border-radius: toRem(16);
+
+
+            &-wrapper {
+                @include flex(column);
+                height: toRem(412);
+                gap: toRem(16);
+
+                @include media-breakpoint-down(lg) {
+                    height: fit-content
+                }
+            }
+
+            &-label {
+                @include flex(row);
+                justify-content: flex-start;
+                color: $green-01;
+                background: $green-05;
+                max-width: toRem(95);
+                padding: toRem(2) toRem(16);
+                border-radius: toRem(30);
+                font-size: $font-size-base;
+                font-weight: $font-weight-semibold;
+            }
+
+            p {
+                color: $neutral-secondary;
+                font-size: $font-size-xl;
+                font-weight: $font-weight-base;
+            }
+
+            @include media-breakpoint-down(lg) {
+                max-width: 100% !important;
+                padding: toRem(24);
+            }
+
+            @include media-breakpoint-down(md) {
+                max-width: 100% !important;
+                max-height: 100% !important;
+            }
+        }
+
+        &__about-content-right {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: toRem(32);
+
+            &-item {
+                @include flex(column);
+                position: relative;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                border: toRem(1) solid $neutral-separator;
+                background: $white;
+                width: 100%;
+                height: 100%;
+                max-height: toRem(242);
+                border-radius: toRem(16);
+                padding: toRem(24);
+                gap: toRem(24);
+
+                p {
+                    color: $neutral-secondary;
+                    font-size: $font-size-lg;
+                    font-weight: $font-weight-base;
+                    text-align: center;
+                    height: toRem(72);
+
+                    @include media-breakpoint-down(xs-3) {
+                        height: unset
+                    }
+                }
+
+            }
+
+            &-info {
+                @include flex(column, center, flex-start);
+                gap: toRem(8);
+            }
+
+            @include media-breakpoint-down(md) {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                gap: toRem(32);
+            }
+        }
+    }
+
+    &-steps {
+
+        &__content {
+            padding: toRem(120) 0;
+            @include flex(column, flex-start);
+            gap: toRem(56);
+
+            &-title {
+                text-align: center;
+                width: 100%;
+            }
+
+            &-item {
+                @include flex(column, flex-start);
+                gap: toRem(24);
+
+                &-container {
+                    @include flex(row, flex-start);
+                    gap: toRem(57);
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        border-top: toRem(2) dashed $blue-whale-01;
+                        width: 100%;
+                        top: 0;
+                        bottom: -32px;
+                        transform: translate(0%, 6%);
+                    
+                    }
+                    
+                    @include media-breakpoint-down(xl-1) {
+                        @include flex(row, center,center);
+                        width: 100%;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            border-top: toRem(2) dashed $blue-whale-01;
+                            width: 100%;
+                            top: 0;
+                            bottom: -32px;
+                            transform: translate(0%, 6%); 
+                            display: none !important;   
+                        }
+                    }
+
+                    @include media-breakpoint-down(xl-1) {
+                        @include flex(column, center, center); 
+                        gap: toRem(57);
+                        position: relative;
+                    }
+
+                }
+
+                &-wrapper {
+                    @include flex(row,flex-start);
+                    gap: toRem(57);
+                    position: relative;
+
+                    @include media-breakpoint-down(md) {
+                        @include flex(column, flex-start);
+                        gap: toRem(57);
+                    }
+                }
+                
+                @include media-breakpoint-down(xl-1) {
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        border-top: toRem(2) dashed $blue-whale-01;
+                        width: 60%;
+                        top: 0;
+                        bottom: -32px;
+                        transform: translate(-13.5%, 6%);
+                    }
+                }
+
+                @include media-breakpoint-down(md) {
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        border-top: 0 !important;
+                        border-left: toRem(2) dashed $blue-whale-01;
+                        width: 60%;
+                        top: 0;
+                        bottom: -52px;
+                        transform: translate(-13.5%, 1%);
+                    }
+                }
+
+                @include media-breakpoint-down(xs-1) {
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        border-top: 0 !important;
+                        border-left: toRem(2) dashed $blue-whale-01;
+                        width: 60%;
+                        top: 0;
+                        bottom: -52px;
+                        transform: translate(-9.5%, 1%);
+                    }
+                }
+                
+            }
+
+            &-number {
+                @include flex(column, center, center);
+                position: relative;
+                border: 1px solid $blue-whale-01;
+                background: $blue-whale-01;
+                color: $white;
+                width: 48px;
+                height: 48px;
+                padding: 11px 20px;
+                gap: 10px;
+                border-radius: 60px;
+
+            }
+
+            &-card {
+                @include flex(column, flex-start);
+                height: 100%;
+                height: toRem(256);
+                width: 100%;
+                width: toRem(257.25);
+                padding: toRem(24);
+                gap: toRem(24);
+                border-radius: toRem(12);
+                border: toRem(1) solid $neutral-separator;
+                background: $white;
+
+                &-info {
+                    @include flex(column, flex-start);
+                    gap: toRem(12);
+
+                    p {
+                        height: 100%;
+                        max-height: toRem(72);
+                    }
+                }
+
+                &-icon {
+                    @include flex(row, flex-start);
+                    background: var(--brand-green-color-06, #F4FBF9);
+                    color: $green-01;
+                    padding: 10px;
+                    gap: 10px;
+                    border-radius: 12px;
+                }
+            }
+
+            @include media-breakpoint-down(xs-3) {
+                padding: toRem(80) 0;
+            }
+
+        }
+
+    }
+
+
+    &-faq {
+
+        &__container {
+            max-width: toRem(996);
+            padding: unset;
+        }
+
+        &__content {
+            padding: toRem(120) toRem(20);
+            @include flex(column, center);
+            gap: toRem(40);
+
+            &-title {
+                text-align: center;
+                width: 100%;
+            }
+
+            &-link {
+                @include flex(row, center, center);
+                gap: toRem(10);
+                font-size: $font-size-lg;
+                color: $green-01;
+            }
+
+            &-item {
+                @include flex(column, flex-start);
+                gap: toRem(24);
+
+                &-wrapper {
+                    @include flex(column, flex-start);
+                    position: relative;
+                    width: 100%;
+
+                    @include media-breakpoint-down(xl) {
+                        padding: toRem(32);
+                    }
+
+                    @include media-breakpoint-down(xs-3) {
+                        padding: 0;
+                    }
+                }
+            }
+
+            @include media-breakpoint-down(xs-3) {
+                padding: toRem(80) 0;
+            }
+
+        }
+
+        &__card {
+            display: flex;
+            color: $neutral-primary;
+            background: $neutral-light;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: $font-size-xl;
+            padding: toRem(24);
+            gap: toRem(24);
+            border-bottom: toRem(1) solid $neutral-separator;
+
+            &.collapsed {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: $font-size-lg;
+                background: $white;
+                border-bottom: toRem(1) solid $neutral-separator;
+            }
+
+            &-heading {
+                &-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    gap: toRem(32);
+                }
+            }
+
+            &-wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            &-header {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: toRem(12);
+
+                &-wrapper {
+                    display: flex;
+                }
+
+                &-desc {
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-secondary;
+                }
+
+                &-toggle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    font-size: $font-size-lg;
+                    font-weight: $font-weight-bold;
+                    color: $neutral-primary;
+                    @extend .fs-xl;
+
+                    &--optional {
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-normal;
+                        color: $neutral-secondary;
+                        @extend .fs-base;
+                    }
+                }
+            }
+
+            &-row {
+                display: flex;
+                justify-content: space-between;
+                gap: toRem(20);
+            }
+
+            &-title {
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+                color: $neutral-primary;
+                @extend .fs-xl
+            }
+
+            &-desc {
+                font-size: $font-size-base;
+                font-weight: $font-weight-normal;
+                color: $neutral-primary;
+                @extend .fs-base;
+            }
+
+            &-icon {
+                display: flex;
+                gap: toRem(8);
+            }
+
+        }
+
+        &__special {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(16);
+            padding: toRem(24);
+
+            &.show {
+                background-color: $white;
+                border-bottom: toRem(1) solid $neutral-separator;
+            }
+
+            &-row {
+                @include flex(row);
+                gap: toRem(24);
+                width: 100%;
+                color: $neutral-primary;
+                font-size: $font-size-lg;
+                font-weight: $font-weight-base;
+            }
+        }
+    }
+
+    &-footer {
+        background: $neutral-light;
+
+        &__card {
+            @include flex(row, center);
+            gap: toRem(40);
+            width: 100%;
+            border: toRem(16);
+            height: 100%;
+            height: toRem(378);
+            background: var(--brand-blue-whale-color-01, #052C47);
+            border-radius: toRem(16);
+
+            &-left {
+                @include flex(column, flex-start, center);
+                padding-left: toRem(80);
+                gap: toRem(40);
+
+                &-header {
+                    @include flex(column);
+                    gap: toRem(8);
+
+                    h1 {
+                        color: $white;
+                    }
+
+                    p {
+                        color: $white;
+                        font-size: $font-size-xl;
+                        font-weight: $font-weight-base
+                    }
+
+                    @include media-breakpoint-down(xl) {
+                        @include flex(column,center,center);
+                        gap: toRem(8);
+                        text-align: center;
+                    }
+                }
+
+                @include media-breakpoint-down(xl) {
+                    @include flex(column,center,center);
+                    gap:toRem(40);
+                    padding: toRem(56);
+                }                
+
+            }
+
+            &-right {
+                @include media-breakpoint-down(xl) {
+                    display: none !important;
+                }
+            }
+
+            @include media-breakpoint-down(xl) {
+                height: 100% !important;
+                @include flex(column, center, center)
+            }
+        }
+
+        &__content {
+            padding: toRem(120) 0;
+            @include flex(row, center);
+            gap: toRem(40);
+
+
+            &-title {
+                text-align: center;
+                width: 100%;
+            }
+
+            &-link {
+                @include flex(row, center, center);
+                gap: toRem(10);
+                font-size: $font-size-lg;
+                color: $green-01;
+            }
+
+            &-item {
+                @include flex(column, flex-start);
+                gap: toRem(24);
+
+                &-wrapper {
+                    @include flex(column, flex-start);
+                    position: relative;
+                    width: 100%;
+                }
+            }
+
+            @include media-breakpoint-down(xs-3) {
+                padding: toRem(80) 0;
+            }
+        }
+
+        &__image {
+            width: 100%;
+            object-fit: cover;
+            object-position: center left;
+            color: transparent;
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+
+            img {
+                object-fit: cover;
+                object-position: center left;
+                border-top-left-radius: 16px;
+                border-bottom-left-radius: 16px;
+                margin-right: 2px;
+            }
+        }
+
+    }
+}

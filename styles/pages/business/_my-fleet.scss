@@ -1,0 +1,178 @@
+.my-fleet {
+    background-color: $neutral-light;
+    
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid $neutral-separator;
+        background-color: $white;
+        width: 100%;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+    }
+
+    &__content-header {
+        display: flex;
+        align-items: center;
+        padding: toRem(24) toRem(24);
+        gap: toRem(24);
+    }
+
+    &__content-header-right {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        @include media-breakpoint-down(xs-2) {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: toRem(16);
+        }
+    }
+
+    &__content-container {
+        padding: toRem(56) 0;
+    }
+
+    // Table
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: toRem(24);
+        gap: toRem(24);
+        background: $white;
+        border-radius: toRem(12);
+
+        @include media-breakpoint-down(xxl) {
+            overflow: auto;
+            overflow-x: scroll;
+        }
+    }
+
+
+    &__table-list {
+        border-bottom: toRem(1) solid $neutral-separator;
+
+        &>th {
+            padding: toRem(16) toRem(17);
+            font-size: $font-size-base;
+            font-weight: 700;
+            color: $neutral-primary;
+
+            @include media-breakpoint-down(xxl) {
+                font-size: $font-size-sm;
+            }
+
+            @include media-breakpoint-down(lg) {
+                padding: toRem(16);
+            }
+
+        }
+
+        &>td {
+            padding: toRem(16) toRem(17);
+            font-size: $font-size-base;
+            font-weight: $font-weight-semibold;
+            color: $neutral-primary;
+
+            @include media-breakpoint-down(xxl) {
+                font-size: $font-size-sm;
+            }
+
+            @include media-breakpoint-down(lg) {
+                text-align: center;
+            }
+        }
+    }
+
+    &__table-list--center {
+        text-align: center;
+    }
+
+    &__table-list--icon {
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+
+        img {
+            border-radius: toRem(4);
+        }
+    }
+
+    &__table-list--carname {
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        width: 100%;
+
+        img {
+            border-radius: toRem(4);
+        }
+
+        @include media-breakpoint-down(lg) {
+            justify-content: center;
+        }
+
+        @include media-breakpoint-down(md) {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(8);
+        }
+    }
+
+    &__table-list--return {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(4);
+
+    }
+
+    &__table-list--room {
+        justify-content: center;
+    }
+
+    &__table-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(3) toRem(16);
+        border-radius: toRem(32);
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $white;
+        width: fit-content;
+
+        &--paid {
+            background: $success-main;
+        }
+
+        &--waiting {
+            background: $warning-main;
+        }
+
+        &--canceled {
+            background: $danger-main;
+        }
+
+        &--ongoing {
+            background: $info-main;
+        }
+    }
+
+    &__table-link {
+        color: $green-01;
+    }
+
+    &__table-dropdown {
+        border: none;
+        padding: 0;
+    }
+}

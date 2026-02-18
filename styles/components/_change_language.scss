@@ -1,0 +1,37 @@
+.change-language__header-title {
+  font-size: toRem(20);
+}
+.change-language {
+  .change-language__box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: 1fr 1fr;
+    }
+    .change-language__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: toRem(12);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: toRem(4);
+
+      &.flex-start{
+        justify-content: flex-start;
+      }
+
+      & p.secondary {
+        color: #595959;
+      }
+
+      &.active {
+        background-color: rgba(0, 108, 228, 0.06);
+        color: #006ce4 !important;
+      }
+    }
+  }
+}

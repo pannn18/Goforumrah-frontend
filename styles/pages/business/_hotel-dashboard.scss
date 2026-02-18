@@ -1,0 +1,130 @@
+.hotel-dashboard {
+  min-height: calc(100vh - 80px);
+
+  &--grey-background {
+    background-color: $neutral-light;
+  }
+
+  &--remove-height {
+    min-height: inherit;
+  }
+
+  &--vertical-center {
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+
+  // Buttons
+  &__button-list {
+    text-align: right;
+    margin-top: 1.5rem;
+    border-radius: 16px;
+    background-color: $white;
+    padding: 1.5rem;
+  }
+
+  &__button-list-item {
+    @extend .fs-lg;
+    padding: 1rem 2rem;
+
+    @include media-breakpoint-down(xs-3) {
+      display: block;
+      width: 100%;
+    }
+
+    &:first-child {
+      margin-right: 1.5rem;
+
+      @include media-breakpoint-down(xs-3) {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  // Empty
+  &__empty-box {
+    width: 100%;
+    max-width: 995px;
+    padding: 5rem .625rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid $neutral-separator;
+
+    @include media-breakpoint-down(md) {
+      padding: 2rem;
+    }
+  }
+
+  &__empty-icon {
+    margin-bottom: 1.5rem;
+  }
+
+  &__empty-title {
+    margin-bottom: .75rem;
+  }
+
+  &__empty-caption {
+    margin-bottom: 2.5rem;
+
+    strong {
+      font-weight: 600;
+      color: $blue-whale-01;
+    }
+  }
+
+  &__empty-button {
+    padding: 0.8125rem 1rem;
+    border-radius: 8px;
+    max-width: 535px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Back Page
+  &__nav {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__nav-link {
+    @extend .fs-xl;
+    font-weight: 600;
+    color: $neutral-primary;
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav-image {
+    margin-right: 1rem;
+    color: $green-01;
+  }
+
+  &__nav-title {
+    text-align: center;
+  }
+
+  &__nav-title-heading {
+    margin-bottom: .75rem;
+  }
+
+  // Select Category
+  &__select-category {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  &__select-category-title {
+    margin-bottom: 2rem;
+    @include flex(row, center);
+  }
+}

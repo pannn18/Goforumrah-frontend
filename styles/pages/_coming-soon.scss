@@ -1,0 +1,71 @@
+.coming{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: toRem(24) toRem(10);
+    gap: toRem(10);
+  }
+  &__footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: toRem(24) toRem(10);    
+    margin-top: auto;
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;    
+  }  
+  &__content{
+    display: flex;
+    flex-direction: column;    
+    gap: toRem(40);
+    margin: auto;
+    max-width: toRem(590);
+    margin-top: toRem(120);
+    text-align: center;
+  }
+  &__top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: toRem(16);
+    text-align: center;
+  }
+  &__top-icon{
+    display: flex;
+    align-items: center;
+    padding: toRem(16);
+    background: $green-06;
+    border-radius: toRem(120);
+    color: $green-01;
+  }
+  &__top-subtitle{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+  &__form{
+    display: flex;
+    align-items: flex-end;
+    gap: toRem(14);    
+    max-width: toRem(551);
+  }
+  &__form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);
+    flex: 1 1 0;
+  } 
+  &__form-input{    
+    padding: 13px 16px;
+    border-radius: toRem(10);
+  }
+}

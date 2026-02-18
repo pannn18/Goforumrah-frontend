@@ -1,0 +1,425 @@
+// Alert
+.property-alert {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background-color: $info-surface;
+    border-radius: 6px;
+    border-left: 6px solid $info-main;
+
+    p {
+        @extend .fs-sm;
+    }
+
+    &__company,
+    &__box {
+        display: flex;
+        padding: toRem(16) toRem(20);
+        gap: toRem(12);
+        background-color: $info-surface;
+        border-radius: 6px;
+        border-left: 6px solid $info-main;
+        height: fit-content;
+        margin-bottom: toRem(16);
+    }
+
+    &__content-desc {
+        display: flex;
+        align-items: center;
+        font-weight: $font-weight-base;
+        font-size: $font-size-sm;
+        color: $neutral-primary;
+    }
+
+    &__icon {
+        color: $info-main;
+    }
+}
+
+.admin-property-business {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border-radius: 0 0 toRem(12) toRem(12);
+    gap: toRem(24);
+    background: $white;
+    width: 100%;
+
+    &__card-wrapper {
+        display: flex;
+        align-items: flex-start;
+        height: 100%;
+        min-height: toRem(744);
+        gap: toRem(32);
+
+        @include media-breakpoint-down(md){
+            flex-direction: column;
+        }
+    }
+
+    &__content {
+        &-wrapper {
+            display: flex;
+            padding: toRem(24);
+            flex-direction: column;
+            gap: toRem(24);
+        }
+
+        &-inner {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(16);
+
+            &--top {
+                gap: toRem(4);
+            }
+
+            &--bottom {
+                gap: toRem(8);
+            }
+
+            &--wrapper {
+                display: flex;
+                align-items: center;
+                gap: toRem(8);
+            }
+
+            &--number {
+                font-size: $font-size-sm;
+                color: $neutral-secondary;
+            }
+
+            &--header {
+                font-size: $font-size-xl;
+                color: $neutral-primary;
+                font-weight: $font-weight-bold;
+            }
+
+            &--desc {
+                min-width: toRem(79);
+                color: $neutral-secondary;
+            }
+
+            &--value {
+                color: $neutral-primary;
+                font-weight: $font-weight-semibold;
+            }
+
+        }
+
+        &-img {
+            &--item {
+                height: 100%;
+                max-height: toRem(220);
+                width: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &-btn {
+            &.btn {
+                padding: toRem(14) toRem(28) !important;
+            }
+        }
+    }
+
+    &__wrapper{
+        @include flex(column, stretch);
+        gap: toRem(24);
+    }
+    &__card{
+        @include flex(column, stretch);
+        gap: toRem(16);
+        padding: toRem(24);
+        background: $white;
+        border-radius: toRem(16);
+
+        @include media-breakpoint-down(sm){
+            padding: toRem(16);
+        }
+    }
+    &__card-header{
+        @include flex(row,center, space-between);
+        h5{
+            color: $neutral-primary;
+        }
+    }
+    &__card-item{
+        @include flex(row, flex-start);
+        gap: toRem(16);
+        padding: toRem(24);
+        background: $white;
+        border: toRem(1) solid $neutral-input;
+        border-radius: toRem(16);
+
+        @include media-breakpoint-down(md){
+            flex-direction: column;
+        }
+        @include media-breakpoint-down(sm){
+            padding: toRem(16);
+        }
+    }
+    &__card-item__image{
+        width: toRem(64);
+        height: toRem(64);
+        border-radius: toRem(16);
+    }
+    &__card-item__content{
+        @include flex(column, flex-start);
+        gap: toRem(8);
+        flex-grow: 1;
+    }
+    &__card-item__content-name{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+    }
+    &__card-item__content-status{
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $neutral-subtle;
+    }
+    &__card-item__action{
+        @include flex(row, center);
+        gap: toRem(16);
+
+        a{color: $green-01;}
+        @include media-breakpoint-down(md){
+            margin-left: auto;
+        }
+    }
+
+    &__form-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: toRem(24);
+
+        @include media-breakpoint-down(xs-3){
+            flex-direction: column;
+            align-items: flex-start;
+            gap: toRem(16);
+        }
+    }
+
+    &__content-btn{
+        display: flex;
+        gap: toRem(16);
+
+        label {
+            font-size: $font-size-sm !important;
+        }
+    }
+
+    &__photo-btn{
+        background-color: $white;
+        border: 2px solid;
+        border-radius: toRem(8);
+        padding: toRem(12) toRem(24);
+        color: $neutral-primary;
+        font-weight: 600;
+        @extend .fs-sm;
+
+        &--danger{border-color: $danger-main;}
+        &--success{border-color: $green-01;}
+    }
+
+    &__content-form-title{
+        color: $neutral-primary;
+        @extend .fs-xl;
+        font-weight: 600;
+        margin-bottom: toRem(24);
+
+        &--image{
+            margin-bottom: 0 !important;
+        }
+    }
+
+    &__content-form-select{
+        background-color: $white;
+        color: $neutral-primary;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    &__form-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+    }
+
+    &__form-content-wrapper{
+        input{
+            &::placeholder{
+                background-color: $white;
+                color: $neutral-primary;
+                font-weight: 500;
+            }    
+        }
+    }
+
+    &__form-btn{
+        display: flex;
+        align-items: center;
+        gap: toRem(6);
+        background-color: $white;
+        border: none;
+        width: fit-content;
+        color: $green-01;
+    }
+
+    &__content-separator{
+        height: 1px;
+        width: 100%;
+        background-color: $neutral-separator;
+    }
+
+    &__content-form-wrapper{
+        display: flex;
+        gap: toRem(16);
+
+        @include media-breakpoint-down(xs-3){
+            flex-direction: column;
+        }
+    }
+
+&.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: none !important;
+    gap: 2rem;
+
+    .dropzone {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        padding: 32px 24px;
+        border-radius: 12px;
+        border: 1px dashed var(--bs-green-01, #1CB78D);
+        background: var(--bs-white, #FFF);
+
+        .heading {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .dropzone-edit-room {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .heading {
+            margin-bottom: 0.5rem;
+        }
+
+        @include media-breakpoint-down(xs-1){
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .uploadedImages {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: toRem(16);
+
+        .column {
+            flex: 0 0 auto;
+        }
+
+        .image {
+            position: relative;
+            width: 7.8125rem;
+            aspect-ratio: 1/1;
+            border-radius: 0.5rem;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid var(--bs-green-01, #1CB78D);
+
+            .removeButton {
+                cursor: pointer;
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 1px solid var(--bs-danger-main, #ca3232);
+                background-color: var(--bs-danger-main, #ca3232);
+                color: var(--bs-white, #FFF);
+            }
+
+            @include media-breakpoint-down(xs-2) {
+                width: 100px;
+            }
+        }
+
+        @include media-breakpoint-down(md) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-inline: -0.5rem;
+            margin-top: -1rem;
+        }
+
+        @include media-breakpoint-down(xs-3) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-inline: -0.5rem;
+            margin-top: -1rem;
+        }
+
+        @include media-breakpoint-down(xs-2) {
+            display: grid;
+            grid-template-columns: repeat(2, 125px);
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-inline: -0.5rem;
+            margin-top: -1rem;
+        }
+
+        @include media-breakpoint-down(xs-1) {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-inline: -0.5rem;
+            margin-top: -1rem;
+        }
+    }
+
+    @include media-breakpoint-down(xs-1) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+}
+
+}
+
+.container {
+    &-property {
+        max-width: 100%;
+        margin-left: 0;
+    }
+}

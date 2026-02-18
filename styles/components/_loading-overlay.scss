@@ -1,0 +1,39 @@
+.loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 250px;
+    height: 250px;
+  }
+
+  &__wrapper-logo {
+    margin-bottom: 10px;
+  }
+
+  &__wrapper-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-secondary;
+  }
+
+  &__wrapper-text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+}

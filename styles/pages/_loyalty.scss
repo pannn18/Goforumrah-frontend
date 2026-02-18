@@ -1,0 +1,932 @@
+// Initialize first
+@import "../init";
+
+.loyalty {
+  // Header section
+    &__header {
+        position: relative;
+        padding: toRem(148) 0;
+
+        @include media-breakpoint-down(md){
+            padding: toRem(40) 0 toRem(124);
+        }
+    }
+    &__header-bg {
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        }
+    }
+    &__header-bg-overlay {
+        background-color: rgba(0, 0, 0, 0.16);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    &__header-bg-overlay-shadow {
+        background: linear-gradient(
+        180deg,
+        rgba(5, 44, 71, 0) 0%,
+        rgba(5, 44, 71, 0.6) 68.75%
+        );
+        position: absolute;
+        width: 100%;
+        height: 56%;
+        bottom: 0;
+        left: 0;
+    }
+    &__header-content {
+        @include flex(column, center);
+        text-align: center;
+    
+        .heading {
+            color: $white;
+        }
+    
+        .subheading {
+            color: $white;
+            margin-top: toRem(16);
+            font-size: $font-size-xl;
+        }
+    }
+
+    // Plans 
+    &__plans{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: toRem(40);
+        padding-top: toRem(40);
+
+        &--heading{
+            background: $white;
+        }
+        &--content{
+            background: $neutral-light;
+            padding: toRem(80) 0;
+
+            @include media-breakpoint-down(lg){
+                padding: toRem(64) 0;
+            }
+            @include media-breakpoint-down(md){
+                padding: toRem(48) 0;
+            }
+        }
+    }
+    &__plans-heading{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: toRem(12);
+        text-align: center;
+
+        &--title{
+            color: $neutral-primary;
+        }
+        &--subtitle{
+            color: $neutral-primary;
+            font-size: $font-size-lg;
+        }
+    }
+    &__plans-cards{
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: toRem(40);
+
+        @include media-breakpoint-down(xl){
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+    }
+
+    // Card Component
+    &__card{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        flex: 1 1 0;
+        border-radius: toRem(24);
+        border: toRem(1) solid $neutral-separator;
+        background: $white;
+
+        @include media-breakpoint-down(xl){
+            flex: unset;
+        }
+
+        &--highlight{
+            border: toRem(2) solid $green-01;
+        }
+    }
+    &__card-image{
+        padding-top: toRem(24);
+        margin: 0 auto;
+        max-width: toRem(311);
+    }
+    &__card-body{
+        display: flex;
+        padding: toRem(24);
+        padding-bottom: toRem(16);
+        flex-direction: column;
+        align-items: stretch;
+        gap: toRem(24);
+        background: $white;
+        border-bottom: toRem(1) solid $neutral-separator;
+
+        &--highlight{
+            background: $green-06;
+        }
+    }
+    &__card-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__card-price{
+        display: flex;
+        align-items: flex-end;
+        gap: toRem(8);
+
+        &--amount{
+            color: $neutral-primary;
+        }
+        &--period{
+            font-size: $font-size-xl;
+            color: $neutral-primary;
+        }
+    }
+    &__card-chips{
+        display: flex;
+        padding: toRem(3) toRem(16);
+        justify-content: center;
+        align-items: center;
+        border-radius: toRem(32);
+        background: $green-01;
+        color: $white;
+        font-weight: $font-weight-semibold;
+    }
+    &__card-description{
+        font-size: $font-size-base;
+        color: $neutral-secondary;
+    }
+    &__card-footer{
+        display: flex;
+        padding: toRem(24);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(16);
+        align-self: stretch;
+    }
+    &__card-benefit{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        svg{
+            color: $green-01;
+        }
+        p{
+            font-size: $font-size-lg;
+            color: $neutral-primary;
+        }
+    }
+
+    // Discover
+    &__discover{
+        padding: toRem(80) 0;
+        color: $white;
+    }
+    &__discover-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: toRem(40);
+    }
+    &__discover-heading{
+        display: flex;
+        padding: 0 toRem(120);
+        flex-direction: column;
+        align-items: center;
+        gap: toRem(12);
+        text-align: center;
+        @include media-breakpoint-down(lg){
+            padding: 0;
+        }
+
+        h3{
+            color: $neutral-primary;
+        }
+        p{
+            font-size: $font-size-lg;
+            color: $neutral-secondary;
+        }
+    }
+    &__discover-content{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: toRem(40);
+        max-width: toRem(1120);
+        margin: 0 auto;
+
+        @include media-breakpoint-down(lg){
+            grid-template-columns: repeat(2, 1fr);
+            gap: toRem(32);
+        }
+        @include media-breakpoint-down(sm){
+            grid-template-columns: repeat(1, 1fr);
+            gap: toRem(24);
+        }
+    }
+
+    &__box{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(24);
+        flex: 1 0 0;
+    }
+    &__box-image{
+        border-radius: toRem(12);
+        overflow: hidden;
+
+        img{
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+    &__box-content{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(12);
+    }
+    &__box-content-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+    }
+    &__box-content-desc{
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+    }    
+}   
+
+.loyalty-checkout{
+    background: $neutral-light;
+    min-height: calc(100vh - 80px);
+    
+    &__header {
+        padding: toRem(24) 0;
+        background: $white;
+    
+        &-wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: toRem(120);
+        
+            @include media-breakpoint-down(xl) {
+                flex-direction: column;
+                gap: toRem(48);
+            }
+        }
+    
+        &-title {
+            display: flex;
+            align-items: center;
+            gap: toRem(24);
+            color: $neutral-primary;
+        
+            &-button {
+                color: $green-01;
+            }
+        }
+    
+        &-stepper {
+            display: flex;
+            flex-grow: 1;
+    
+        &-item {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            padding: toRem(8) toRem(16);
+            gap: toRem(12);
+            border-left: toRem(1) solid $neutral-input;
+            font-size: $font-size-base;
+            @extend .fs-base;
+            color: $neutral-secondary;
+    
+        &.current {
+            border-left: toRem(2) solid $green-01;
+            background: $neutral-light;
+            font-weight: $font-weight-bold;
+    
+            .booking-hotel__header-stepper-number {
+                color: $green-01;
+                border-color: $green-01;
+                background: $white;
+            }
+            }
+    
+            &.done {
+                border-left: toRem(2) solid $blue-whale-01;
+                color: $blue-whale-01;
+                font-weight: $font-weight-semibold;
+    
+            .booking-hotel__header-stepper-number {
+                color: $white;
+                border-color: $blue-whale-01;
+                background: $blue-whale-01;
+            }
+            }
+        }
+    
+        &-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: toRem(24);
+            height: toRem(24);
+            border: toRem(1) solid $neutral-input;
+            border-radius: toRem(100);
+            font-size: $font-size-base;
+            font-weight: $font-weight-bold;
+            color: $neutral-primary;
+            @extend .fs-base;
+        }
+    
+        @include media-breakpoint-down(xs-3) {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(16);
+        }
+        }
+    }
+    &__wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: toRem(20);
+        padding-top: toRem(40);
+        padding-bottom: toRem(80);
+    
+        @include media-breakpoint-down(lg) {
+            flex-direction: column;
+        }
+    }
+    &__summary {
+        display: flex;
+        flex-direction: column;
+        background: $white;
+        border-radius: toRem(16);
+        width: toRem(360);
+        box-shadow: 0px 12px 44px 0px rgba(5, 44, 71, 0.08);
+        overflow: hidden;
+    
+        &-heading{
+            display: flex;
+            padding: toRem(16) toRem(24);
+            justify-content: space-between;
+            align-items: center;
+            background: $white;
+
+            p{
+                font-size: $font-size-base;
+                color: $neutral-primary
+            }
+        }
+
+        &-body{
+            display: flex;
+            padding: toRem(24);
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: toRem(12);
+            background: $blue-whale-01;
+
+            h5{
+                color: $white;
+                font-weight: $font-weight-semibold;
+            }
+            p{
+                font-size: $font-size-lg;
+                color: $white;
+                font-weight: $font-weight-base;
+            }
+        }
+    
+        @include media-breakpoint-down(lg) {
+            min-width: 0;
+            width: 100%;
+        }
+    }
+    &__inner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(20);
+    
+        @include media-breakpoint-down(xs-2) {
+            width: 100%;
+        }
+    }
+    &__card {
+        display: flex;
+        flex-direction: column;
+        padding: toRem(24);
+        gap: toRem(24);
+        color: $neutral-primary;
+        background: $white;
+        border-radius: toRem(16);
+    
+        &-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: toRem(12);
+        
+            &-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                font-size: $font-size-lg;
+                font-weight: $font-weight-bold;
+                color: $neutral-primary;
+                @extend .fs-xl;
+        
+                &--optional {
+                font-size: $font-size-sm;
+                font-weight: $font-weight-normal;
+                color: $neutral-secondary;
+                @extend .fs-base;
+                }
+            }
+        }
+    
+        &-row {
+            display: flex;
+            justify-content: space-between;
+            gap: toRem(20);
+        
+            @include media-breakpoint-down(xs-3) {
+                flex-direction: column;
+            }
+        }
+    
+        &-title {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-bold;
+            color: $neutral-primary;
+            @extend .fs-xl;
+        }
+    
+        &-desc {
+            font-size: $font-size-base;
+            font-weight: $font-weight-normal;
+            color: $neutral-primary;
+            @extend .fs-base;
+        }
+    
+        &-icon {
+            display: flex;
+            gap: toRem(8);
+        }
+    }
+    &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    input,
+    textarea {
+        padding: toRem(13) toRem(16);
+    }
+
+    &-block {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: toRem(8);
+    }
+
+    &-row {
+        display: flex;
+        gap: toRem(24);
+    }
+
+    &-combobox {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background: $neutral-light;
+        border: toRem(1) solid $neutral-input;
+        border-radius: toRem(10);
+
+        &-separator {
+            height: toRem(32);
+            border-left: toRem(1) solid $neutral-input;
+        }
+
+        select,
+        input {
+            border: none;
+        }
+    }
+
+    &-banner {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        padding: toRem(16);
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(12);
+
+        &-icon {
+            display: flex;
+            align-items: center;
+            padding: toRem(12);
+            border: toRem(1) solid $neutral-separator;
+            border-radius: toRem(50);
+        }
+
+        &-text {
+            font-size: $font-size-base;
+            color: $neutral-primary;
+        }
+
+        &-link {
+            color: $green-01;
+        }
+    }
+    }
+    &__timer {
+        background: $blue-whale-05;
+        padding: toRem(24) 0;
+    
+        &-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: toRem(16);
+            font-size: $font-size-base;
+            font-weight: $font-weight-base;
+            color: $neutral-primary;
+            @extend .fs-base;
+        }
+    
+        &-countdown {
+            display: flex;
+            align-items: center;
+            gap: toRem(16);
+            color: $blue-whale-01;
+        }
+    
+        &-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: toRem(8);
+            padding: toRem(8);
+            background-color: $blue-whale-01;
+            border-radius: toRem(2);
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            color: $white;
+            @extend .fs-lg;
+        }
+    }
+    &__payment {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(16);
+    
+        input {
+            padding: toRem(13) toRem(16);
+        }
+    
+        &-block {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: toRem(8);
+        }
+    
+        &-row {
+            display: flex;
+            gap: toRem(24);
+        
+            @include media-breakpoint-down(xs-3) {
+                flex-direction: column;
+            }
+        }
+    
+        &-input {
+            position: relative;
+        
+            &--icon {
+                position: absolute;
+                right: toRem(16);
+                top: 50%;
+                transform: translateY(-50%);
+                color: $green-01;
+            }
+        }
+        &-option {
+            @include flex(row, center);
+            padding: toRem(16) toRem(24);
+            gap: toRem(16);
+            background: $white;
+            border: toRem(1) solid $neutral-input;
+            border-radius: toRem(12);
+        
+            .form-check-input {
+                position: relative;
+                margin: 0;
+                width: 20px;
+                height: 20px;
+                background-size: 100%;
+                top: unset;
+                padding: 10px;
+                transform: unset;
+            }
+            &-card {
+                font-size: $font-size-lg;
+                font-weight: $font-weight-bold;
+                color: $neutral-primary;
+            }
+            &-owner {
+                font-size: $font-size-sm;
+                font-weight: $font-weight-base;
+                color: $neutral-primary;
+            }
+        }
+        &-details {
+            @include flex(column, stretch);
+            padding: toRem(24);
+            gap: toRem(16);
+            border: toRem(1) solid $neutral-separator;
+            border-radius: toRem(16);
+    
+            &-header {
+                display: flex;
+                justify-content: space-between;
+                gap: toRem(16);
+        
+                &-col {
+                    display: flex;
+                    flex-direction: column;
+                    gap: toRem(4);
+                }
+                &-location {
+                    display: flex;
+                    gap: toRem(8);
+                    font-size: $font-size-base;
+                    font-weight: $font-weight-base;
+                    color: $neutral-secondary;
+                }
+                &-name {
+                    font-size: $font-size-xl;
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-primary;
+                }
+                &-price {
+                    font-size: $font-size-xl;
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-secondary;
+                }
+            }
+            &-facilities {
+                display: flex;
+                align-items: center;
+                gap: toRem(16);
+                font-size: $font-size-sm;
+                font-weight: $font-weight-base;
+                color: $neutral-secondary;
+        
+                &-box {
+                    display: flex;
+                    align-items: center;
+                    gap: toRem(12);
+                }
+        
+                &-dots {
+                    width: toRem(5);
+                    height: toRem(5);
+                    border-radius: toRem(100);
+                    background: $neutral-input;
+                }
+            }
+            &-guest {
+                display: flex;
+                gap: toRem(12);
+        
+                &-label {
+                    font-size: $font-size-base;
+                    font-weight: $font-weight-base;
+                    color: $neutral-subtle;
+                }
+                &-name {
+                    font-size: $font-size-base;
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-primary;
+                }
+            }
+        }
+    }
+    &__complete {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: toRem(24);
+        gap: toRem(32);
+        background: $white;
+        border-radius: toRem(16);
+        margin: auto;
+        width: fit-content;
+        min-width: toRem(540);
+        margin-top: toRem(40);
+        margin-bottom: toRem(80);
+        transform: translateY(50%);
+    
+        &-top {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: toRem(64);
+        
+            &-header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: toRem(24);
+            }
+        
+            &-image {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: toRem(12);
+                background: $success-surface;
+                border-radius: toRem(120);
+            }
+    
+            &-title {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: toRem(8);
+                color: $neutral-primary;
+        
+                &--name {
+                font-size: $font-size-xl;
+                font-weight: $font-weight-semibold;
+                color: $neutral-secondary;
+                @extend .fs-xl;
+                }
+            }
+    
+            &-buttons {
+                display: flex;
+                gap: toRem(12);
+                width: 100%;
+        
+                & > * {
+                width: 100%;
+                }
+            }
+        }
+    }
+    &__confirmation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: toRem(24);
+        gap: toRem(40);
+        padding-top: toRem(104);
+        margin-bottom: toRem(80);
+    
+        &-heading{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: toRem(32);
+            flex: 1 0 0;
+
+            &-icon{
+                padding: toRem(12);
+                border-radius: toRem(100);
+                background: $white;
+            }
+
+            &-text{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: toRem(8);
+
+                &--name{
+                    font-size: $font-size-xl;
+                    font-weight: $font-weight-semibold;
+                    color: $neutral-secondary;
+                }
+                h4{
+                    color: $neutral-primary;
+                    font-weight: $font-weight-bold;
+                }
+            }
+        }
+        &-card{
+            display: flex;
+            flex-direction: column;
+            background: $white;
+            border-radius: toRem(16);
+            width: toRem(360);
+            box-shadow: 0px 12px 44px 0px rgba(5, 44, 71, 0.08);
+            overflow: hidden;
+        
+            &-heading{
+                display: flex;
+                padding: toRem(16) toRem(24);
+                justify-content: space-between;
+                align-items: center;
+                background: $white;
+
+                p{
+                    font-size: $font-size-base;
+                    color: $neutral-primary
+                }
+            }
+
+            &-body{
+                display: flex;
+                padding: toRem(24);
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                gap: toRem(12);
+                background: $blue-whale-01;
+
+                h5{
+                    color: $white;
+                    font-weight: $font-weight-semibold;
+                }
+                p{
+                    font-size: $font-size-lg;
+                    color: $white;
+                    font-weight: $font-weight-base;
+                }
+            }
+        }
+    }
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+        &-total {
+            display: flex;
+            align-items: flex-start;
+            gap: toRem(16);
+            font-size: $font-size-base;
+            font-weight: $font-weight-bold;
+            color: $neutral-primary;
+            @extend .fs-base;
+        }
+    
+        &-price {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: toRem(4);
+        }
+    
+        &-details {
+            font-weight: $font-weight-base;
+        }
+    
+        @include media-breakpoint-down(xs-3) {
+            flex-direction: column;
+            gap: toRem(24);
+        }
+    }
+}

@@ -1,0 +1,827 @@
+input,
+textarea {
+  width: 100%;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: $neutral-light;
+  border: toRem(1) solid $neutral-input;
+  border-radius: toRem(10);
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  @extend .fs-base;
+}
+
+select {
+  position: relative;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: $neutral-light;
+  border: toRem(1) solid $neutral-input;
+  padding: toRem(13) toRem(16);
+  padding-right: toRem(32);
+  border-radius: toRem(10);
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  @extend .fs-base;
+  background-image: url("../../public/images/icons/arrow_down.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) center;
+  background-size: toRem(20);
+}
+
+label {
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  color: $neutral-secondary;
+  @extend .fs-base;
+}
+
+// Label
+.goform-label {
+  @extend .fs-base;
+  font-weight: 500;
+  color: $neutral-secondary;
+
+  &--text-bold {
+    color: $neutral-primary;
+    font-weight: 500;
+  }
+
+  &__caption {
+    color: $neutral-subtle;
+  }
+
+  
+}
+
+// Group
+.goform-group {
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Plus
+
+.goform-plus {
+  border: none;
+  background-color: $white;
+}
+
+// Alert
+.goform-alert {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background-color: $info-surface;
+  border-radius: 6px;
+  border-left: 6px solid $info-main;
+
+  p {
+    @extend .fs-sm;
+  }
+
+  &__company,
+  &__box {
+    display: flex;
+    padding: toRem(16) toRem(20);
+    gap: toRem(12);
+    background-color: $info-surface;
+    border-radius: 6px;
+    border-left: 6px solid $info-main;
+    height: fit-content;
+    margin-bottom: toRem(24);
+  }
+}
+
+.goform-alert-image {
+  margin-right: 1rem;
+}
+
+// check in
+
+.goform-check {
+  padding: toRem(24);
+  background-color: $green-06;
+  border: 1px solid $green-03;
+  border-radius: toRem(12);
+
+  &__content {
+    display: flex;
+    gap: toRem(20);
+    align-items: center;
+  }
+
+  &__icon {
+    background-color: $green-05;
+    padding: toRem(12);
+    border-radius: toRem(50);
+  }
+}
+
+// Tips
+
+.goform-tips--mini {
+  border: 1px solid $green-03;
+  background-color: $green-06;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+
+.goform-tips {
+  border: 1px solid $green-03;
+  background-color: $green-06;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  height: fit-content;
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  &__content-left {
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-down (lg) {
+      flex-direction: column;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__icon-property {
+    @include media-breakpoint-down(lg) {
+      height: fit-content;
+      width: fit-content;
+    }
+  }
+
+  &__icon {
+    padding: toRem(16);
+    background-color: $green-05;
+    border-radius: 100%;
+    margin-right: 1.25rem;
+    height: fit-content;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 1rem;
+      margin-right: 0;
+    }
+  }
+
+  &__text {
+    margin-right: 1.25rem;
+
+    @include media-breakpoint-down(sm) {
+      margin-right: 0;
+    }
+  }
+
+  &__text-title {
+    @extend .fs-xl;
+    margin-bottom: .5rem;
+  }
+
+  &__text-caption {
+    @extend .fs-lg;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__text-link {
+    @extend .fs-xl;
+    color: $green-01;
+    white-space: nowrap;
+  }
+
+  &__properties {
+    justify-content: space-between;
+  }
+}
+
+// Fields
+.goform-input {
+  background-color: $neutral-light;
+  font-weight: 400;
+
+  &--active {
+    background-color: $white !important;
+
+    &::placeholder {
+      color: $neutral-subtle;
+      font-weight: 400;
+    }
+  }
+
+  &__desc {
+    padding-bottom: toRem(124);
+  }
+
+  &--modal-block {
+    padding-bottom: toRem(88);
+  }
+
+  &--info-description {
+    padding-bottom: 7.5rem;
+  }
+
+  &::placeholder,
+  &::-moz-placeholder {
+    font-weight: 400;
+    color: $neutral-subtle;
+  }
+
+  &__opening {
+    @include media-breakpoint-down(md) {
+      min-width: toRem(80);
+    }
+    @include media-breakpoint-down(sm){
+      min-width: toRem(64);
+    }
+  }
+}
+
+.goform-input-help {
+  margin-top: .5rem;
+}
+
+.goform-select {
+  position: relative;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: $neutral-light;
+  border: toRem(1) solid $neutral-input;
+  padding: toRem(13) toRem(16);
+  padding-right: toRem(32);
+  border-radius: toRem(10);
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  @extend .fs-base;
+  background-image: url("../../public/images/icons/arrow_down.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) center;
+  background-size: toRem(20);
+
+  &--acc-setting {
+    background-image: url("../../public/images/icons/percent_icon.svg") !important;
+  }
+
+  &--date-birth {
+    background-image: url("../../public/images/icons/calendar_icon.svg") !important;
+  }
+
+  &-white{
+    background-color: $white !important;
+    color: $neutral-primary;
+    font-weight: 500;
+
+    option[disabled]:first-child {
+      color: $neutral-secondary !important;
+    }
+  }
+
+
+  &:focus {
+    box-shadow: none;
+  }
+
+}
+
+.goform-dollar {
+  @extend .fs-base;
+  background-color: $neutral-light;
+  padding: 0.3125rem 0.8rem 0.3215rem 0.2rem;
+  min-height: auto;
+  border: none;
+  color: $neutral-subtle;
+  font-weight: 400;
+  border-right: 1px solid $neutral-input;
+}
+
+
+.goform-dropdown-phone {
+  background-color: $neutral-light;
+  border: 1px solid $neutral-input;
+  padding: 0.3125rem 0.8rem;
+  border-radius: 10px;
+
+  > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: 0;
+  }
+
+  .dropdown-toggle {
+    @extend .fs-base;
+    background-color: $neutral-light;
+    padding: 0.3125rem 0.8rem;
+    min-height: auto;
+    border: none;
+    color: $neutral-subtle;
+    font-weight: 400;
+    border-right: 1px solid $neutral-input;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      color: $neutral-subtle;
+      background-color: $neutral-light;
+    }
+
+    &::after {
+      border: none;
+      content: url(../../assets/images/arrow_down.svg);
+    }
+  }
+
+  .form-control {
+    background-color: $neutral-light;
+    border: none;
+    padding: 0.3125rem 0.8rem;
+    color: $neutral-subtle;
+    @extend .fs-base;
+    font-weight: 400;
+
+    &--acc {
+      padding: 0.975rem 1rem !important;
+    }
+  }
+}
+
+// search input 
+
+.goform-search {
+  padding: toRem(13) toRem(16) !important;
+  background-color: $neutral-light;
+  border: none;
+  color: $neutral-subtle;
+  @extend .fs-base;
+  font-weight: 400;
+  border: 1px solid $neutral-input;
+  border-radius: toRem(10)
+}
+
+// Buttons
+.goform-button {
+  @extend .fs-base;
+  padding: 0.8125rem 1rem;
+  font-weight: 600;
+  border: 2px solid transparent;
+  border-radius: 10px;
+
+  &--fill-green {
+    background-color: $green-01;
+    color: $white;
+
+    &:hover {
+      background-color: $green-02;
+      color: $white;
+    }
+  }
+
+  &--fill-red {
+    background-color: $danger-main;
+    color: $white;
+
+    &:hover {
+      background-color: $danger-hover;
+    }
+  }
+
+  &--outline-green {
+    background-color: $white;
+    border-color: $green-01;
+    color: $neutral-primary;
+    transition: all .2s ease;
+
+    &:hover {
+      color: $white;
+      border-color: $green-01;
+      background-color: $green-01;
+    }
+  }
+
+  &--outline-grey {
+    border-color: $neutral-input;
+    color: $neutral-primary;
+    background-color: $neutral-light;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+
+  &--outline-red {
+    background-color: $white;
+    border-color: $danger-main;
+    color: $neutral-primary;
+
+    &:hover {
+      color: $danger-main;
+      border-color: $danger-main;
+      background-color: $danger-border;
+    }
+  }
+
+  &--outline-brown {
+    background-color: $neutral-subtle;
+    color: $white;
+    border-color: $neutral-subtle;
+
+    &:hover {
+      background-color: $neutral-secondary;
+      border-color: $neutral-secondary;
+      color: $white;
+    }
+  }
+}
+
+// icon close
+
+.goform-close {
+  padding: toRem(12);
+  border-radius: 120px;
+  background-color: #FFF9F9;
+}
+
+// live 
+.goform-live {
+  background-color: $white;
+  border: 2px solid $green-01;
+  padding: toRem(12) toRem(24);
+  display: flex;
+  align-items: center;
+  gap: toRem(10);
+  border-radius: toRem(8);
+  transition: all .2s ease;
+  height: fit-content;
+  width: fit-content;
+
+  &__green {
+    background-color: $green-01;
+    padding: toRem(14) toRem(28);
+    border: none;
+  }
+
+  &--borderless {
+    border: none;
+    padding: 0 !important;
+
+    &:hover {
+      background-color: $white !important;
+    }
+
+    @include media-breakpoint-down(xs-2) {
+      gap: 0 !important;
+    }
+  }
+
+  &:hover {
+    background-color: $neutral-separator;
+  }
+}
+
+//Notification
+.goform_notification {
+  background-color: #f8f8fd;
+  border: 1px solid $info-border;
+  border-radius: 12px;
+  padding: toRem(30) toRem(24);
+  margin-bottom: toRem(20);
+}
+
+// Info
+
+// Save Button
+.goform-save {
+  background-color: $green-01;
+  padding: toRem(12) toRem(28);
+  border-radius: 10px;
+  color: $white;
+  border: none;
+  height: fit-content;
+  font-weight: 600;
+}
+
+// Selections
+.goform-selection {
+  position: relative;
+  padding-left: 0;
+
+  &.form-check &__input {
+    position: absolute;
+    margin-left: 0;
+    left: 24px;
+  }
+
+  &.form-check &__input-terms {
+    left: 8px;
+    top: 14px;
+  }
+
+  &__label {
+    border: 1px solid $neutral-input;
+    border-radius: 12px;
+    padding: 1rem 1.5rem 1rem 3.5rem;
+  }
+
+  &__input:checked+&__label {
+    border-color: $green-01;
+  }
+}
+
+// Drag File Upload
+.goform-drag-upload {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='%231CB78DFF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='6' stroke-linecap='square'/%3e%3c/svg%3e");
+  border-radius: 30px;
+  margin-bottom: 1.5rem;
+
+  @include media-breakpoint-down(sm) {
+    padding: 1rem;
+  }
+
+  &__title {
+    @extend .fs-lg;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: .5rem;
+  }
+
+  &__caption {
+    @extend .fs-base;
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    display: flex;
+  }
+
+  &__button-icon {
+    margin-right: .625rem;
+  }
+}
+
+.goform-switches {
+  position: relative;
+}
+
+.goform-switches__check {
+  position: absolute;
+  left: -9999px;
+  counter-increment: switchCounter;
+
+  &::before {
+    content: counter(switchCounter);
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    font-weight: bold;
+    color: $white;
+  }
+}
+
+.goform-switches label {
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+}
+
+.goform-switches span:last-child {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  border-radius: 15px;
+  background-color: $green-01;
+  transition: all 0.3s;
+}
+
+.goform-switches span:last-child::before,
+.goform-switches span:last-child::after {
+  content: "";
+  position: absolute;
+}
+
+.goform-switches span:last-child::before {
+  left: 3px;
+  top: 1.2px;
+  width: 20px;
+  height: 20px;
+  background-color: $white;
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform 0.3s;
+  color: $white;
+}
+
+.goform-switches span:last-child::after {
+  top: 50%;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  background: url(../../public/images/icons/close_icon.svg);
+  color: $white;
+  background-size: 12px 12px;
+}
+
+.goform-switches [type="checkbox"]:checked+label span:last-child {
+  background-color: $green-01;
+}
+
+.goform-switches [type="checkbox"]:checked+label span:last-child::before {
+  transform: translateX(24px);
+}
+
+.goform-switches [type="checkbox"]:checked+label span:last-child::after {
+  width: 14px;
+  height: 14px;
+  left: 8px;
+  background-image: url(../../public/images/icons/check_white_icon.svg);
+  color: $white;
+  background-size: 14px 14px;
+}
+
+
+// Phone input style overrides  - react-phone-number-input
+.PhoneInput {
+  position: relative;
+
+  .PhoneInputCountry {
+    position: absolute;
+    width: toRem(64);
+    max-height: 100%;
+    z-index: 1;
+    top: toRem(8);
+    bottom: toRem(8);
+    left: toRem(16);
+
+    select {
+      appearance: none;
+      width: 100%;
+      height: 100%;
+      padding: 0 toRem(12) 0 toRem(16);
+      border-radius: 0;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-indent: 1px;
+      text-overflow: '';
+      opacity: 0;
+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    .PhoneInputSelectedValue {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      user-select: none;
+      pointer-events: none;
+      @extend .fs-base;
+      @extend .fw-semibold;
+      color: $neutral-subtle;
+      border-right: 1px solid $neutral-input;
+
+      &.HasValue {
+        color: $neutral-primary;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: toRem(12);
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.25 7.5L10 13.75L3.75 7.5' stroke='%239E9E9E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .PhoneInputCountryIcon {
+      display: none !important;
+    }
+  }
+
+  input {
+    @extend .form-control;
+    padding-left: toRem(92) !important;
+    background-color: $neutral-light;
+  }
+}
+
+
+// Select and input field
+.form-control-select-and-input {
+  position: relative;
+  @extend .form-control;
+  @include flex(row, center);
+
+  &:focus-within {
+    color: $neutral-primary;
+    border: 1px solid $green-01;
+    box-shadow: 0px 0px 4px rgba(28, 183, 141, 0.22);
+  }
+
+  .form-control-select {
+    position: relative;
+
+    select {
+      position: absolute;
+      top: 0;
+      right: toRem(12);
+      bottom: 0;
+      left: 0;
+      appearance: none;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-indent: 1px;
+      text-overflow: '';
+      opacity: 0;
+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    .form-control-selected {
+      padding-right: toRem(12);
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      @extend .fs-base;
+      @extend .fw-semibold;
+      color: $neutral-subtle;
+      border-right: 1px solid $neutral-input;
+      @include flex(row, center);
+
+      &.has-value {
+        color: $neutral-primary;
+      }
+
+      &::after {
+        content: '';
+        flex: none;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.25 7.5L10 13.75L3.75 7.5' stroke='%239E9E9E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-left: toRem(12);
+      }
+    }
+  }
+
+  input {
+    @extend .form-control;
+    margin-left: toRem(12);
+    flex: 1;
+    width: 100%;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+}

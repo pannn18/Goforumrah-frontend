@@ -1,0 +1,551 @@
+.admin-settings {
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(lg){
+      flex-direction: column;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+    max-width: toRem(326);
+    width: 100%;
+
+    @include media-breakpoint-down(lg){
+      max-width: none;
+    }
+  }
+
+  &__menu-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: toRem(20);
+    gap: toRem(16);
+    background: $blue-whale-01;
+    box-shadow: 0px toRem(4) toRem(20) rgba(5, 44, 71, 0.2);
+    border-radius: toRem(12);
+  }
+
+  &__menu-avatar {
+    display: flex;
+    align-items: center;
+    padding: toRem(10);
+    gap: toRem(10);
+    background: $blue-whale-02;
+    border-radius: toRem(100);
+    color: $white;
+  }
+
+  &__menu-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(4);
+  }
+
+  &__menu-text-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $white;
+  }
+
+  &__menu-text-email {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $white;
+  }
+
+  &__menu-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: toRem(16) toRem(20);
+    gap: toRem(10);
+    background: $white;
+    border-radius: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+
+    &.active {
+      background: $green-06;
+      font-weight: $font-weight-bold;
+      color: $green-01;
+    }
+  }
+
+  &__detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    padding: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+    width: 100%;
+  }
+
+  &__detail-content__notif {
+    @include flex(row, flex-start, space-between);
+    gap: toRem(32);
+    padding: toRem(24);
+    border-radius: toRem(16);
+    border: toRem(1) solid $neutral-separator;
+
+    @include media-breakpoint-down(xs-3){
+      padding: toRem(16);
+      gap: toRem(12);
+    }
+  }
+  &__detail-content__notif-toggle {
+    display: flex;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3){
+      margin-top: toRem(12);
+    }
+
+    input[type="checkbox"] {
+      padding: 0;
+      border: 0;
+      position: relative;
+      width: 40px;
+      height: 20px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: $neutral-input;
+      outline: none;
+      border-radius: 2rem;
+      cursor: pointer;
+
+      &::before {
+        content: "";
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: $white;
+        position: absolute;
+        top: toRem(2);
+        left: 8%;
+        transition: 0.5s;
+      }
+
+      &:checked {
+        background: $green-01;
+
+        &::before {
+          transform: translateX(108%);
+        }
+      }
+    }    
+  }
+  &__detail-content__notif-text{
+    @include flex(column, flex-start);
+    gap: toRem(8);
+    flex-grow: 1;
+  }
+  &__detail-content__notif-name{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__detail-content__notif-desc{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__detail-content__email{
+    @include flex(row, flex-start, space-between);
+    gap: toRem(32);
+    padding: toRem(24);
+    border-radius: toRem(16);
+    border: toRem(1) solid $neutral-separator;
+  }
+  &__detail-content__email-text{
+    @include flex(column, flex-start);
+    gap: toRem(8);
+    flex-grow: 1;
+  }
+  &__detail-content__email-name{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__detail-content__email-desc{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+  &__detail-content__email-select{
+    padding: toRem(13) toRem(16);    
+  }
+
+  &__detail-content__email-signature{
+    @include flex(row, flex-start);
+    gap: toRem(16);
+  }
+  &__detail-content__email-signature__text{
+    @include flex(column, flex-start);
+    gap: toRem(8);
+    max-width: toRem(205);
+  }
+  &__detail-content__email-signature__title{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__detail-content__email-signature__desc{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+  &__detail-content__email-signature__list{
+    @include flex(column, stretch);
+    max-width: toRem(182);
+    flex-grow: 1;
+  }
+  &__detail-content__email-signature__item{
+    padding: toRem(12) 0;
+    @include flex(row, center);
+    gap: toRem(10);
+
+    &.selected{
+      border-bottom: toRem(1) solid $green-01;      
+
+      .admin-settings__detail-content__email-signature__item-name{
+        color: $green-01;
+      }
+      .admin-settings__detail-content__email-signature__item-icon{
+        color: $green-01;
+      }
+    }
+  }
+  &__detail-content__email-signature__item-name{
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    flex-grow: 1;
+  }
+  &__detail-content__email-signature__item-icon{
+    width: toRem(16);
+    height: toRem(16);
+    color: $neutral-input;    
+  }
+  &__detail-content__email-signature__list-button{
+    padding: toRem(12) 0;
+    @include flex(row, center, center);
+    gap: toRem(10);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $green-01;
+    background: transparent;
+    border: none;
+  }
+  &__detail-content__email-signature__divider{
+    border-right: toRem(1) solid $neutral-input;
+    height: 100%;
+  }
+  &__detail-content__email-signature__reason{
+    flex-grow: 1;
+
+    textarea{
+      padding: toRem(12);
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(10);
+      background: $neutral-light;
+    }
+  }
+
+  &__account-content{
+    margin: 0 auto;
+    padding: toRem(24);
+    border-radius: toRem(16);
+    background: $white;
+    max-width: toRem(812);
+  }
+  &__account-content__header{
+    @include flex(row, flex-start, space-between);
+    gap: toRem(24);
+  }
+  &__account-content__header-text{
+    @include flex(row, center);
+    gap: toRem(16);
+
+    h4{
+      color: $neutral-primary;
+    }
+  }
+  &__account-content__header-chips{
+    padding: toRem(3) toRem(16);
+    @include flex(row, center, center);
+    border-radius: toRem(32);
+    background: $success-main;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $white;
+  }
+  &__account-profile{
+    @include flex(row, flex-start);
+    gap: toRem(24);
+    padding: toRem(24) 0;
+  }
+  &__account-profile__picture{
+    border-radius: toRem(16);
+  }
+  &__account-profile__content{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(16);
+    flex-grow: 1;
+  }
+  &__account-profile__content-label{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__account-profile__content-desc{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+}
+
+
+.admin-business-settings {
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(16);
+    background: $white;
+    border-radius: toRem(16);
+    max-width: toRem(326);
+    width: 100%;
+
+    @include media-breakpoint-down(lg){
+      max-width: none;
+    }
+  }
+
+  &__menu-desc {
+    width: 100%;
+  }
+
+  &__menu-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: toRem(20);
+    gap: toRem(16);
+    background: $blue-whale-01;
+    box-shadow: 0px toRem(4) toRem(20) rgba(5, 44, 71, 0.2);
+    border-radius: toRem(12);
+  }
+
+  &__menu-avatar {
+    display: flex;
+    align-items: center;
+    padding: toRem(10);
+    gap: toRem(10);
+    background: $blue-whale-02;
+    border-radius: toRem(100);
+    color: $white;
+  }
+
+  &__menu-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(4);
+  }
+
+  &__menu-text-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $white;
+  }
+
+  &__menu-text-email {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $white;
+  }
+
+  &__menu-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: toRem(16) toRem(20);
+    gap: toRem(10);
+    background: $white;
+    border-radius: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+
+    .admin-business-settings__menu-item--icon {
+      color: $neutral-subtle;
+    }
+
+    &.active {
+      background: $neutral-light;
+      font-weight: $font-weight-bold;
+      color: $blue-whale-01;
+
+      .admin-business-settings__menu-item--icon {
+        color: $green-01 !important;
+      }
+    }
+
+    &--arrow {
+      color: $blue-whale-04;
+    }
+  }
+
+  &__detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+    width: 100%;
+  }
+
+  &__detail-content__header {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+  }
+
+  &__detail-content__header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);
+  }
+
+  &__detail-content__header-row--divider {
+    border-left: toRem(1) solid $neutral-separator;
+  }
+
+  &__detail-content__header-row {
+    display: flex;
+    gap: toRem(16);
+
+    p {
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+    }
+  }
+
+  &__detail-content__header-text--subtitle {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__detail-content__header-chips {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: toRem(3) toRem(16);
+    background-color: $success-main;
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    @extend .fs-base;
+  }
+
+  &__detail-content__header-divider {
+    border-left: toRem(1) solid $neutral-separator;
+    height: toRem(34);
+  }
+
+  &__detail-content__header-link {
+    font-size: $font-size-xl;
+    color: $green-01;
+  }
+
+  &__detail-content__header-button {
+    margin-left: auto;
+  }
+
+  &__detail-content__dropdown {
+    display: flex;
+    align-items: center;
+    padding: toRem(12) toRem(16);
+    gap: toRem(12);
+    border-bottom: toRem(1) solid $neutral-separator;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+
+    &:last-child {
+      border: none;
+      color: $danger-main;
+    }
+  }
+
+  &__detail-content__divider {
+    border-top: toRem(1) solid $neutral-separator;
+  }
+
+  &__detail-profile {
+    display: flex;
+    gap: toRem(24);
+  }
+
+  &__detail-profile__picture {
+    border-radius: toRem(8);
+  }
+
+  &__detail-profile__content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(24) toRem(8);
+    flex: 1 1 0;
+  }
+
+  &__detail-profile__content-label {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+    margin-bottom: toRem(4);
+  }
+
+  &__detail-profile__content-desc {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+}

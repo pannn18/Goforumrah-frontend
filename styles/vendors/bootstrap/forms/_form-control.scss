@@ -1,0 +1,126 @@
+.form-control-field {
+  position: relative;
+  cursor: pointer;
+
+  select {
+    cursor: pointer;
+  }
+
+  &--error {
+    &:not(.form-control-field--has-icon)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: toRem(16);
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.99996 3.33335C6.31806 3.33335 3.33329 6.31812 3.33329 10C3.33329 13.6819 6.31806 16.6667 9.99996 16.6667C13.6819 16.6667 16.6666 13.6819 16.6666 10C16.6666 6.31812 13.6819 3.33335 9.99996 3.33335ZM1.66663 10C1.66663 5.39765 5.39759 1.66669 9.99996 1.66669C14.6023 1.66669 18.3333 5.39765 18.3333 10C18.3333 14.6024 14.6023 18.3334 9.99996 18.3334C5.39759 18.3334 1.66663 14.6024 1.66663 10Z' fill='%23CA3232'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.99996 5.41669C10.4602 5.41669 10.8333 5.78978 10.8333 6.25002V10.625C10.8333 11.0853 10.4602 11.4584 9.99996 11.4584C9.53972 11.4584 9.16663 11.0853 9.16663 10.625V6.25002C9.16663 5.78978 9.53972 5.41669 9.99996 5.41669Z' fill='%23CA3232'/%3E%3Cpath d='M10 14.375C10.5178 14.375 10.9375 13.9553 10.9375 13.4375C10.9375 12.9197 10.5178 12.5 10 12.5C9.48223 12.5 9.0625 12.9197 9.0625 13.4375C9.0625 13.9553 9.48223 14.375 10 14.375Z' fill='%23CA3232'/%3E%3C/svg%3E%0A");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &:not(.form-control-select-and-input) {
+
+      .form-control,
+      input,
+      textarea,
+      select {
+        border: 1px solid $danger-main !important;
+        padding-right: toRem(46);
+      }
+
+      .form-control-icon {
+        color: $danger-main;
+      }
+    }
+
+    &.form-control-select-and-input {
+      border: 1px solid $danger-main !important;
+      padding-right: toRem(46);
+    }
+  }
+
+  &--success {
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: toRem(16);
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.2917 2.5H9.45837C5.31624 2.5 1.95837 5.85786 1.95837 10C1.95837 14.1421 5.31623 17.5 9.45837 17.5H10.2917C14.4338 17.5 17.7917 14.1421 17.7917 10C17.7917 5.85786 14.4338 2.5 10.2917 2.5Z' fill='white'/%3E%3Cpath d='M10 1.875C8.39303 1.875 6.82214 2.35152 5.486 3.24431C4.14985 4.1371 3.10844 5.40605 2.49348 6.8907C1.87852 8.37535 1.71762 10.009 2.03112 11.5851C2.34463 13.1612 3.11846 14.6089 4.25476 15.7452C5.39106 16.8815 6.8388 17.6554 8.4149 17.9689C9.99099 18.2824 11.6247 18.1215 13.1093 17.5065C14.594 16.8916 15.8629 15.8502 16.7557 14.514C17.6485 13.1779 18.125 11.607 18.125 10C18.1225 7.84588 17.2657 5.7807 15.7425 4.25751C14.2193 2.73431 12.1541 1.87749 10 1.875ZM13.8696 8.57727L9.28589 12.9523C9.16935 13.0632 9.01463 13.125 8.85376 13.125C8.69289 13.125 8.53818 13.0632 8.42164 12.9523L6.13037 10.7648C6.01067 10.6501 5.94137 10.4926 5.9377 10.3269C5.93403 10.1612 5.99629 10.0008 6.11081 9.88092C6.22532 9.76107 6.38272 9.69157 6.54844 9.68769C6.71416 9.68381 6.87464 9.74587 6.99463 9.86023L8.85376 11.6357L13.0054 7.67273C13.1254 7.55837 13.2859 7.49631 13.4516 7.50019C13.6173 7.50407 13.7747 7.57357 13.8892 7.69342C14.0037 7.81327 14.066 7.97367 14.0623 8.13939C14.0586 8.30512 13.9893 8.46261 13.8696 8.57727Z' fill='%2374CC50'/%3E%3C/svg%3E%0A");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &:not(.form-control-select-and-input) {
+
+      .form-control,
+      input,
+      textarea,
+      select {
+        border: 1px solid $success-main !important;
+        padding-right: toRem(46);
+      }
+
+      .form-control-icon {
+        display: none !important;
+      }
+    }
+
+    &.form-control-select-and-input {
+      border: 1px solid $success-main !important;
+      padding-right: toRem(46);
+    }
+  }
+}
+
+.form-control {
+  position: relative;
+  font-weight: $font-weight-base;
+  color: $neutral-primary;
+
+  &::placeholder {
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &:focus {
+    color: $neutral-primary;
+    border: 1px solid $green-01;
+    box-shadow: 0px 0px 4px rgba(28, 183, 141, 0.22);
+  }
+}
+
+.form-control-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: toRem(16);
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &~.form-control-field .form-control {
+    padding-right: toRem(46);
+  }
+}
+
+.form-control-message {
+  @extend .fs-sm;
+  color: $neutral-subtle;
+  margin-top: toRem(4);
+
+  &--error {
+    color: $danger-main;
+  }
+
+  &--success {
+    color: $success-main;
+  }
+}

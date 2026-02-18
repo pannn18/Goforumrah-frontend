@@ -1,0 +1,605 @@
+// Initialize first
+@import "../init";
+
+.search-flight {
+
+  &__breadcrumb{
+    display: none;
+    gap: toRem(16);
+    padding: toRem(24) 0;
+    padding-top: 0;
+    font-size: $font-size-base;
+    color: $green-01;
+    font-weight: $font-weight-base;
+
+    @include media-breakpoint-down(xl-1){
+      display: flex;
+    }
+    
+    &--link{
+      font-weight: $font-weight-semibold;
+      color: $green-01;
+    }
+    &--current{
+      color: $neutral-subtle;
+    }
+  }
+  .search-flight-header {
+    background-color: $white;
+    border-bottom: 1px solid $neutral-separator;
+
+    @include media-breakpoint-down(xl-1){
+      padding-top: toRem(24);
+    }
+
+    @include media-breakpoint-down(lg){
+      padding: toRem(24) 0;
+    }
+
+    &__inner {
+      @include flex(row, stretch);
+
+      @include media-breakpoint-down(lg){
+        @include flex(column, stretch);
+        padding: toRem(20);
+        border-radius: toRem(16);
+        border: toRem(1) solid $neutral-input;
+      }
+    }
+
+    &__flight {
+      @include flex(row, center);
+      gap: toRem(18);
+      padding: toRem(20) toRem(32) toRem(20) 0;
+      border-right: 1px solid $neutral-separator;
+      margin-right: toRem(32);
+    }
+
+    &__flight-brand {
+      padding: toRem(6);
+      @include flex(column, center, center);
+      border: 1px solid $neutral-separator;
+      border-radius: toRem(4);
+      width: 72px;
+      height: 36px;
+      margin-bottom: toRem(8);
+
+      img {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+      }
+    }
+
+    &__details {
+      flex: 1;
+      padding: toRem(24) toRem(32) toRem(24) 0;
+      @include flex(row, center);
+      gap: toRem(20);
+
+      @include media-breakpoint-down(lg){
+        @include flex(column, stretch);
+        padding: 0;
+        gap: toRem(16);
+      }
+    }
+
+    &__route {
+      @include flex(row, center);
+    }
+
+    &__route-icon {
+      width: 56px;
+      height: 56px;
+      @include flex(row, center, center);
+      margin-right: toRem(20);
+
+      .react-svg {
+        width: 24px;
+        height: 24px;
+        color: $green-01;
+      }
+    }
+
+    &__route-header {
+      @extend .fs-lg;
+      @extend .fw-bold;
+      color: $primary;
+      margin-bottom: toRem(8);
+    }
+
+    &__route-details {
+      @include flex(row, center);
+      gap: toRem(12);
+      @extend .fw-semibold;
+      color: $primary;
+    }
+
+    &__field {
+      @include flex(column);
+      gap: toRem(12);
+    }
+
+    &__field-header {
+      color: $neutral-subtle;
+    }
+
+    &__field-details {
+      @include flex(row, center);
+      gap: toRem(12);
+      @extend .fw-semibold;
+      color: $primary;
+      white-space: nowrap;
+
+      @include media-breakpoint-down(sm){
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    &__field-details-date{
+      @include flex(row, center);
+      gap: toRem(12);
+
+      .search-flight-header__field-details-bullet{
+        @include media-breakpoint-down(sm){
+          display: block;
+        }
+      }
+    }
+
+    &__field-details-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: $neutral-separator;
+
+      @include media-breakpoint-down(sm){
+        display: none;
+      }
+    }
+
+    &__return-description {
+      @include flex(row, center, center);
+      padding: toRem(20) toRem(32);
+      border-left: 1px solid $neutral-separator;
+      @extend .fs-lg;
+      @extend .fw-bold;
+      color: $green-01;
+    }
+
+    &__cta {
+      @include flex(row, center, center);
+      padding: toRem(20) 0 toRem(20) toRem(32);
+      border-left: 1px solid $neutral-separator;
+
+      button {
+        padding: toRem(20) toRem(40);
+      }
+
+      @include media-breakpoint-down(xl-1){
+        border-left: none;
+      }
+      @include media-breakpoint-down(lg){
+        display: block;
+        border-left: none;
+        padding-left: unset;
+      }
+    }
+
+    &__separator {
+      align-self: stretch;
+      width: 1px;
+      background-color: $neutral-separator;
+
+      @include media-breakpoint-down(lg){
+        height: toRem(1);
+        width: 100%;
+      }
+    }
+  }
+
+  .flight-list {
+    @include flex(column, stretch);
+    gap: toRem(16);
+  }
+
+  .flight-card {
+    @include flex(row, stretch);
+    border: 1px solid $neutral-input;
+    border-radius: toRem(16);
+    background: $white;
+
+    @include media-breakpoint-down(xl){
+      @include flex(column, stretch);
+    }
+
+    &__brand {
+      padding: toRem(24);
+      @include flex(column, center);
+      gap: toRem(8);
+      border-right: 1px solid $neutral-input;
+      width: toRem(200);
+
+      @include media-breakpoint-down(xxl){
+        width: unset;
+      }
+    }
+
+    &__brand-name {
+      color: $neutral-primary;
+      font-weight: $font-weight-semibold;
+    }
+
+    &__brand-image {
+      flex: 1;
+      @include flex(column, center, center);
+
+      img {
+        width: 100%;
+        height: auto;
+        max-height: 40px;
+      }
+    }
+
+    &__routes {
+      padding: toRem(24) toRem(40);
+      @include flex(row, center);
+      gap: toRem(40);
+
+      @include media-breakpoint-down(xl){
+        padding: toRem(24);
+      }
+    }
+
+    &__route-details {
+      @include flex(row, center);
+      gap: toRem(4);
+    }
+
+    &__route-details-inner {
+      min-width: toRem(57);
+      position: relative;
+      @include flex(column, center);
+      gap: toRem(8);
+    }
+
+    &__route-details-duration {
+      @extend .fs-sm;
+      @extend .fw-semibold;
+      color: $primary;
+    }
+
+    &__route-details-line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $primary;
+    }
+
+    &__route-details-transit {
+      @extend .fs-sm;
+      color: $neutral-subtle;
+    }
+
+    &__route-details-icon {
+      color: $primary;
+    }
+
+    &__route-time {
+      @extend .fs-xl;
+      @extend .fw-bold;
+      color: $primary;
+    }
+
+    &__route-code {
+      @extend .fs-lg;
+      @extend .fw-semibold;
+      color: $blue-whale-03;
+      text-transform: uppercase;
+      margin-top: toRem(8);
+    }
+
+    &__details {
+      flex: 1;
+      padding: toRem(24);
+      @include flex(column, stretch, center);
+      gap: toRem(20);
+      border-left: 1px solid $neutral-input;
+      width: toRem(320);
+
+      @include media-breakpoint-down(xl){
+        width: unset;
+        border-left: unset;
+        border-top: 1px solid $neutral-input;
+      }
+    }
+
+    &__details-top {
+      @include flex(row, center, space-between);
+      gap: toRem(16);
+    }
+
+    &__details-facilities {
+      @include flex(row, center);
+      gap: toRem(12);
+      padding-right: toRem(16);
+      border-right: 1px solid $neutral-separator;
+      color: $neutral-subtle;
+
+      .svg-icon {
+        width: 20px;
+        height: 20px;
+        color: $neutral-secondary;
+      }
+    }
+
+    &__details-price {
+      @include flex(row, center, flex-start, wrap);
+      gap: toRem(4);
+      white-space: nowrap;
+
+      & > *:first-child {
+        @extend .fs-xl;
+        @extend .fw-bold;
+        color: $primary;
+      }
+    }
+
+    &__details-buttons {
+      @include flex(row, center, center);
+      gap: toRem(16);
+
+      & > * {
+        flex: 1;
+      }
+    }
+  }
+
+  .flight-details-modal {
+    &__header-caption {
+      margin-top: toRem(8);
+    }
+
+    .flight-details {
+      &__item {
+        position: relative;
+        @include flex(row);
+        gap: toRem(32);
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 72px;
+          transform: translate(-50%, -50%);
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background-color: $green-01;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: -32px;
+          left: 72px;
+          transform: translate(-12.5%, 0%);
+          width: 2px;
+          border-left: 1px dashed $green-01;
+        }
+
+        &--solid-line {
+          &::after {
+            border-left-style: solid;
+          }
+        }
+
+        &:last-child {
+          &::after {
+            content: unset;
+          }
+        }
+
+        &:not(:last-child) {
+          margin-bottom: toRem(32);
+        }
+      }
+
+      &__item-left {
+        flex: 0 0 auto;
+        width: 64px;
+      }
+
+      &__item-right {
+        flex: 1;
+        @include flex(row, flex-start, space-between);
+        gap: toRem(32);
+      }
+
+      &__time {
+        @extend .fs-xl;
+        @extend .fw-bold;
+        color: $neutral-primary;
+      }
+
+      &__date {
+        @extend .fs-lg;
+        @extend .fw-semibold;
+        color: $neutral-secondary;
+        margin-top: toRem(8);
+      }
+
+      &__airport-name {
+        @extend .fw-bold;
+        color: $neutral-primary;
+      }
+
+      &__airport-description {
+        color: $neutral-secondary;
+        margin-top: toRem(4);
+      }
+
+      &__facilities {
+        margin-top: toRem(32);
+        @include flex(row, center);
+        gap: toRem(12);
+      }
+
+      &__facility {
+        @include flex(row, center);
+        gap: toRem(8);
+        @extend .fs-sm;
+        color: $neutral-secondary;
+
+        &--large {
+          @extend .fs-base;
+        }
+
+        .react-svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      &__optional-description {
+        @include flex(row, center);
+        gap: toRem(8);
+        @extend .fs-sm;
+        color: $neutral-subtle;
+        margin-top: toRem(32);
+
+        .react-svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      &__flight {
+        @include flex(row, flex-start);
+        gap: toRem(8);
+      }
+
+      &__flight-brand {
+        padding: toRem(6);
+        @include flex(column, center, center);
+        border: 1px solid $neutral-separator;
+        border-radius: toRem(4);
+        width: 72px;
+        height: 36px;
+        margin-bottom: toRem(8);
+
+        img {
+          width: 100%;
+          height: auto;
+          max-height: 100%;
+        }
+      }
+
+      &__flight-code {
+        @extend .fw-semibold;
+        color: $neutral-primary;
+      }
+
+      &__flight-class {
+        @extend .fs-sm;
+        color: $neutral-secondary;
+      }
+    }
+
+    .price-details {
+      &__title {
+        @extend .fs-lg;
+        @extend .fw-semibold;
+        color: $neutral-subtle;
+
+        &--main {
+          @extend .fw-bold;
+          color: $neutral-primary;
+        }
+      }
+
+      &__value {
+        @extend .fs-lg;
+        @extend .fw-bold;
+        color: $neutral-primary;
+      }
+
+      & > *:not(:last-child) {
+        margin-bottom: toRem(16);
+      }
+    }
+
+    .other-information {
+      @include flex(column, stretch);
+      gap: toRem(32);
+
+      &__title {
+        @extend .fs-lg;
+        @extend .fw-bold;
+        color: $neutral-primary;
+        margin-bottom: toRem(32);
+      }
+
+      &__content {
+        @include flex(row);
+        gap: toRem(16);
+      }
+
+      &__content-title {
+        @extend .fw-bold;
+        color: $neutral-primary;
+        flex: 0 0 auto;
+        width: 20%;
+      }
+
+      &__content-description {
+        flex: 1;
+      }
+    }
+
+    .modal-header {
+      align-items: flex-start;
+      border: none;
+      padding-bottom: 0;
+    }
+
+    .modal-footer {
+      @include flex(row, center, space-between);
+      gap: toRem(16);
+      border: none;
+
+      .price {
+        @include flex(row);
+
+        &__title {
+          font-weight: $font-weight-bold;
+          color: $neutral-primary;
+          margin-right: toRem(16);
+        }
+
+        &__value {
+          color: $neutral-primary;
+        }
+
+        &__description {
+          color: $neutral-subtle;
+          margin-top: toRem(4);
+        }
+      }
+
+      .btn {
+        padding-right: toRem(40);
+        padding-left: toRem(40);
+      }
+    }
+
+    .modal-title {
+      @include flex(row, center);
+      gap: toRem(12);
+      color: $primary;
+    }
+  }
+}

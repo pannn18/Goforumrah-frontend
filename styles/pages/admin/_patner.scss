@@ -1,0 +1,1780 @@
+.admin-partner{
+  display: flex;
+  flex-direction: column;
+  gap: toRem(16);
+
+  &__wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border-radius: toRem(12);
+
+    @include media-breakpoint-down(xl-1) {
+      overflow: auto;
+    }
+  }
+
+  &__summary{
+    display: grid;
+    gap: toRem(16);
+    grid-template-columns: repeat(3, 1fr);
+
+    @include media-breakpoint-down(lg) {
+        display: grid;
+        gap: toRem(16);
+        grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  &__summary-box{
+    display: flex;
+    flex-direction: column;
+    padding: toRem(16);
+    gap: toRem(20);
+    background: $white;
+    border-radius: toRem(12);
+  }
+  &__summary-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: toRem(20);
+  }
+  &__summary-header-text{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__summary-header-icon{
+    color: $green-01;
+  }
+  &__summary-content-value{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__summary-content-recap{
+    display: flex;
+    align-items: center;
+    gap: toRem(4);
+
+    &--success{
+      color: $success-main;
+    }
+
+    &--danger{
+      color: $danger-main;
+    }
+
+    &--text{
+      font-size: $font-size-sm;
+      font-weight: $font-size-base;
+    }
+  }
+  
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include media-breakpoint-down(lg){
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(24);
+    }
+  }
+  &__header-split{
+    display: flex;
+    align-items: center;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(lg){
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(16);
+    }
+
+    @include media-breakpoint-down(md){
+      width: 100%;
+    }
+  }
+  &__header-separator{
+    height: toRem(53);
+    border-left: toRem(1) solid $neutral-separator;
+
+    @include media-breakpoint-down(lg){
+      display: none
+    }
+  }
+  &__header-tab-menu {
+    @include flex(row, stretch, center);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
+    @include media-breakpoint-down(md){
+      overflow-x: scroll;
+      max-width: toRem(452);
+    }
+    @include media-breakpoint-down(sm){
+      max-width: toRem(400);
+    }
+    @include media-breakpoint-down(xs-3){
+      max-width: toRem(287);
+    }
+    @include media-breakpoint-down(xs-2){
+      max-width: toRem(232);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 1px;
+      background-color: $neutral-separator;
+      left: 0;
+      bottom: 0;
+    }
+
+    & > * {
+      border-radius: 0;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid $neutral-input;
+      padding: toRem(16) toRem(32);
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $blue-whale-01;
+      flex-grow: 1;
+
+      &:not(.active):hover {
+        background-color: shade-color(transparent, $btn-hover-bg-shade-amount);
+      }
+
+      &.active {
+        font-weight: $font-weight-bold;
+        color: $green-01;
+        border-bottom: 2px solid $green-01;
+      }
+    }
+  }
+  &__header-search {
+    position: relative;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }  
+
+    input {
+      height: 40px;
+      width: 320px;
+      padding-left: toRem(46);
+      background: $neutral-light;
+    }
+
+    .react-svg {
+      width: 20px;
+      height: 20px;
+      color: $neutral-subtle;
+      position: absolute;
+      left: toRem(16);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &__table-option{
+    @include flex(row, center, flex-end);
+
+    &-details{
+      @include flex(row, center);
+      padding: toRem(8) toRem(12);
+      border: toRem(1) solid $neutral-subtle;
+      color: $neutral-primary;
+      font-weight: $font-weight-semibold;
+      gap: toRem(12);
+      border-radius: toRem(8);
+      cursor: pointer;
+    }
+  }
+  &__dropdown-menu-option{
+    padding: toRem(12) toRem(16);
+    color: $green-01;
+  }
+  &__dropdown-menu-option {
+    padding: toRem(12) toRem(16);
+
+    &-details {
+      @include flex(row, center);
+      color: $neutral-primary;
+      font-weight: $font-weight-semibold;
+      gap: toRem(12);
+
+      p {
+        width: 100%;
+        max-width: toRem(91);
+      }
+    }
+
+    &-delete {
+      @include flex(row, center);
+      color: $danger-main;
+      font-weight: $font-weight-semibold;
+      gap: toRem(12);
+
+      p {
+        width: 100%;
+        max-width: toRem(91);
+      }
+    }
+  }
+
+  &__content{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(sm) {
+      max-width: toRem(500);
+      overflow: auto;
+    }
+  }
+  &__table{
+    border: none;
+    background: transparent;
+  }
+  &__table-list{
+    border-bottom: toRem(1) solid $neutral-separator;
+
+    &>th{
+      padding: toRem(16) toRem(17);  
+      font-size: $font-size-base;
+      font-weight: 700;
+      color: $neutral-primary;
+    }
+    &>td{
+      padding: toRem(16) toRem(17);  
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+
+      @include media-breakpoint-down(xl){
+        white-space: nowrap;
+      }
+    }
+  }
+  &__table-list--center{
+    text-align: center;
+  } 
+  &__table-list--icon{
+    display: flex;
+    align-items: center;
+    gap: toRem(8);
+  }
+  &__table-list--room{
+    justify-content: center;
+  }
+  &__table-list--col{
+    @include flex(column, flex-start);
+    gap: toRem(4);
+  }
+  &__table-list--col-desc{
+    font-weight: $font-weight-base;    
+  }
+  &__table-list--truncate{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: toRem(135);
+    overflow: hidden;
+  }
+  &__table-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: toRem(3) toRem(16);
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    width: fit-content;
+    margin: 0 auto;
+
+    &--paid{background: $success-main;}
+    &--waiting{background: $warning-main;}
+    &--canceled{background: $danger-main;}
+    &--ongoing{background: $info-main;}
+  }
+  &__table-link{
+    color: $green-01;
+  }
+  &__table-dropdown{
+    border: none;
+    padding: 0;
+  }
+
+  &__table-dropdown--hotel {
+    border: none;
+    padding: 0;
+    max-width: toRem(20);
+    margin-left: auto;
+    cursor: pointer;
+  }
+  
+  &__detail{
+    background: $neutral-light;    
+  }
+  &__detail-header{
+    background: $white;
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+  &__detail-header-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: toRem(20) 0;    
+  }
+  &__detail-header-back{
+    display: flex;
+    align-items: center;
+    gap: toRem(24);
+
+    &--icon{
+      color: $green-01;
+    }
+  }
+  &__detail-header-buttons{
+    display: flex;
+    gap: toRem(24);
+  }
+
+  &__detail-content{
+    @include flex(row, flex-start);    
+    gap: toRem(24);        
+    @include media-breakpoint-down(xl){
+      flex-direction: column;
+    }
+  }
+  &__detail-split{
+    @include flex(column, stretch);    
+    gap: toRem(24);
+    padding: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+
+    @include media-breakpoint-down(sm){
+      padding: toRem(16);
+    }
+
+    &--main{
+      flex-grow: 1;
+      max-width: toRem(769);
+    }
+
+    &--right{
+      background: transparent;
+      padding: 0;
+      min-width: toRem(406);
+      @include media-breakpoint-down(xl){
+        width: 100%;
+      }
+      @include media-breakpoint-down(xs-3){
+        min-width: unset;
+      }
+    }
+  }
+  &__detail-hotel{
+    @include flex(row, flex-start);    
+    gap: toRem(24);       
+    @include media-breakpoint-down(md){
+      flex-direction: column;
+    }
+  }
+  &__detail-hotel__content{
+    @include flex(column, stretch);    
+    gap: toRem(16);
+    width: 100%;
+  }
+  &__detail-hotel__row{    
+    @include flex(row, stretch);    
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md){
+      flex-wrap: wrap;
+    }
+  }
+  &__detail-hotel__col{    
+    @include flex(column, flex-start, space-between);
+    height: toRem(56);
+    flex: 1 1 auto;
+  }
+  &__detail-hotel__content-code{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+
+    &--divider{
+      border-left: toRem(1) solid $neutral-separator;
+      height: 100%;
+    }
+  }
+  &__detail-hotel__image{
+    border-radius: toRem(8);
+    position: relative;
+
+    &-src{
+      border-radius: toRem(8);
+      object-fit: cover;
+  
+      @include media-breakpoint-down(md){
+        width: 100%;      
+      }
+    }
+    &-button{
+      position: absolute;
+      padding: 0;
+      top: toRem(-12);
+      right: toRem(-12);
+      border-radius: toRem(50);
+      background: $neutral-light;
+      border: none;
+      outline: none;
+      color: $danger;
+      display: none;
+
+      &.show{
+        display: block;
+      }
+    }
+  }
+  &__detail-hotel__name{
+    color: $neutral-primary;
+  }
+  &__detail-hotel__content-inner{
+    @include flex(row, center);
+    gap: toRem(12);
+  }
+  &__detail-hotel__content-label{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__detail-hotel__content-star{    
+    color: $minion-yellow
+  }
+  &__detail-hotel__content-text{
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+  &__detail-hotel__content-icon--star{
+    color: $warning-main;    
+  }
+  &__detail-hotel__content-chips{    
+    @include flex(row, center, center);    
+    padding: toRem(3) toRem(16);
+    background-color: $success-main;
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    white-space: nowrap;
+    @extend .fs-base;   
+  }
+  &__detail-hotel__content-buttons{
+    flex: 1 1 auto;
+
+    @include media-breakpoint-down(xs-3){
+      padding: toRem(12) toRem(20);
+    }
+  }
+
+  &__detail-hotel__action{
+    @include flex(row);
+    gap: toRem(16);
+  }
+  &__detail-hotel__action-button{    
+
+    &.btn-success {
+      background-color: $success-main;
+      border: $success-main;
+
+      .react-svg {
+        svg {
+          color: $success-main;
+        }
+      }
+    }
+  }
+
+  &__detail-hotel__monthly{
+    @include flex(column, stretch);
+    padding: toRem(24);
+    gap: toRem(20);
+    background: $white;
+    border-radius: toRem(12);
+  }
+  &__detail-hotel__monthly-title{
+    color: $neutral-primary;
+  }
+  &__detail-hotel__monthly-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(20);
+    @include media-breakpoint-down(xs-3){
+      grid-template-columns: repeat(1, 1fr);
+      gap: toRem(16);
+    }
+  }
+  &__detail-hotel__monthly-box{
+    @include flex(column, stretch);
+    gap: toRem(40);
+    padding: toRem(12);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+  &__detail-hotel__monthly-box-label{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__detail-hotel__monthly-box-content{
+    @include flex(row, flex-start, space-between);
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;    
+  }
+  &__detail-hotel__monthly-box-icon{    
+    color: $green-01;
+    &--cancel{
+      color: $danger-main;
+    }
+  }
+  &__detail-hotel__owner{
+    @include flex(column, stretch);
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+  }
+  &__detail-hotel__owner-header{
+    @include flex(row, center, space-between);
+  }
+  &__detail-hotel__owner-header-title{
+    color: $neutral-primary;
+  }
+  &__detail-hotel__owner-header-link{
+    color: $green-01;
+  }
+  &__detail-hotel__owner-content{
+    @include flex(row, flex-start);
+    gap: toRem(16);
+  }
+  &__detail-hotel__owner-detail{
+    @include flex(column, flex-start);
+    gap: toRem(4);
+  }
+  &__detail-hotel__owner-detail--name{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__detail-hotel__owner-detail--other{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__detail-content__header{
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+  }
+  &__detail-content__header-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);    
+  }
+  &__detail-content__header-text--subtitle{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+  &__detail-content__header-chips{    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: toRem(3) toRem(16);    
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    @extend .fs-base;   
+
+    &--active{
+      background-color: $success-main;
+    }
+    &--review{
+      background-color: $warning-main;
+    }
+    &--inactive{
+      background-color: $info-main;
+    }
+    &--declined{
+      background-color: $danger-main;
+    }
+  }
+  &__detail-content__header-divider{
+    border-left: toRem(1) solid $neutral-separator;
+    height: toRem(34);
+  }
+  &__detail-content__header-link{
+    font-size: $font-size-xl;
+    color: $green-01;
+  }
+  &__detail-content__header-button{
+    margin-left: auto;
+  }
+  &__detail-content__tab{
+    justify-content: flex-start;
+
+    & > * {
+      flex: 1 1 auto;
+      padding: toRem(16);
+    }
+  }
+  &__detail-content__tab-content{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+  }
+  &__detail-content__inner{
+    @include flex(column, stretch);
+    gap: toRem(24);
+    padding: toRem(24) !important;
+    border-radius: toRem(12);
+    border: toRem(1) solid $neutral-separator;
+  }
+  &__detail-content__inner-head{
+    @include flex(row, center, space-between);
+  }
+  &__detail-content__inner-head--left{
+    @include flex(row, center);
+    gap: toRem(24);
+    .admin-partner__header-search{
+      max-width: toRem(165);
+      
+      input{
+        max-width: toRem(165);
+      }
+    }
+  }
+
+  // Modal
+  &__modal {
+    margin: auto;
+    top: 50%;
+    max-width: toRem(604);
+    transform: translateY(-50%) !important;
+  }
+  &__modal-body {
+    border: none;
+    border-radius: toRem(16);
+    padding: toRem(24);
+    gap: toRem(40);
+  }
+  &__modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: toRem(32) toRem(24) 0;
+    gap: toRem(32);
+  }
+  &__modal-image {
+    padding: toRem(12);
+    background: rgba($success-surface, .1);
+    border-radius: toRem(120);
+  }
+  &__modal-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    text-align: center;
+  }
+  &__modal-desc {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+  &__modal-footer {
+    display: flex;
+    gap: toRem(20);
+  }
+  &__modal-button {
+    flex: 1 1 0;
+  }
+
+  &__edit{
+    display: flex;
+    flex-direction: column;    
+    padding: toRem(24);
+    gap: toRem(48);
+    border-radius: toRem(16);
+    background: $white;    
+  }
+  &__edit-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(16);
+  }
+  &__edit-detail__title{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__edit-detail__content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: toRem(32);
+    @include media-breakpoint-down(lg){
+      grid-template-columns: repeat(2, 1fr);
+      gap: toRem(24);
+    }
+    @include media-breakpoint-down(sm){
+      grid-template-columns: repeat(1, 1fr);
+      gap: toRem(24);
+    }
+  }
+  &__edit-detail__item{
+    @include flex(column, flex-start);
+    gap: toRem(24);
+    padding: toRem(24);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(16);
+    background: $white;
+  }
+  &__edit-detail__item-icon{
+    padding: toRem(10);
+    border-radius: toRem(100);
+    background-color: $green-06;
+  }
+  &__edit-detail__item-content{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+    align-items: flex-start;
+  }
+  &__edit-detail__item-content__title{
+    color: $neutral-primary;
+  }
+  &__edit-detail__item-content__desc{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }  
+  &__edit-detail__item-button{
+    margin-top: auto;
+    max-height: toRem(40);
+    width: 100%;
+  }
+
+//Basic
+
+  &__basic{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+  }
+  &__basic-headline{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(12);
+  }
+  &__basic-headline__title{
+    color: $neutral-primary;
+  }
+  &__basic-headline__desc{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+  &__basic-card{
+    display: flex;
+    flex-direction: column;    
+    gap: toRem(24);
+    padding: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+
+    &--buttons{
+      flex-direction: row;
+      justify-content: flex-end;
+      &>*{
+        flex: 1;
+        max-width: toRem(120);
+      }
+
+      @include media-breakpoint-down(xs-3){
+        flex-direction: column;
+        max-width: unset;
+        width: 100%;
+      }
+    }
+  }
+  &__basic-card__title{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__basic-card__field{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(24);
+
+    @include media-breakpoint-down(md){
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    label{
+      span{
+        color: $neutral-subtle;
+      }
+    }
+
+    &--third{
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  &__basic-card__block{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+    flex: 1 1 0;    
+    .language-field{
+      display: grid;
+      grid-template-columns: 1fr max-content;
+      gap: toRem(24);
+      align-items: center;
+    }
+  }
+  &__basic-card__input{
+    padding: toRem(13) toRem(16);
+  }
+  &__basic-card__footer{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+  &__basic-card__multiple{
+    display: flex;
+    align-items: flex-start;    
+    flex-direction: column;
+    gap: toRem(20);
+  }
+  &__basic-card__multiple-label{
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    max-width: toRem(401);
+  }
+  &__basic-card__multiple-row{
+    display: flex;
+    gap: toRem(24);
+  }
+  &__basic-card__multiple-radio{
+    display: flex;
+    gap: toRem(12);
+  }
+  &__basic-card__contact {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);        
+
+    &-combobox {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: $neutral-light;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(10);
+
+      &-separator {
+        height: toRem(32);
+        border-left: toRem(1) solid $neutral-input;
+      }
+
+      select,
+      input {
+        border: none;
+      }
+    }
+
+    &-banner {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      padding: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        padding: toRem(12);
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(50);
+      }
+
+      &-text {
+        font-size: $font-size-base;
+        color: $neutral-primary;
+      }
+
+      &-link {
+        color: $green-01;
+      }
+    }
+  }
+  &__facilites-language{
+    @include flex(row, flex-end);
+    gap: toRem(24);
+
+    @include media-breakpoint-down(sm){
+      flex-direction: column;
+    }
+  }  
+  &__facilites-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: toRem(24);
+    @include media-breakpoint-down(lg){
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include media-breakpoint-down(sm){
+      grid-template-columns: repeat(1, 1fr);
+      gap: toRem(16);
+    }
+  }
+  &__facilites-item{
+    position: relative;
+    padding: toRem(16) toRem(24);
+    @include flex(row, center);
+    gap: toRem(8);
+    background: $white;
+    border: toRem(1) solid $neutral-input;
+    border-radius: toRem(12);
+    cursor: pointer;
+    
+    p{
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+      flex-grow: 1;
+    }
+    .form-check-input{
+      right: toRem(24);
+    }
+    &:has(input[type="checkbox"]:checked){
+      box-shadow: 0px 12px 44px 0px rgba(5, 44, 71, 0.05);
+      border-color: $green-01;
+    }
+  }
+  &__amenities{
+    @include flex(column, stretch);
+    gap: toRem(16);
+    padding: toRem(24);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(24);    
+  }
+  &__amenities-header{
+    @include flex(row, center, space-between);
+    @include media-breakpoint-down(sm){
+      @include flex(column, flex-start);
+      gap: toRem(12);
+    }
+  }
+  &__amenities-header-title{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__amenities-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: toRem(12) toRem(16);
+    @include media-breakpoint-down(md){
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  &__amenities-item{
+    @include flex(row, center);
+    gap: toRem(12);
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+
+    &--available{
+      color: $success-main;
+    }
+    &--unavailable{
+      color: $danger-main;
+    }
+  }
+  &__amenities-modal{
+    @include flex(column, stretch);
+    gap: toRem(40);    
+    border-radius: toRem(16);
+    background: $white;
+    padding: toRem(24);
+  }
+  &__amenities-modal__body{    
+    @include flex(column, stretch);
+    gap: toRem(16);
+    border: none;
+  }
+  &__amenities-modal__footer{    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(24);
+  }
+  &__amenities-modal__content{    
+    display: grid;    
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(16);    
+  }
+  &__amenities-modal__content-item{
+    position: relative;
+    padding: toRem(16) toRem(24);
+    padding-left: toRem(60);
+    @include flex(row, center);
+    gap: toRem(8);
+    background: $white;
+    border: toRem(1) solid $neutral-input;
+    border-radius: toRem(12);
+    cursor: pointer;
+
+    &.admin-partner__amenities-modal__content-item--text{
+      padding: toRem(16) toRem(24);
+    }
+
+    .form-text-input{
+      width: 100%;
+      border: none;
+    }
+    
+    p{
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+      flex-grow: 1;
+    }
+    .form-check-input{
+      left: toRem(24);      
+    }
+    &:has(input[type="checkbox"]:checked){
+      box-shadow: 0px 12px 44px 0px rgba(5, 44, 71, 0.05);
+      border-color: $green-01;
+    }
+  }
+
+// Photos
+
+  &__photos{
+    @include flex(column, stretch);
+    gap: toRem(16);
+    padding: toRem(24);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(24); 
+  }
+  &__photos-header{
+    @include flex(row, center, space-between);
+    gap: toRem(16);
+  }
+  &__photos-header-title{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__photos-header-buttons{
+    @include flex(row);
+    gap: toRem(16);
+  }
+  &__photos-list{
+    @include flex(row);
+    flex-wrap: wrap !important;
+    gap: toRem(16);
+  }
+
+  &__policies{    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(24);
+    @include media-breakpoint-down(lg){
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  &__policies-wrap{
+    max-width: toRem(772);
+    margin: 0 auto;
+  }
+  &__policies-form {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background-color: $white;
+    margin-bottom: 1.5rem;
+
+    &--row {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  &__policies-form-title {
+    @extend .fs-lg;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: 1.5rem;
+  }
+  &__policies-form-alert {
+    margin-bottom: 2rem;
+  }
+  &__policies-form-slice {
+    display: flex;
+    flex-direction: row;
+    margin-left: -.625rem;
+    margin-right: -.625rem;
+
+    // @include media-breakpoint-down(xs) {
+    //   flex-direction: column;
+    // }
+  }
+  &__policies-form-title {
+    @extend .fs-xl;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: .5rem;
+  }
+
+  &__policies-switch {
+    & span:last-child::before {
+      top: 2px;
+    }
+  }
+
+  &__policies-left-col {
+    margin-right: 1.5rem;
+  }
+
+  &__policies-child-title {
+    @extend .fs-xl;
+    font-weight: 600;
+    color: $neutral-primary;
+    margin-bottom: 1rem;
+  }
+
+  &__policies-child-label {
+    display: block;
+  }
+
+
+  // room type
+
+  &__container-room{
+    max-width: toRem(772);
+  }
+
+  &__content-room{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+  }
+
+  &__wrapper-room{
+    gap: toRem(16) !important;
+  }
+
+  &__property-room-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include media-breakpoint-down(sm){
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(16);
+    }
+  }
+
+  &__property-room-button{
+    display: flex;
+    gap: toRem(16);
+    align-items: center;
+  }
+
+  &__room-btn{
+    min-width: toRem(100);
+
+    &--popup{
+      width: 100%;
+    }
+  }
+
+  &__property-room-content{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    padding: toRem(24);
+    border: 1px solid $neutral-separator;
+    border-radius: toRem(16);
+  }
+
+  &__property-content-title{
+    color: $neutral-primary;
+    @extend .fs-xl;
+    font-weight: 600;
+
+    &--md{
+      color: $neutral-primary;
+      @extend .fs-lg;
+      font-weight: 600;
+    }
+  }
+
+  &__property-content-detail{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__property-detail-list{
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+  }
+
+  &__btn-room-add{
+    display: flex;
+    gap: toRem(10);
+    align-items: center;
+    width: 100%;
+  }
+
+  &__wrapper-bottom-bar{
+    flex-direction: row !important;
+    justify-content: end !important;
+    gap: toRem(24) !important;
+  }
+
+  // Car Edit
+  &__car-edit{
+    @include flex(column, stretch);
+    gap: toRem(24);
+    max-width: toRem(772);
+    margin: 0 auto;
+  }
+
+  // Fleet
+  &__fleet{
+    @include flex(column, stretch);
+    gap: toRem(24);
+    max-width: toRem(772);
+    margin: 0 auto;
+  }
+  &__fleet-car--name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__fleet-card{
+    padding: toRem(24);
+    border-radius: toRem(16);
+    background-color: $white;
+
+    &--header{
+      margin-bottom: toRem(24);
+      @include flex(row, center, space-between);
+      gap: toRem(24)
+    }
+  }
+  &__fleet-header{
+    @include flex(row, center, space-between);
+    gap: toRem(24);
+
+    &-title{
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+    }
+    &-button{
+      @include flex(row, center);
+      gap: toRem(10);
+    }
+  }
+  &__fleet-body{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: toRem(24) toRem(16);
+  }
+  &__fleet-body--tour-package{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: toRem(24) toRem(16);
+  }
+  &__fleet-body-block{
+    @include flex(column, stretch);
+    gap: toRem(8);
+
+    input{
+      background: $white;
+      border-radius: toRem(10);
+      padding: toRem(13) toRem(16);
+      border: toRem(1) solid $neutral-input;
+      appearance: none;
+      -moz-appearance: textfield;
+
+      &::-webkit-inner-spin-button, 
+      &::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  &__fleet-body-block--edited {
+    opacity: 0.6;
+    background-color: $neutral-separator !important;
+  }
+
+  // Allocation
+  &__allocation{
+    display: flex;
+    background: $white;
+    border-radius: toRem(16);  
+  }
+  &__allocation-option{
+    padding: toRem(24);
+    flex-direction: row;
+    gap: toRem(24);
+  }
+  &__allocation-option__left{
+    @include flex(column, stretch);
+    gap: toRem(24);
+    max-width: toRem(283);
+    flex-grow: 1;
+  }
+  &__allocation-option__left-select{
+    @include flex(column, stretch);
+    gap: toRem(8);
+  }
+  &__allocation-option__left-checkbox{
+    @include flex(row, center);
+    gap: toRem(12);
+
+    label{
+      color: $dark;
+      cursor: pointer;
+    }
+    input{cursor: pointer;}
+  }
+  &__allocation-option__calendar{
+    @include flex(column, stretch);
+    gap: toRem(4);
+    flex-grow: 1;
+    overflow: hidden;
+    max-width: toRem(417);
+  }
+  &__allocation-option__calendar-navigation{
+    @include flex(row, center, space-between);
+    gap: toRem(16);
+  }
+  &__allocation-option__calendar-button{
+    @include flex(row, center);
+    gap: toRem(6);
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $green-01;
+    border: none;
+    background: transparent;
+  }
+  &__allocation-option__calendar-title{    
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__allocation-option__scroll{
+    overflow: hidden;
+  }  
+  &__allocation-option__list{
+    @include flex(row, stretch);
+    gap: toRem(12);
+    overflow: auto
+  }
+  &__allocation-option__list-item{
+    @include flex(column, center);
+    gap: toRem(6);
+    background: transparent;
+    border: none;
+    padding: 0;
+    min-width: toRem(50);
+  }
+  &__allocation-option__list-item--label{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__allocation-option__list-item--date{
+    padding: toRem(16);
+    border: toRem(1) solid $neutral-separator;
+    @include flex(row, center, center);
+    background: $white;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+    border-radius: toRem(16);
+  }
+  &__allocation-list{
+    padding: toRem(20);
+    flex-direction: column;
+  }
+  &__allocation-list{
+    padding: toRem(20);
+    flex-direction: column;
+  }
+  &__allocation-list__car{
+    @include flex(row, stretch);
+    gap: toRem(24);
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+  &__allocation-list__car-info{
+    @include flex(row, center);
+    gap: toRem(16);
+    padding: toRem(16) 0;
+    min-width: toRem(287);
+  }
+  &__allocation-list__car-iamge{
+    object-fit: cover;
+  }
+  &__allocation-list__car-detail{
+    @include flex(column, flex-start);
+    gap: toRem(8);
+
+    a{
+      color: $green-01;
+    }
+  }
+  &__allocation-list__car-merk{
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__allocation-list__car-scroll{    
+    overflow: hidden;
+  }
+  &__allocation-list__car-operating{
+    @include  flex(row, center);
+    gap: toRem(12);
+    overflow: auto;
+    height: 100%;
+    
+    p{
+      @include flex(row, center, center);
+      text-align: center;
+      height: 100%;
+      min-width: toRem(50);
+      flex: 1 1 auto;
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+    }
+  }
+  
+
+  // Location
+  &__location{
+    padding: toRem(24);
+    border-radius: toRem(16);
+    background-color: $white;
+  }
+
+  // room type popup
+
+    &__popup-room{
+      height: 100vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba($modal-backdrop-bg, .4);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .3s;
+  
+      &:target {
+          opacity: 1;
+          visibility: visible;
+      }
+  }
+
+  &__popup-room:target &__popup-form {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+  }
+  &__popup-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 100%;
+    height: 90vh;
+    background-color: $white;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.25);
+    transition: all .5s .2s;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
+    &--edit{
+      max-width: toRem(429) !important;
+      width: 100%;
+    }
+    
+    @include media-breakpoint-down(md){
+        width: 85% !important;
+    }
+
+  }
+  &__popup-edit{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(40);
+  }
+  &__popup-edit-content{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    &--delete{
+      align-items: center;
+      padding: toRem(24) toRem(24) 0 toRem(24);
+    }
+  }
+  &__popup-edit-label{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+
+    &--dropdown{
+      width: 100%;
+    }
+
+    &--wrapper{
+      display: flex;
+      gap: toRem(16);
+
+      @include media-breakpoint-down(sm){
+        flex-direction: column;
+      }
+    }
+
+    // input::placeholder{
+    //   color: $neutral-primary;
+    //   font-weight: 500;
+    // }
+  }
+  &__popup-edit-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    padding: toRem(16);
+    border: 1px solid $neutral-separator;
+    border-radius: toRem(16);
+  }
+  &__popup-edit-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__popup-btn-delete{
+    border: none;
+    background-color: $white;
+    color: $neutral-subtle;
+    font-weight: 600;
+    @extend .fs-sm;
+  }
+  &__popup-edit-separator{
+    width: 100%;
+    height: 1px;
+    background-color: $neutral-separator;
+  }
+  &__popup-edit-input{
+    background-color: $white !important;
+  }
+  &__popup-edit{
+    color: $neutral-primary;
+
+    option{
+      color: $neutral-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+  &__popup-add-btn{
+    display: flex;
+    gap: toRem(6);
+    align-items: center;
+    border: none;
+    background-color: $white;
+
+    &--center{
+      justify-content: center;
+    }
+
+    &-text{
+      color: $green-01;
+      @extend .fs-sm;
+      font-weight: $font-weight-bold;
+    }
+  }
+  &__popup-button-bar{
+    display: flex;
+    gap: toRem(24);
+    width: 100%;
+  }
+  &__popup-cancel-logo{
+    padding: toRem(12);
+    background-color: $danger-surface;
+    border-radius: toRem(120);
+  }
+  &__popup-add-label{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+
+  &__add-modal{
+    max-width: toRem(429) !important;
+    width: 100%;
+
+    .admin-partner__popup-btn-delete{
+      margin-left: auto;
+      color: $danger-main;
+    }
+  }
+   
+  // modal block
+
+  &__modal--export {
+    padding: toRem(16) !important;
+  }
+
+  &__upload-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000000;
+      cursor: pointer;
+      border-radius: toRem(16);
+      border: toRem(2) solid $green-01;
+      height: toRem(60);
+      width: 100%;
+  }
+
+    &__modal-block {
+      max-width: toRem(604) !important;
+      width: 100% !important;
+  
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(40);
+      }
+    }
+
+    &__modal-progress {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: toRem(12);
+      width: 100%;
+
+    }
+  
+    &__add-modal-content {
+      background-color: $white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      overflow-y: auto;
+  
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  
+    &__modal-edit-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: toRem(16);
+    }
+  
+    &__popup-edit-input {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(8);
+    }
+  
+    &__popup-edit-addres {
+      grid-column: 1 / -1;
+    }
+  
+    &__popup-button-bar {
+      display: flex;
+      gap: toRem(24);
+      justify-content: flex-end;
+    }
+  
+    &__modal-block-image {
+      padding: 0.75rem;
+      background: #55c9a810;
+      border-radius: 7.5rem;
+    }
+  
+    &__modal-block-content {
+      padding: toRem(32) toRem(24) 0 toRem(24);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: toRem(32);
+    }
+  
+    &__modal-block-caption {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+      align-items: center
+    }
+  
+    &__modal-block-paragraph {
+      @extend .fs-lg;
+      font-weight: 400;
+    }
+
+    // tour package addition
+    &__flex-container {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(10);
+    }
+  }

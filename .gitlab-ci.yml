@@ -1,0 +1,40 @@
+stages:
+  - packndeploy
+
+image: faisaladiprayugo/node:v18
+
+cache:
+  paths:
+    - umarah.zip
+
+packndeploy_nextjs:
+  tags:
+    - cicd
+    - devops
+    - runner
+    - goforumrah
+  stage: packndeploy
+  before_script:
+    - source .${CI_COMMIT_REF_NAME}.env
+    - apt update -y
+    - dpkg-query -W --showformat='${Status}\n' zip | grep "install ok installed" || install zip -y
+    - dpkg-query -W --showformat='${Status}\n' unzip | grep "install ok installed" || install unzip -y
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$UMARAH_INSTANCE_KEY")
+  script:
+    - echo "Creating ZIP file for $ZIP_FILE..."
+    - zip -r $ZIP_FILE *
+    - ls -lah
+    - sftp -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST <<< $'put '"$ZIP_FILE"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'yes | sudo unzip '"$ZIP_FILE"' -d '"$UMARAH_DEPLOY_TEMP"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'sudo rsync -av '"$UMARAH_DEPLOY_TEMP $UMARAH_DEPLOY_DIR"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'cd '"$UMARAH_DEPLOY_DIR"' && sudo node --max-old-space-size=250 $(which npm) install'
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'cd '"$UMARAH_DEPLOY_DIR"' && sudo node --max-old-space-size=250 $(which npm) run '"$UMARAH_BUILD_COMMAND"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'sudo chown -R '"$UMARAH_INSTANCE_OWNED"' '"$UMARAH_DEPLOY_DIR"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'sudo chmod -R 755 '"$UMARAH_DEPLOY_DIR"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'pm2 restart '"$UMARAH_PM2_NAME"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'sudo rm -rf '"$UMARAH_DEPLOY_TEMP"
+    - ssh -o StrictHostKeyChecking=no $UMARAH_INSTANCE_USER@$UMARAH_INSTANCE_HOST 'sudo rm -f '"$ZIP_FILE"
+    - rm -f $ZIP_FILE
+  only:
+    - production

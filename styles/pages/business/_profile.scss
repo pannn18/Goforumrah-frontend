@@ -1,0 +1,290 @@
+.business-profile{
+  background: $neutral-light;
+  padding-bottom: toRem(80);
+  min-height: 100vh;
+
+  &__header{
+    padding: toRem(16) 0;
+    background: $white; 
+  }
+  &__header-inner{
+    @include flex(row, center, space-between);
+  }
+  &__header-back{
+    @include flex(row, center);
+    gap: toRem(24);
+    color: $neutral-primary;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    svg{
+      color: $green-01;
+    }
+    h4{
+      @include media-breakpoint-down(sm){
+        display: none;
+      }
+    }
+  }
+  .account{
+    @include flex(column, stretch);
+    gap: toRem(24);
+    padding: toRem(24);
+    margin-top: toRem(24);
+    margin-bottom: toRem(80);
+    border-radius: toRem(16);
+    background: $white;
+
+    label{
+     font-size: $font-size-base;
+     font-weight: $font-weight-semibold;
+     color: $neutral-secondary; 
+    }
+    input[type="text"],input[type="email"]{
+      padding: toRem(13) toRem(16);
+      background: $white;
+      border-radius: toRem(10);
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+
+      &::placeholder{
+        color: $neutral-input;
+      }
+    }
+    input[type="tel"]{
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-font-base;
+    }
+    &__block{
+      @include flex(column, stretch);
+      gap: toRem(8);
+      flex: 1 1 0;
+    }
+    &__row{
+      @include flex(row, stretch);      
+      gap: toRem(24);
+
+      @include media-breakpoint-down(md){
+        gap: toRem(16);
+      }
+      @include media-breakpoint-down(sm){
+        flex-direction: column;
+        gap: toRem(24);
+      }
+    }
+    &__profile{
+      @include flex(row, center);
+      gap: toRem(24);
+      object-fit: cover;
+    }
+    &__profile-preview{
+      width: toRem(104);
+      height: toRem(104);
+      border-radius: toRem(16);
+    }
+  }
+  .company{
+    @include flex(column, stretch);
+    gap: toRem(24);
+    padding: toRem(24);
+    margin-top: toRem(24);    
+    border-radius: toRem(16);
+    background: $white;
+
+    &__tab{
+      display: flex;
+      flex-direction: column;
+      gap: toRem(20);
+      align-items: stretch;
+    }
+    &__tabs-menu {
+      @include flex(row, stretch, flex-start);
+      position: relative;
+      z-index: 1;
+      width: 100%;
+  
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 1px;
+        background-color: $neutral-separator;
+        left: 0;
+        bottom: 0;
+      }
+  
+      & > * {
+        border-radius: 0;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid $neutral-input;
+        padding: toRem(16) toRem(32);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $blue-whale-01;        
+  
+        @include media-breakpoint-down(sm){
+          padding: toRem(12) toRem(16);
+        }
+  
+        &:not(.active):hover {
+          background-color: shade-color(transparent, $btn-hover-bg-shade-amount);
+        }
+  
+        &.active {
+          font-weight: $font-weight-bold;
+          color: $neutral-primary;
+          border-bottom: 2px solid $green-01;
+        }
+      }
+    }
+    &__tab-content{
+      @include flex(column, stretch);
+      gap: toRem(16);
+    }
+
+    label{
+     font-size: $font-size-base;
+     font-weight: $font-weight-semibold;
+     color: $neutral-secondary; 
+    }
+    input[type="text"],input[type="number"],select,textarea{
+      padding: toRem(13) toRem(16);      
+      border-radius: toRem(10);
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+
+      &::placeholder{
+        color: $neutral-input;
+      }
+    }
+    input[type="tel"]{
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-font-base;
+    }
+    &__block{
+      @include flex(column, stretch);
+      gap: toRem(8);
+      flex: 1 1 0;
+    }
+    &__row{
+      @include flex(row, stretch);      
+      gap: toRem(24);
+
+      @include media-breakpoint-down(md){
+        gap: toRem(16);
+      }
+      @include media-breakpoint-down(sm){
+        flex-direction: column;
+        gap: toRem(24);
+      }
+    }
+    &__profile{
+      @include flex(row, center);
+      gap: toRem(24);
+      object-fit: cover;
+    }
+    &__profile-preview{
+      width: toRem(104);
+      height: toRem(104);
+      border-radius: toRem(16);
+    }
+    &__document{
+      @include flex(row, center);
+      gap: toRem(12);
+      padding: toRem(24);
+      background: $white;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(16);      
+
+      svg{
+        color: $green-01
+      }
+    }
+    &__document-icon{
+      @include flex(row, center, center);
+      padding: toRem(8);
+      background: $neutral-light;
+      border-radius: toRem(50);
+      @include media-breakpoint-down(sm){
+        display: none;
+      }      
+    }
+    &__document-text{
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      flex-grow: 1;
+    }
+
+    .file-upload{
+      @include flex(column, center, center);
+      gap: toRem(16);
+      padding: toRem(32);
+      border-radius: toRem(12);
+      border: toRem(1) dashed $green-01;
+      background: $white;
+      min-height: toRem(252);
+  
+      &__inner{
+        @include flex(column, center);
+        gap: toRem(16);
+      }
+      &__text{
+        @include flex(column, center);
+        gap: toRem(8);
+        text-align: center;
+      }
+      &__text-title{
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+      }
+      &__text-subtitle{
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+      }
+  
+      &__button{
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+
+        &:hover{
+          color: $white;
+        }
+      }
+      &__list{
+        appearance: none;
+        padding: 0;
+        margin: 0;
+      }
+      &__list-item{
+        appearance: none;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+        @include flex(row, center);
+        gap: toRem(8);
+        margin-bottom: toRem(16);
+
+        button{
+          @include flex(row, center, center);
+          padding: toRem(8);
+          border-radius: toRem(50);
+          border: none;
+          outline: none;
+          background: $danger-surface;
+          color: $danger;
+        }
+
+        &:last-child{
+          margin: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+.rdrCalendarWrapper {
+  font: $font-family-base;
+  position: relative !important;
+  .rdrDateDisplayWrapper {
+    display: none !important;
+  }
+
+  .rdrMonths {
+    @include media-breakpoint-down(md) {
+      flex-direction: column !important;
+    }
+  }
+
+  &.rdrDateRangeWrapper {
+    .rdrMonthAndYearWrapper {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      padding: 0 !important;
+    }
+
+    .rdrMonthAndYearPickers {
+      display: none !important;
+    }
+  }
+
+  .rdrNextPrevButton {
+    margin: 0 toRem(20) !important;
+  }
+
+  .rdrMonth {
+    padding: 0 toRem(10) toRem(20) !important;
+
+    &:first-child {
+      padding-left: toRem(20) !important;
+    }
+
+    &:last-child {
+      padding-right: toRem(20) !important;
+    }
+  }
+
+  .rdrMonthName {
+    padding: toRem(20) toRem(20) toRem(8) !important;
+    @extend .fs-xl;
+    @extend .fw-bold;
+    color: $neutral-primary !important;
+    text-align: center !important;
+  }
+
+  .rdrWeekDay {
+    @extend .fs-xs;
+    @extend .fw-semibold;
+    line-height: $line-height-font-xs !important;
+    padding-top: toRem(8) !important;
+    padding-bottom: toRem(8) !important;
+    color: $neutral-secondary !important;
+    text-align: center !important;
+  }
+
+  .rdrDays {
+    & > button {
+      aspect-ratio: 1/1 !important;
+      height: auto !important;
+      overflow: hidden !important;
+      z-index: 1 !important;
+
+      span:not(.rdrDayNumber) {
+        z-index: -1 !important;
+        height: 100% !important;
+        width: 100% !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+      }
+    }
+  }
+
+  .rdrDayNumber {
+    @extend .fs-lg;
+    @extend .fw-semibold;
+    color: $neutral-primary !important;
+    text-align: center !important;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span {
+    color: $neutral-secondary !important;
+  }
+
+  .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+  .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span {
+    color: $white !important;
+  }
+
+  .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+    color: $white !important;
+  }
+
+  .rdrDayStartOfMonth .rdrInRange,
+  .rdrDayStartOfMonth .rdrEndEdge,
+  .rdrDayStartOfWeek .rdrInRange,
+  .rdrDayStartOfWeek .rdrEndEdge,
+  .rdrDayEndOfMonth .rdrInRange,
+  .rdrDayEndOfMonth .rdrStartEdge,
+  .rdrDayEndOfWeek .rdrInRange,
+  .rdrDayEndOfWeek .rdrStartEdge {
+    border-radius: 0 !important;
+  }
+
+  .rdrInRange {
+    background-color: $blue-whale-05 !important;
+  }
+
+  .rdrSelected,
+  .rdrStartEdge,
+  .rdrEndEdge {
+    color: $white !important;
+    background-color: transparent !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: $border-radius-pill !important;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: $green-01;
+      z-index: 0;
+    }
+
+    & ~ .rdrDayNumber {
+      color: $white !important;
+    }
+  }
+
+  .rdrStartEdge:not(.rdrEndEdge) {
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 50%;
+      background-color: $blue-whale-05;
+    }
+  }
+
+  .rdrEndEdge:not(.rdrStartEdge),
+  .rdrDayEndPreview:not(.rdrDayStartPreview) {
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      background-color: $blue-whale-05;
+    }
+  }
+
+  .rdrDayStartPreview,
+  .rdrDayEndPreview {
+    border: none !important;
+    background-color: transparent !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: $border-radius-pill !important;
+  }
+
+  .rdrDayEndPreview {
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: $green-01;
+      z-index: 0;
+    }
+  }
+
+  .rdrDayInPreview {
+    border: none !important;
+    background-color: $blue-whale-05 !important;
+    border-radius: 0 !important;
+  }
+
+  .rdrDayToday .rdrDayNumber span:after {
+    content: none !important;
+  }
+
+  .rdrDayNumber:after {
+    content: none !important;
+  }
+}

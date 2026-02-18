@@ -1,0 +1,471 @@
+.allocation-car {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+  }
+
+  &__content-form {
+    display: flex;
+    gap: toRem(24);
+    background-color: $white;
+    border-radius: toRem(16);
+    padding: toRem(24) toRem(16) toRem(16) toRem(16);
+
+    &--car {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    &--top {
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__content-allocation {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(16);
+    }
+  }
+
+  // All allocation
+
+  &__content-date {
+    display: flex;
+    gap: toRem(24);
+    align-items: flex-end;
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__check {
+    padding: 1rem 0 1rem 2.25rem !important;
+    width: 100%;
+    cursor: pointer;
+
+    input.form-check-input {
+      cursor: pointer !important;
+    }
+
+    &-label {
+      color: $neutral-primary;
+      font-weight: $font-weight-semibold;
+      @extend .fs-lg;
+      cursor: pointer;
+    }
+  }
+
+  &__caption--semibold {
+    color: $neutral-secondary;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__content-label {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+    min-width: toRem(160);
+    width: 100%;
+  }
+
+  &__btn {
+    color: $neutral-primary;
+    font-weight: $font-weight-bold;
+    padding: toRem(14) toRem(28) !important;
+  }
+
+  &__btn-table {
+    border: 2px solid $green-01 !important;
+  }
+
+  &__image-car {
+    border-radius: toRem(8);
+  }
+
+  &__car-list {
+    display: flex;
+    width: 100%;
+    // gap: toRem(16);
+    border-bottom: 1px solid $neutral-separator;
+    align-items: center;
+    // margin-top: toRem(16);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      padding: toRem(16) 0;
+    }
+  }
+
+  &__car-list-wrapper {
+    display: flex;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+
+    @include media-breakpoint-down(md) {
+      flex-direction: row;
+    }
+  }
+
+  &__car-caption-title {
+    color: $neutral-primary;
+    font-weight: $font-weight-bold;
+    margin-bottom: toRem(8);
+  }
+
+  &__content-location {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: toRem(24);
+  }
+
+  // calendar
+
+  &__calendar {
+    @include media-breakpoint-down(md) {
+      width: 100% !important;
+    }
+  }
+
+  &__calendar-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: toRem(8) toRem(12);
+
+    @include media-breakpoint-down(md) {
+      padding: 0.5rem 0;
+    }
+  }
+
+  &__button-month {
+    background-color: $white;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: toRem(6);
+  }
+
+  &__button-edit {
+    border: 0;
+    background-color: $white;
+    color: $green-01;
+    padding-left: 0 !important;
+  }
+
+  &__date-button-caption {
+    color: $green-01;
+    font-weight: $font-weight-bold;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+
+  &__date-title {
+    color: $neutral-primary;
+    @extend .fs-xl;
+    font-weight: $font-weight-bold;
+  }
+
+  &__list-content.booked {
+    background-color: $neutral-separator !important;
+
+    p {
+      color: $neutral-subtle;
+    }
+  }
+
+  &__list-content {
+    padding: toRem(32) 1.6075rem;
+    list-style-type: none;
+  }
+
+  &__list-group {
+    transform: rotateX(180deg);
+    gap: toRem(12);
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-down(md) {
+      width: 100% !important;
+    }
+
+    // &__list-wrapper{
+    //     transform: rotateX(180deg);
+    // }
+
+    ul {
+      transform: rotateX(180deg);
+    }
+
+    table {
+      transform: rotateX(180deg);
+    }
+  }
+
+  &__list-group::-webkit-scrollbar:horizontal {
+    width: toRem(15);
+    height: toRem(17);
+  }
+
+  &__list-group::-webkit-scrollbar-thumb:horizontal {
+    background: linear-gradient(to bottom right, #052c47 100%, #052c47 100%);
+    border-radius: toRem(40);
+  }
+
+  &__list-group::-webkit-scrollbar-track:horizontal {
+    background-color: $neutral-separator;
+  }
+
+  ul .allocation-car__list-group {
+    list-style-type: none;
+  }
+
+  &__list-caption {
+    color: $neutral-subtle;
+    @extend .fs-sm;
+    text-align: center;
+  }
+
+  &__list-date.booked {
+    background-color: $neutral-separator !important;
+
+    p {
+      color: $neutral-subtle !important;
+    }
+  }
+
+  &__list-content-caption {
+    color: $neutral-primary;
+    font-weight: $font-weight-bold;
+  }
+
+  &__list-date {
+    padding: toRem(16) 1.31rem;
+    border: 1px solid $neutral-separator;
+    background-color: $white;
+    border-radius: toRem(16);
+
+    p {
+      color: $neutral-primary;
+      font-weight: $font-weight-bold;
+      min-width: toRem(16);
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  //sidebar
+
+  &__sidebar {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($modal-backdrop-bg, 0.4);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+
+    &:target {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__offcanvas {
+    &.offcanvas-header {
+      border-bottom: 1px solid #f1f3f5;
+      padding: toRem(24) !important;
+    }
+
+    &.offcanvas-body {
+      padding: unset !important;
+    }
+
+    &.offcanvas {
+      &.offcanvas-end {
+        width: 100% !important;
+        max-width: toRem(472) !important;
+      }
+    }
+  }
+
+  &__sidebar-button {
+    margin-top: auto;
+  }
+
+  &__sidebar-form {
+    width: 520px;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: $white;
+    position: fixed;
+    top: 0;
+    right: -1px;
+    transition: right 0.3s ease-in-out;
+  }
+
+  &__sidebar-header {
+    padding: toRem(24);
+    border-bottom: 1px solid $neutral-separator;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__title-header {
+    font-weight: $font-weight-bold;
+  }
+
+  &__sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    width: 100%;
+    height: 100%;
+  }
+
+  &__sidebar-car {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: toRem(16) 0;
+  }
+
+  &__sidebar-dropdown {
+    display: flex;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__car-info {
+    display: flex;
+    gap: toRem(16);
+    align-items: center;
+  }
+
+  &__sidebar-car-title {
+    font-weight: $font-weight-bold;
+    @extend .fs-lg;
+    color: $neutral-primary;
+  }
+
+  &__sidebar-caption {
+    font-weight: 400;
+    color: $neutral-subtle;
+    margin-bottom: toRem(12);
+  }
+
+  &__sidebar-input {
+    // padding: 0 toRem(32);
+    padding: 0;
+  }
+
+  &__close-button {
+    border: none;
+    background-color: $white;
+  }
+
+  // Discount Setting
+
+  &__setting-content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+  }
+
+  &__content-discount {
+    display: flex;
+    align-items: center;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__button-live {
+    color: $white;
+    font-weight: $font-weight-bold;
+  }
+
+  &__content-discount-setting {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+  }
+
+  &__title-discount {
+    color: $black;
+    @extend .fs-xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: toRem(20);
+  }
+
+  &__action-table {
+    display: flex;
+    gap: toRem(16);
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__text-center {
+    text-align: center;
+  }
+
+  &__delete {
+    border: none;
+    padding: toRem(12);
+    background-color: $danger-surface;
+  }
+}
+
+.scroll-container {
+  overflow-x: scroll;
+
+  &__hidden {
+    overflow-x: hidden;
+  }
+}
+
+.scrollable-content {
+  white-space: nowrap;
+}
+
+// calaendar
+
+.fullcalendar_view__LSLLm {
+  @include media-breakpoint-down(sm) {
+    overflow: scroll;
+  }
+}
+
+.fc .fc-scrollgrid {
+  @include media-breakpoint-down(sm) {
+    min-width: toRem(600);
+  }
+}

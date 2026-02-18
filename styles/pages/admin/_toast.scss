@@ -1,0 +1,26 @@
+.gfu-toast{
+  .toast{
+    width: max-content;
+    .toast-header{
+      .toast-header__title{
+        margin-right: toRem(32);
+      }
+    }
+  }
+  &.gfu-toast--success{
+    .toast{
+      background-color: $success;
+      .toast-body{
+        color: $white;
+      }
+    }
+  }
+  &.gfu-toast--danger{
+    .toast{
+      background-color: $danger;
+      .toast-body{
+        color: $white;
+      }
+    }
+  }
+}

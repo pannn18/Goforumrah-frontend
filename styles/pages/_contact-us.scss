@@ -1,0 +1,174 @@
+.contact-us {
+  .contact {
+    background: $neutral-light;
+
+    &__wrapper {
+      max-width: toRem(764);
+      padding: toRem(40) 0;
+      margin: 0 auto;
+    }
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 0;
+    }
+
+    &__breadcrumb {
+      padding: 0;
+      background: $white;
+
+      &-inner {
+        @include flex(row, center, flex-start);
+        gap: toRem(16);
+        padding: toRem(16) 0;
+        font-size: $font-size-base;
+        color: $green-01;
+        font-weight: $font-weight-base;
+      }
+
+      &--link {
+        font-weight: $font-weight-semibold;
+        color: $green-01;
+      }
+
+      &--current {
+        color: $neutral-subtle;
+      }
+    }
+
+    &__header {
+      @include flex(column, center);
+      gap: toRem(8);
+      padding: toRem(40) 0;
+      flex-grow: 1;
+      color: $neutral-primary;
+      text-align: center;
+
+      span {
+        font-size: $font-size-base;
+        font-weight: $font-size-base;
+      }
+    }
+
+    &__form {
+      @include flex(column, stretch);
+      gap: toRem(24);
+    }
+
+    &__form-card {
+      @include flex(column, stretch);
+      gap: toRem(24);
+      padding: toRem(24);
+      background: $white;
+      border-radius: toRem(16);
+
+      &--footer {
+        @include flex(row, stretch, flex-end);
+      }
+    }
+
+    &__form-row {
+      @include flex(row, stretch);
+      gap: toRem(24);
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+    }
+
+    &__form-group {
+      @include flex(column, flex-start);
+      gap: toRem(8);
+      flex-grow: 1;
+
+      label {
+        font-weight: $font-weight-semibold;
+      }
+
+      input,
+      textarea {
+        padding: toRem(13) toRem(16);
+
+        &::placeholder {
+          color: $neutral-subtle;
+        }
+      }
+    }
+  }
+
+  .file-upload {
+    @include flex(column, center, center);
+    gap: toRem(70);
+    padding: toRem(32);
+    border-radius: toRem(12);
+    border: toRem(1) dashed $green-01;
+    background: $white;
+    min-height: toRem(252);
+
+    &__inner {
+      @include flex(column, center);
+      gap: toRem(16);
+    }
+
+    &__text {
+      @include flex(column, center);
+      gap: toRem(8);
+      text-align: center;
+    }
+
+    &__text-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+    }
+
+    &__text-subtitle {
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-secondary;
+    }
+
+    &__button {
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $white;
+    }
+
+    &__list {
+      appearance: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    &__list-item {
+      appearance: none;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+      @include flex(row, center);
+      gap: toRem(8);
+      margin-bottom: toRem(16);
+
+      button {
+        @include flex(row, center, center);
+        padding: toRem(8);
+        border-radius: toRem(50);
+        border: none;
+        outline: none;
+        background: $danger-surface;
+        color: $danger;
+      }
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    &__progress-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: toRem(12);
+      width: 100%;
+    }
+  }
+}

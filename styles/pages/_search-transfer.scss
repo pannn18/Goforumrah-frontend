@@ -1,0 +1,312 @@
+.search-transfer{
+  background-color: $neutral-light;
+
+  // Header Form
+  &__header-form {
+    background-color: $white;
+    border-bottom: 1px solid $neutral-separator;
+    padding: toRem(20) 0;
+  }
+
+  &__header-form-inner-wrapper {
+    @include flex(row, center);
+    gap: toRem(32);
+  }
+
+  // Layout Wrapper
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(32);
+    padding-bottom: toRem(104);
+    padding-top: toRem(32);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+
+  // Sidebar
+  &__sidemenu {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+  }
+
+  &__sidemenu-map{
+    position: relative;
+    border-radius: toRem(16);
+  }
+
+  &__sidemenu-map-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__sidemenu-map-overlay{
+    background-color: #041d2f;
+    opacity: 0.4;
+    border-radius: toRem(16);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+  }
+
+  &__sidemenu-filter{
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    border-radius: toRem(16);
+  }
+
+  &__sidemenu-filter-block{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+  }
+
+  &__sidemenu-filter-head{
+    display: flex;
+    justify-content: space-between;
+    gap: toRem(8);
+    font-weight: 600;
+    font-size: $font-size-lg;
+    color: $neutral-primary;
+    @extend .fs-lg;
+  }
+
+  &__sidemenu-filter-item{
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+    .form-check-label {
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-secondary;
+      @extend .fs-base;
+    }
+    .form-check-label,
+    .form-check-input {
+      cursor: pointer;
+    }
+    .form-check-input:checked ~ .form-check-label {
+      color: $neutral-secondary;
+    }
+  }
+
+  &__sidemenu-filter-item &__sidemenu-filter-counter{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+    @extend .fs-base;
+    margin-left: auto;
+
+    &--text{
+      margin-left: 0;
+    }
+  }
+
+  &__sidemenu-filter-range{
+    display: flex;
+    justify-content: space-between;
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+    @extend .fs-base;
+  }
+
+  &__sidemenu-filter-button{
+    text-align: center;
+    color: $green-01;
+  }
+
+  &__sidemenu-filter-divider{
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+  
+  // Content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(24);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @include media-breakpoint-down(lg) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(16);
+    }
+  }
+
+  &__content-title{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+    @extend .fs-lg;
+  }
+
+  &__content-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: toRem(16);
+  }
+
+  &__content-type{
+    display: flex;
+    overflow: auto;
+    width: 100%;
+    gap: toRem(12);
+  }
+
+  // Car Type
+  
+  &__type{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: toRem(10);
+    gap: toRem(8);
+    background: $white;
+    border: toRem(1) solid $neutral-input; 
+    border-radius: toRem(10);
+    max-width: toRem(124);
+  }
+
+  &__type-image{
+    border-radius: toRem(4);
+  }
+
+  &__type-name{
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    @extend .fs-base;
+  }
+  
+  &__type-desc{
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+    @extend .fs-sm;    
+  }
+
+  // Car List
+  &__car{
+    display: flex;    
+    align-items: flex-start;        
+    background: $white;
+    border: toRem(1) solid $neutral-input; 
+    border-radius: toRem(16);    
+    width: 100%;
+  }
+
+  &__car-image{
+    border-top-left-radius: toRem(16);
+    border-bottom-left-radius: toRem(16);
+    border-right: toRem(1) solid $neutral-input;
+  }
+
+  &__car-wrapper{
+    display: flex;
+    justify-content: space-between;    
+    padding: toRem(24);
+    gap: toRem(16);
+    flex-grow: 1;
+  }
+
+  &__car-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;    
+    gap: toRem(16);
+  }
+
+  &__car-location{
+    display: flex;
+    align-items: center;
+    gap: toRem(8);    
+  }
+
+  &__car-location-pin{
+    color: $green-01; 
+  }
+
+  &__car-location-name{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+    @extend .fs-lg;
+  }
+
+  &__car-features{
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    flex-wrap: wrap;
+
+    &--dots{
+      width: toRem(5);
+      height: toRem(5);
+      background: $neutral-separator;
+    }
+  }
+
+  &__car-features-item{
+    display: flex;
+    align-items: center;
+    gap: toRem(8);
+    font-size: $font-size-base;
+    color: $neutral-subtle;
+    @extend .fs-base;    
+  }
+
+  &__car-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: toRem(8);
+  }
+
+  &__car-price{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: toRem(4);    
+    color: $neutral-primary;    
+    font-weight: $font-weight-bold;
+  }
+
+  &__car-price-range{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;    
+    @extend .fs-base;
+  }
+
+  // Pagination
+
+  &__pagination {
+    @include flex(row, center, center);
+  }
+}

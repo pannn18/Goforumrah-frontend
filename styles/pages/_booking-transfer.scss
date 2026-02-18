@@ -1,0 +1,104 @@
+.booking-transfer {
+  &__summary{
+    &-details{
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(24);
+      padding: toRem(24);
+      background: $white;
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(16);
+      max-width: toRem(360);
+    
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+    
+      &-separator{
+        border-top: toRem(1) solid $neutral-separator;
+      }
+    }
+    
+    &-booking{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(16);
+    
+      &-image{
+        object-fit: cover;
+        min-width: toRem(71);
+        border-radius: toRem(4);
+      }
+    
+      &-desc{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);        
+      }
+    
+      &-tag{
+        font-size: $font-size-sm;
+        font-weight: $font-size-base;
+        color: $neutral-subtle;
+        @extend .fs-sm;
+      }
+    
+      &-name{
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+    
+      &-date{
+        display: flex;
+        align-items: center;
+        gap: toRem(12);
+        font-size: $font-family-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-base;
+    
+        &--dots{
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-input;
+          border-radius: toRem(100);
+        }
+      }
+    }
+    
+    &-price{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(8);
+    
+      &-title{
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+    
+      &-column{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: toRem(4);
+      }
+    
+      &-link{
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+      }
+    }
+  }
+}
+

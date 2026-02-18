@@ -1,0 +1,38 @@
+.pagination {
+  @include flex(row, center);
+  gap: toRem(8);
+
+  &__button {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    @include flex(row, center, center);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid $neutral-input;
+    overflow: hidden;
+    background-color: $white;
+    @extend .fw-semibold;
+    color: $neutral-subtle;
+
+    &--arrow {
+      color: $primary;
+
+      .react-svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &.active {
+      background-color: $primary;
+      border-color: $neutral-primary;
+    }
+
+    &.disabled{
+      background-color: $neutral-light;
+      cursor: not-allowed;
+    }
+  }
+}

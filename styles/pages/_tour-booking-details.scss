@@ -1,0 +1,976 @@
+// Initialize first
+@import "../init";
+
+.tour-booking-details {
+  background-color: $neutral-light;
+
+  &__payment {
+    &-input {
+      &--icon {
+        color: $neutral-subtle !important;
+      }
+    }
+  }
+  
+
+  &__header {
+    padding: toRem(24) 0;
+    background: $white;
+
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: toRem(120);
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: toRem(24);
+      color: $neutral-primary;
+
+      &-button {
+        color: $green-01;
+      }
+    }
+
+    &-stepper {
+      display: flex;
+      flex-grow: 1;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        padding: toRem(8) toRem(16);
+        gap: toRem(12);
+        border-left: toRem(1) solid $neutral-input;
+        font-size: $font-size-base;
+        @extend .fs-base;
+        color: $neutral-secondary;
+
+        &.current {
+          border-left: toRem(2) solid $green-01;
+          background: $neutral-light;
+          font-weight: $font-weight-bold;
+
+          .booking-hotel__header-stepper-number {
+            color: $green-01;
+            border-color: $green-01;
+            background: $white;
+          }
+        }
+
+        &.done {
+          border-left: toRem(2) solid $blue-whale-01;
+          color: $blue-whale-01;
+          font-weight: $font-weight-semibold;
+
+          .booking-hotel__header-stepper-number {
+            color: $white;
+            border-color: $blue-whale-01;
+            background: $blue-whale-01;
+          }
+        }
+      }
+
+      &-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: toRem(24);
+        height: toRem(24);
+        border: toRem(1) solid $neutral-input;
+        border-radius: toRem(100);
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base
+      }
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(20);
+    padding-top: toRem(40);
+    padding-bottom: toRem(80);
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    color: $neutral-primary;
+    background: $white;
+    border-radius: toRem(16);
+    border: toRem(1) solid $neutral-separator;
+    min-width: toRem(360);
+    height: fit-content;
+
+    &-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      @extend .fs-xl;
+    }
+
+    &-button {
+      padding: toRem(16) toRem(32);
+      font-size: $font-size-lg;
+    }
+
+    &-preview {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+
+      &-image {
+        border-radius: toRem(10);
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(8);
+
+        &-title {
+          font-size: $font-size-base;
+          font-weight: $font-weight-bold;
+          @extend .fs-base;
+        }
+
+        &-time {
+          display: flex;
+          gap: toRem(29);
+        }
+
+        &-date {
+          color: $neutral-secondary;
+          font-weight: $font-weight-normal;
+        }
+
+        &-desc {
+          font-size: $font-size-base;
+          font-weight: $font-weight-normal;
+          @extend .fs-base;
+        }
+
+        &-box {
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+          font-size: $font-size-sm;
+          @extend .fs-sm;
+        }
+
+        &-dot {
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-separator;
+          border-radius: toRem(100);
+        }
+      }
+
+    }
+
+    &-separator {
+      height: toRem(1);
+      width: 100%;
+      background-color: $neutral-separator;
+    }
+
+    &-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: toRem(8);
+
+      &-people {
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        font-size: $font-size-base;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-desc {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        @extend .fs-base;
+      }
+    }
+
+    &-total {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(8);
+
+      &-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        @extend .fs-base;
+      }
+
+      &-price {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        gap: toRem(4);
+
+        &--text {
+          font-size: $h5-font-size;
+          font-weight: $font-weight-bold;
+          line-height: $h5-line-height;
+        }
+
+        &--link {
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          @extend .fs-base;
+        }
+      }
+    }
+  }
+
+  &__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    color: $neutral-primary;
+    background: $white;
+    border-radius: toRem(16);
+
+    &-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(12);
+
+      &-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+
+        &--optional {
+          font-size: $font-size-sm;
+          font-weight: $font-weight-normal;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      gap: toRem(20);
+    }
+
+    &-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-xl
+    }
+
+    &-desc {
+      font-size: $font-size-base;
+      font-weight: $font-weight-normal;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-icon {
+      display: flex;
+      gap: toRem(8);
+    }
+  }
+
+  &__ticket {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      color: $neutral-primary;
+    }
+  
+    &-adult {
+      font-weight: $font-weight-bold;
+    }
+  
+    &-amount {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+  
+      &-btn {
+        &-gray {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $neutral-subtle;
+        width: toRem(24);
+        height:toRem(24) ;
+        border-radius: toRem(40);
+        color: $white;
+        }
+  
+        &-green {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $green-01;
+        width: toRem(24);
+        height: toRem(24);
+        border-radius: toRem(40);
+        color: $white;
+        }
+      }
+    }
+
+    input {
+      padding: toRem(13) toRem(16);
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+      font-weight: $font-weight-semibold;
+      color: $neutral-secondary;
+      
+      label {
+        font-weight: $font-weight-semibold;
+        color: $neutral-secondary;
+      }
+
+      input {
+        padding: toRem(13) toRem(16);
+      }
+  
+      select {
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+      }
+
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+    }
+
+    &-combobox {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: $neutral-light;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(10);
+
+      &-separator {
+        height: toRem(32);
+        border-left: toRem(1) solid $neutral-input;
+      }
+
+      select,
+      input {
+        border: none;
+      }
+    }
+
+    &-banner {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      padding: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        padding: toRem(12);
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(50);
+      }
+
+      &-text {
+        font-size: $font-size-base;
+        color: $neutral-primary;
+      }
+
+      &-link {
+        color: $green-01;
+      }
+    }
+  }
+
+  &__guest {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    input {
+      padding: toRem(13) toRem(16);
+    }
+
+    &-toggle {
+      display: flex;
+      gap: toRem(24);
+
+      input[type="checkbox"] {
+        padding: 0;
+        border: 0;
+        position: relative;
+        width: 40px;
+        height: 20px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: $neutral-input;
+        outline: none;
+        border-radius: 2rem;
+        cursor: pointer;
+
+        &::before {
+          content: "";
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: $white;
+          position: absolute;
+          top: toRem(2);
+          left: 8%;
+          transition: 0.5s;
+        }
+
+        &:checked {
+          background: $green-01;
+
+          &::before {
+            transform: translateX(108%);
+          }
+        }
+      }
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+    }
+  }
+
+  &__special {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    &-question {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+
+      &-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-row {
+        display: flex;
+        gap: toRem(24);
+      }
+
+      &-block {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        min-width: toRem(217);
+      }
+    }
+
+    &-separator {
+      width: 100%;
+      border-top: toRem(1) solid $neutral-separator;
+    }
+
+    &-toggle {
+      display: flex;
+      gap: toRem(8);
+      align-items: center;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+    }
+  }
+
+  &__additional {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    &-question {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+
+      &-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-row {
+        display: flex;
+        gap: toRem(24);
+      }
+
+      &-block {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        min-width: toRem(271);
+      }
+    }
+
+    &-banner {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      padding: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        padding: toRem(12);
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(50);
+      }
+
+      &-text {
+        font-size: $font-size-base;
+        color: $neutral-primary;
+      }
+
+      &-link {
+        margin-left: auto;
+        display: flex;
+        gap: toRem(10);
+        align-items: center;
+        color: $green-01;
+      }
+    }
+  }
+
+  &__aggreement {
+    display: flex;
+    align-items: center;
+    gap: toRem(14);
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    color: $neutral-primary;
+
+    &-link {
+      font-weight: $font-weight-semibold;
+      color: $green-01;
+    }
+  }
+
+  &__timer {
+    background: $blue-whale-05;
+    padding: toRem(24) 0;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: toRem(16);
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-countdown {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      color: $blue-whale-01;
+    }
+
+    &-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: toRem(8);
+      padding: toRem(8);
+      background-color: $blue-whale-01;
+      border-radius: toRem(2);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $white;
+      @extend .fs-lg;
+    }
+  }
+
+  &__payment {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(16);
+
+    input {
+      padding: toRem(13) toRem(16);
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+    }
+
+    &-input {
+      position: relative;
+
+      &--icon {
+        position: absolute;
+        right: toRem(16);
+        top: 50%;
+        transform: translateY(-50%);
+        color: $green-01;
+      }
+    }
+  }
+
+  &__confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: toRem(24);
+    gap: toRem(32);
+    background: $white;
+    border-radius: toRem(16);
+    margin-top: toRem(40);
+    margin-bottom: toRem(80);
+
+    &-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(32);
+
+      &-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(32);
+      }
+
+      &-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(12);
+        background: $success-surface;
+        border-radius: toRem(120);
+      }
+
+      &-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);
+        color: $neutral-primary;
+
+        &--name {
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $neutral-secondary;
+          @extend .fs-xl;
+        }
+      }
+
+      &-buttons {
+        display: flex;
+        gap: toRem(12);
+      }
+    }
+
+    &-separator {
+      border-top: toRem(1) solid $neutral-separator;
+    }
+
+    &-details {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(64);
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+      max-width: toRem(608);
+
+      &__title {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(12);
+        color: $neutral-primary;
+
+        &-location {
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          color: $neutral-subtle;
+          font-size: $font-size-xl;
+          font-weight: $font-weight-base;
+
+          &-text { 
+            font-size: $font-size-lg;
+            color: $neutral-secondary;
+            @extend .fs-lg;
+          }
+
+        }
+
+        &-pin {
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          color: $green-01;
+        }
+
+        &-rating {
+          display: flex;
+          gap: toRem(8);
+          color: $warning-main;
+        }
+
+        &-brand{
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          font-size: $font-size-lg;
+          color: $neutral-primary;
+          @extend .fs-lg;
+
+          &-image{
+            border-radius: toRem(100);
+          }
+        }
+      }
+
+      &__details {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+
+        &-row {
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+        }
+
+        &-dot {
+          width: toRem(5);
+          height: toRem(5);
+          background-color: $neutral-input;
+          border-radius: toRem(100);
+        }
+
+        &-schedule {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: toRem(8);
+          font-weight: $font-weight-semibold;
+          color: $neutral-primary;
+
+          &-type {
+            display: flex;
+            align-items: center;
+            gap: toRem(8);
+            font-weight: $font-weight-base;
+            color: $neutral-secondary;
+          }
+        }
+      }
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(16);
+
+        &-rows {
+          display: flex;
+          align-items: flex-start;
+          gap: toRem(8);
+          color: $neutral-secondary;
+        }
+
+        &-icon {
+          color: $success-main;
+        }
+
+        &-text {
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+
+          &--highlighted {
+            font-weight: $font-weight-bold;
+            color: $blue-whale-01;
+          }
+
+          &--handler {
+            font-weight: $font-weight-bold;
+            color: $neutral-primary;
+          }
+
+          &--link {
+            color: $green-01;
+            font-weight: $font-weight-semibold;
+          }
+        }
+      }
+    }
+
+    &-preview{
+      display: flex;
+      flex-direction: column;            
+      gap: 16px;
+
+      &__booking{
+        display: flex;
+        align-items: flex-start;
+        gap: toRem(16);
+      
+        &-image{
+          object-fit: cover;
+          min-width: toRem(71);
+          border-radius: toRem(4);
+        }
+      
+        &-desc{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: toRem(8);        
+        }
+      
+        &-tag{
+          font-size: $font-size-sm;
+          font-weight: $font-size-base;
+          color: $neutral-subtle;
+          @extend .fs-sm;
+        }
+      
+        &-name{
+          font-size: $font-size-base;
+          font-weight: $font-weight-bold;
+          color: $neutral-primary;
+          @extend .fs-base;
+        }
+      
+        &-date{
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+          font-size: $font-family-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+      
+          &--dots{
+            width: toRem(5);
+            height: toRem(5);
+            background: $neutral-input;
+            border-radius: toRem(100);
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-total {
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(16);
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(4);
+    }
+
+    &-details {
+      font-weight: $font-weight-base;
+    }
+  }
+
+}

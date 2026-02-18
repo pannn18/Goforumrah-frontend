@@ -1,0 +1,43 @@
+.user-layout-header {
+  padding: toRem(24) 0;
+  background-color: $white;
+  border-bottom: 1px solid $neutral-separator;
+  color: $neutral-primary;
+
+  &__content {
+    @include flex(row, center);
+    gap: toRem(24);
+
+    .react-svg {
+      width: 24px;
+      height: 24px;
+      color: $green-01;
+    }
+  }
+}
+
+.user-layout-breadcrumb {
+  margin: toRem(24) 0;
+  @include flex(row, center);
+  gap: toRem(16);
+  color: $neutral-subtle;
+
+  &__resp {
+    display: none !important;
+
+    @include media-breakpoint-down(md) {
+      display: block !important;
+    }
+  }
+
+  &__desk {
+    @include media-breakpoint-down(md) {
+      display: none !important;
+    }
+  }
+
+  .active {
+    color: $green-01;
+    @extend .fw-normal;
+  }
+}

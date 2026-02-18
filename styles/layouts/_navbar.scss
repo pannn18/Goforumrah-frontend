@@ -1,0 +1,183 @@
+.navbar {
+  &--light{
+    background: $white;    
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+  &__separator {
+    align-self: stretch;
+    width: 1px;
+    background-color: $blue-whale-03;
+    &--dark{
+      background-color: $neutral-separator;
+    }
+  }
+
+  &__selected-option {
+    @include flex(row, center);
+    gap: toRem(4);
+    font-weight: $font-weight-semibold;
+    color: $white;
+    // cursor: pointer;
+
+    &--dark{
+      color: $neutral-primary;
+    }
+  }
+
+  &__user {
+    padding: toRem(6);
+    max-width: toRem(32);
+    border-radius: toRem(100);
+    background: $neutral-light;
+    cursor: pointer;
+  }
+
+  &__user-icon {
+    color: $neutral-secondary;
+  }
+
+  &__dropdown {
+    border-radius: toRem(8) !important;
+    left: auto !important;
+    right: 0;
+    max-width: toRem(289);
+    padding: toRem(8);
+
+    &.agent {
+      @include media-breakpoint-down(xs-3) {
+        margin-right: toRem(32);
+      }
+
+      @include media-breakpoint-down(xs-2) {
+        margin-right: toRem(56);
+      }
+    }
+  }
+
+  &__dropdown-profile {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(8);
+    padding: toRem(24) toRem(16) toRem(20);
+    background: $blue-whale-01;
+    border-radius: toRem(12);
+  }
+
+  &__dropdown-avatar {
+    display: flex;
+    align-items: center;
+    padding: toRem(10);
+    gap: toRem(10);
+    background: $blue-whale-02;
+    border-radius: toRem(100);
+    color: $white;
+    margin-right: toRem(8);
+  }
+
+  &__dropdown-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(4);
+  }
+
+  &__dropdown-text-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $white;
+  }
+
+  &__dropdown-text-email {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $white;
+  }
+
+  &__dropdown-edit {
+    margin-left: auto;
+    color: $white;
+  }
+
+  &__dropdown-menu-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: toRem(12) toRem(16);
+    gap: toRem(12);
+    background: $white;
+    border-radius: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+
+    &:hover {
+      background: $neutral-light;
+      font-weight: $font-weight-semibold;
+      color: $blue-whale-01;
+    }
+
+    &.active {
+      background: $neutral-light;
+      font-weight: $font-weight-bold;
+      color: $blue-whale-01;
+    }
+
+    &--arrow {
+      color: $neutral-input;
+      margin-left: auto;
+    }
+  }
+
+  &__agent-link{
+    @include flex(column, center);
+    padding: toRem(8);
+    padding-bottom: toRem(4);
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-light;
+    margin-bottom: toRem(4);
+
+    &:hover{      
+      color: $white;
+    }
+    &.active{
+      font-weight: $font-weight-bold;
+      margin-bottom: toRem(0);
+
+      .navbar__agent-link--dots{
+        display: block;
+        width: toRem(4);
+        height: toRem(4);
+        background: $green-01;
+        border-radius: toRem(100);        
+      }
+    }
+    .navbar__agent-link--dots{
+     display: none;   
+    }
+  }
+}
+
+.navbar-brand {
+  img {
+    height: 26px;
+    width: auto;
+  }
+}
+
+.navbar-services {
+  margin-right: toRem(40);
+  margin-left: toRem(40);
+}
+
+.navbar-services-tab {
+  @include media-breakpoint-down(xl-1){
+    display: none;
+  }
+}
+
+.navbar-toggler{
+  color: $white;
+  border-color: $green-01;
+  box-shadow: unset;
+}

@@ -1,0 +1,53 @@
+.navbar{
+  .custom-dropdown{
+    .navbar__user{
+      @include flex(row, center, center);
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      overflow: hidden;
+      .navbar__user-avatar{
+        width: 2rem;
+        height: 2rem;
+        object-fit: cover;
+      }
+    }
+    .navbar__dropdown{
+      .navbar__dropdown-text{
+        overflow:hidden;
+      }
+      .navbar__dropdown-text-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 10rem;
+      }
+      .navbar__dropdown-text-email {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 10rem;
+      }
+      .navbar__dropdown-profile{
+        align-items: center;
+      }
+      .navbar__dropdown-avatar{
+        @include flex(row, center, center);
+        padding: 0;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        overflow: hidden;
+        .navbar__dropdown-avatar__img{
+          width: 2rem;
+          height: 2rem;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  .navbar__selected-option{
+    cursor: pointer;
+  }
+}

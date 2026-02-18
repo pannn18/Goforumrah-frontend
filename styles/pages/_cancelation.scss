@@ -1,0 +1,2131 @@
+.cancelation {
+  &__breadcrumb {
+    display: flex;
+    gap: toRem(16);
+    padding-top: toRem(24);
+    font-size: $font-size-base;
+    color: $green-01;
+    font-weight: $font-weight-base;
+
+    &--link {
+      font-weight: $font-weight-semibold;
+      color: $green-01;
+    }
+
+    &--current {
+      color: $neutral-subtle;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+    flex-grow: 1;
+  }
+
+  // Card Section
+  &__card {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border-radius: toRem(16);
+
+    &--row {
+      flex-direction: row;
+
+      @include media-breakpoint-down(lg) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__card-header {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+    align-items: flex-start;
+  }
+
+  &__card-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+
+  &__card-subtitle {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__card-separator {
+    border-top: toRem(1) solid $neutral-separator;
+    margin: 0;
+  }
+
+  &__card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem;
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  // Utterance Section
+  &__utterance {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(32);
+  }
+
+  &__utterance-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: toRem(12);
+    background: $success-surface;
+    border-radius: toRem(120);
+  }
+
+  &__utterance-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(16);
+  }
+
+  &__utterance-subtitle {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__utterance-action {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+  }
+
+  // Ticket Section
+  &__ticket {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: toRem(20);
+    gap: toRem(16);
+    background: $white;
+    border: toRem(1) solid $neutral-input;
+    border-radius: toRem(12);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__ticket-icon {
+    color: $green-01;
+  }
+
+  &__ticket-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(4);
+    margin-right: auto;
+  }
+
+  &__ticket-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__ticket-desc {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  // Payment Section
+  &__payment {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(32);
+  }
+
+  &__payment-flight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: toRem(32);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__payment-flight-destination {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  &__payment-flight-icon {
+    display: flex;
+    align-items: center;
+    gap: toRem(4);
+  }
+
+  &__payment-flight-order {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__payment-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: toRem(32);
+  }
+
+  &__payment-total-text {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__payment-link {
+    color: $green-01;
+    margin: 0 auto;
+  }
+
+  // Flight Section
+  &__flight {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+
+  &__flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+
+  &__flight-summary {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+  }
+
+  &__flight-summary-logo {
+    display: flex;
+    align-items: center;
+    padding: toRem(12) toRem(24);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(8);
+  }
+
+  &__flight-summary-content {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+
+  &__flight-summary-schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: toRem(8);
+    color: $neutral-primary;
+
+    &--sub {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-base;
+    }
+  }
+
+  &__flight-summary-duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: toRem(8);
+
+    &--text {
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-secondary;
+    }
+
+    &--icon {
+      display: flex;
+      align-items: center;
+      gap: toRem(4);
+      color: $neutral-primary;
+    }
+  }
+
+  &__flight-summary--eTicket {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__flight-summary-logo--eTicket {
+    display: flex;
+    align-items: center;
+    padding: toRem(12) toRem(24);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(8);
+  }
+
+  &__flight-summary-content--eTicket {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+  }
+
+  &__flight-summary-schedule--eTicket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: toRem(8);
+    color: $neutral-primary;
+
+    &-sub {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-base;
+    }
+  }
+
+  &__flight-summary-duration--eTicket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: toRem(8);
+
+    &-text {
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-secondary;
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      gap: toRem(4);
+      color: $neutral-primary;
+    }
+  }
+
+  &__flight-inner {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(32);
+
+    &--order {
+      gap: 0 !important;
+    }
+  }
+
+  &__flight-wrapper {
+    display: flex;
+    gap: toRem(40);
+    position: relative;
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__flight-details-content-right {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+      gap: toRem(8);
+    }
+  }
+
+  &__flight-details {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    gap: toRem(32);
+
+    &--order {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 80px;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: $green-01;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: -65px;
+      left: 80px;
+      transform: translate(-12.5%, 0%);
+      width: 2px;
+      border-left: 1px dashed $green-01;
+    }
+
+    &--solid-line {
+      &::after {
+        border-left-style: solid;
+      }
+    }
+
+    &:last-child {
+      &::after {
+        content: unset;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: toRem(32);
+    }
+  }
+
+  &__flight-details-title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: toRem(68);
+    gap: toRem(8);
+
+    &--order {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: toRem(64);
+      width: 100%;
+      gap: toRem(8);
+    }
+
+    &--order:after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      right: 0;
+      top: 0;
+      transform: translateX(50%);
+      border-radius: 50%;
+      background: $green-01;
+      border: 1px $green-01 solid;
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+
+    &--time {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+    }
+
+    &--date {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $neutral-secondary;
+    }
+  }
+
+  &__flight-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    flex: 1 1 0;
+
+    &--order {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+      flex: 1 1 0;
+      position: relative;
+      padding: 0 toRem(24) toRem(32) toRem(24);
+    }
+
+    &--order-layover::before {
+      border-left: 1px dashed $green-01 !important;
+    }
+
+    &--order::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      height: 100%;
+      border-left: 1px $green-01 solid;
+    }
+
+    &--order-last::before {
+      border-left: none !important;
+    }
+  }
+
+  &__flight-details-airport {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(4);
+
+    &--name {
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+    }
+
+    &--terminal {
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-secondary;
+    }
+  }
+
+  &__flight-details-amenities {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+
+    &--layover {
+      display: flex;
+      gap: toRem(8);
+
+      p {
+        color: $neutral-subtle;
+        @extend .fs-sm;
+        font-weight: 400;
+      }
+    }
+
+    &--item {
+      display: flex;
+      gap: toRem(8);
+      font-size: $font-size-sm;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+    }
+  }
+
+  &__flight-details-plane {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(8);
+
+    &--type {
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+    }
+
+    &--class {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+    }
+  }
+
+  &__flight-details-logo {
+    display: flex;
+    align-items: center;
+    padding: toRem(6) toRem(18);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(8);
+  }
+
+  &__flight-details-layover {
+    display: flex;
+    padding-left: toRem(105);
+    gap: toRem(8);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__flight-passenger-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: toRem(20);
+    color: $neutral-primary;
+  }
+
+  &__flight-passenger-desc {
+    display: flex;
+    align-items: center;
+    gap: toRem(20);
+
+    &--number {
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $neutral-secondary;
+    }
+
+    &--icon {
+      display: flex;
+      align-items: center;
+      padding: toRem(10);
+    }
+
+    &--button {
+      padding: toRem(3) toRem(16);
+      background: $info-surface;
+      border-radius: toRem(32);
+    }
+
+    &--name {
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+    }
+  }
+
+  &__flight-passenger-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(32);
+  }
+
+  &__flight-passenger-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(8);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+
+    &--text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(4);
+    }
+
+    &--desc {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-base;
+      color: $neutral-secondary;
+    }
+  }
+
+  &__flight-information {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(16);
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__flight-manage {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: toRem(16) toRem(20);
+    gap: toRem(16);
+    background: $white;
+    border-bottom: toRem(1) solid $neutral-separator;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+
+    &--cancel {
+      color: $danger-main;
+    }
+  }
+
+  &__flight-manage-icon {
+    color: $green-01;
+  }
+
+  &__flight-manage-arrow {
+    color: $neutral-input;
+    margin-left: auto;
+  }
+
+  &__flight-help {
+    display: flex;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__flight-help-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: toRem(16) toRem(20);
+    gap: toRem(10);
+    background: $white;
+    border: toRem(1) solid $neutral-input;
+    border-radius: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__flight-help-icon {
+    color: $green-01;
+  }
+
+  &__flight-help-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(4);
+  }
+
+  &__flight-help-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__flight-help-subtitle {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__flight-help-arrow {
+    color: $neutral-input;
+    margin: auto;
+    margin-right: 0;
+  }
+
+  // Hotel Section
+  &__hotel {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+
+  &__hotel-summary {
+    display: flex;
+    flex-direction: row;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__hotel-summary-image {
+    object-fit: cover;
+    border-radius: toRem(6);
+  }
+
+  &__hotel-summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__hotel-summary-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__hotel-summary-desc {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__hotel-summary-confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: toRem(4);
+
+    @include media-breakpoint-down(xs-3) {
+      align-items: flex-start;
+    }
+  }
+
+  &__hotel-summary-id {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__hotel-summary-number {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    line-height: $line-height-sm;
+  }
+
+  &__hotel-date {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__hotel-regis {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__hotel-regis-imagery {
+    padding: toRem(10);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(6);
+  }
+
+  &__hotel-regis-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__hotel-regis-content {
+    display: flex;
+    align-items: center;
+    padding-top: toRem(12);
+    gap: toRem(12);
+  }
+
+  &__hotel-regis-date {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__hotel-regis-time {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__hotel-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(md) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-down(xs-1) {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__hotel-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__hotel-detail-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__hotel-detail-content {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__hotel-location {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__hotel-location-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__hotel-location-detail {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__hotel-location-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+
+  &__hotel-location-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__hotel-location-pin {
+    display: flex;
+    align-items: center;
+    gap: toRem(4);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__hotel-location-map {
+    position: relative;
+    border-radius: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      width: 100%;
+    }
+
+    img {
+      @include media-breakpoint-down(xs-3) {
+        width: 100% !important;
+      }
+    }
+  }
+
+  &__hotel-location-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__hotel-location-overlay {
+    background-color: #041d2f;
+    opacity: 0.4;
+    border-radius: toRem(16);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+  }
+
+  &__hotel-facility {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__hotel-facility-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__hotel-facility-list {
+    display: flex;
+    gap: toRem(12);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__hotel-facility-item {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(8);
+    padding: toRem(12);
+    flex: 1 1 0;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(10);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__hotel-facility-button {
+    white-space: pre-wrap;
+    padding: toRem(12) toRem(24);
+    max-width: toRem(124);
+
+    @include media-breakpoint-down(xs-3) {
+      max-width: 100%;
+    }
+  }
+
+  // Tour Section
+  &__tour {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+
+  &__tour-summary {
+    display: flex;
+    flex-direction: row;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__tour-summary-image {
+    object-fit: cover;
+    border-radius: toRem(6);
+  }
+
+  &__tour-summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__tour-summary-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__tour-summary-desc {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__tour-summary-confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: toRem(4);
+
+    @include media-breakpoint-down(xs-3) {
+      align-items: flex-start;
+    }
+  }
+
+  &__tour-summary-id {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__tour-summary-number {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    line-height: $line-height-sm;
+  }
+
+  &__tour-date {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__tour-regis {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__tour-regis-imagery {
+    padding: toRem(10);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(6);
+  }
+
+  &__tour-regis-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__tour-regis-content {
+    display: flex;
+    align-items: center;
+    padding-top: toRem(12);
+    gap: toRem(12);
+  }
+
+  &__tour-regis-date {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__tour-regis-time {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__tour-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(md) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-down(xs-1) {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__tour-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__tour-detail-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__tour-detail-content {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__tour-location {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__tour-location-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__tour-location-detail {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__tour-location-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+
+  &__tour-location-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__tour-location-pin {
+    display: flex;
+    align-items: center;
+    gap: toRem(4);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__tour-location-map {
+    position: relative;
+    border-radius: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      width: 100%;
+    }
+
+    img {
+      @include media-breakpoint-down(xs-3) {
+        width: 100% !important;
+      }
+    }
+  }
+
+  &__tour-location-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__tour-location-overlay {
+    background-color: #041d2f;
+    opacity: 0.4;
+    border-radius: toRem(16);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+  }
+
+  &__tour-facility {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__tour-facility-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__tour-facility-list {
+    display: flex;
+    gap: toRem(12);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__tour-facility-item {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(8);
+    padding: toRem(12);
+    flex: 1 1 0;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(10);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__tour-facility-button {
+    white-space: pre-wrap;
+    padding: toRem(12) toRem(24);
+    max-width: toRem(124);
+
+    @include media-breakpoint-down(xs-3) {
+      max-width: 100%;
+    }
+  }
+
+  // Car Section
+  &__car {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+
+  &__car-summary {
+    display: flex;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__car-summary-image {
+    object-fit: cover;
+    border-radius: toRem(6);
+  }
+
+  &__car-summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__car-summary-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__car-summary-brand {
+    display: flex;
+    align-items: center;
+    gap: toRem(8);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__car-summary-brand--image {
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(100);
+  }
+
+  &__car-summary-confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: toRem(4);
+  }
+
+  &__car-summary-id {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__car-summary-number {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    line-height: $line-height-sm;
+  }
+
+  &__car-date {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+
+  &__car-regis {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__car-regis-imagery {
+    padding: toRem(10);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(6);
+  }
+
+  &__car-regis-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__car-regis-content {
+    display: flex;
+    align-items: center;
+    padding-top: toRem(12);
+    gap: toRem(12);
+  }
+
+  &__car-regis-date {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__car-regis-time {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__car-regis-desc {
+    padding-top: toRem(8);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__car-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__car-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    flex: 1 1 0;
+  }
+
+  &__car-detail-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__car-detail-content {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__car-location {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__car-location-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__car-location-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__car-location-text {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+
+  &__car-location-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__car-location-pin {
+    display: flex;
+    align-items: center;
+    gap: toRem(4);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__car-location-map {
+    position: relative;
+    border-radius: toRem(16);
+  }
+
+  &__car-location-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__car-location-overlay {
+    background-color: #041d2f;
+    opacity: 0.4;
+    border-radius: toRem(16);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+  }
+
+  &__car-facility {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__car-facility-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__car-facility-list {
+    display: flex;
+    gap: toRem(12);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+
+  &__car-facility-item {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: toRem(8);
+    padding: toRem(12);
+    flex: 1 1 0;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(10);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+
+  &__car-facility-button {
+    white-space: pre-wrap;
+    padding: toRem(12) toRem(24);
+    max-width: toRem(124);
+  }
+
+  // Reason Section
+  &__reason-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: toRem(16);
+    gap: toRem(16);
+    border-bottom: toRem(1) solid $neutral-separator;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+
+    .form-check-label {
+      @extend .fs-base;
+      @extend .fw-semibold;
+      color: $neutral-primary !important;
+
+      &--reason {
+        @include media-breakpoint-down(xs-2) {
+          width: 100% !important;
+          max-width: toRem(180) !important;
+        }
+
+        @include media-breakpoint-down(xs-1) {
+          width: 100% !important;
+          max-width: toRem(150) !important;
+        }
+      }
+    }
+  }
+
+  &__reason-input {
+    position: relative;
+    top: unset;
+    transform: unset;
+  }
+
+  // Terms Section
+  &__terms {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+
+  &__terms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: toRem(16);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+
+  &__terms-content {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    align-items: flex-start;
+  }
+
+  &__terms-logo {
+    object-fit: cover;
+  }
+
+  &__terms-text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  // Confirm Section
+  &__confirm-preview {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+  }
+
+  &__confirm-preview-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__confirm-preview-image {
+    padding: toRem(14) toRem(41);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+
+    &--hotel {
+      padding: toRem(4) toRem(14);
+    }
+  }
+
+  &__confirm-preview-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);
+    flex: 1 1 0;
+  }
+
+  &__confirm-preview-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+
+  &__confirm-preview-detail {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-secondary;
+  }
+
+  &__confirm-preview-brand {
+    display: flex;
+    align-items: center;
+    gap: toRem(8);
+  }
+
+  &__confirm-preview-logo {
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(100);
+  }
+
+  &__confirm-preview-information {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__confirm-preview-button {
+    display: flex;
+    align-items: center;
+    padding: toRem(3) toRem(16);
+    gap: toRem(8);
+    background: $success-surface;
+    border: toRem(1) solid $success-main;
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $success-main;
+  }
+
+  &__confirm-preview-dot {
+    width: toRem(5);
+    height: toRem(5);
+    background: $neutral-separator;
+    border-radius: toRem(100);
+  }
+
+  &__confirm-bill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: toRem(8);
+
+    &--text {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $neutral-secondary;
+    }
+
+    &--bold {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+    }
+  }
+
+  &__confirm-wrapper {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @include media-breakpoint-down(xs-2) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  // Modal
+  &__modal {
+    margin: auto;
+    top: 50%;
+    max-width: toRem(604);
+    transform: translateY(-50%) !important;
+
+    @include media-breakpoint-down(sm) {
+      max-width: none;
+      top: 60%;
+      width: 80%;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+  }
+
+  &__modal-body {
+    border: none;
+    border-radius: toRem(16);
+    padding: toRem(24);
+    gap: toRem(40);
+  }
+
+  &__modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: toRem(32) toRem(24) 0;
+    gap: toRem(32);
+  }
+
+  &__modal-image {
+    padding: toRem(12);
+    background: rgba($danger-main, 0.1);
+    border-radius: toRem(120);
+
+    &--green {
+      padding: toRem(12);
+      background: rgba($success-main, 0.1);
+      border-radius: toRem(120);
+    }
+  }
+
+  &__modal-text {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    text-align: center;
+  }
+
+  &__modal-desc {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__modal-footer {
+    display: flex;
+    gap: toRem(20);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+
+  &__modal-button {
+    flex: 1 1 0;
+  }
+
+  // Confirmation
+  &__confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: toRem(24);
+    gap: toRem(32);
+    background: $white;
+    border-radius: toRem(16);
+    margin-top: toRem(40);
+    margin-bottom: toRem(80);
+
+    &-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(32);
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+
+      &-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(32);
+      }
+
+      &-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(12);
+        background: $success-surface;
+        border-radius: toRem(120);
+      }
+
+      &-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);
+        color: $neutral-primary;
+
+        &--name {
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $neutral-secondary;
+          @extend .fs-xl;
+        }
+      }
+
+      &-buttons {
+        display: flex;
+        gap: toRem(12);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+        }
+      }
+
+      &-tag {
+        display: flex;
+        align-items: center;
+        padding: toRem(3) toRem(16);
+        gap: toRem(8);
+        background: $success-surface;
+        border: toRem(1) solid $success-main;
+        border-radius: toRem(32);
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $success-main;
+      }
+    }
+
+    &-separator {
+      border-top: toRem(1) solid $neutral-separator;
+    }
+
+    &-details {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(64);
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+      max-width: toRem(608);
+
+      &__title {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(12);
+        color: $neutral-primary;
+
+        &-brand {
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          font-size: $font-size-lg;
+          color: $neutral-primary;
+          @extend .fs-lg;
+
+          &-image {
+            border-radius: toRem(100);
+          }
+        }
+      }
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(16);
+
+        &-rows {
+          display: flex;
+          align-items: flex-start;
+          gap: toRem(8);
+          color: $neutral-secondary;
+        }
+
+        &-icon {
+          color: $success-main;
+        }
+
+        &-text {
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+
+          &--highlighted {
+            font-weight: $font-weight-bold;
+            color: $blue-whale-01;
+          }
+
+          &--handler {
+            font-weight: $font-weight-bold;
+            color: $neutral-primary;
+          }
+
+          &--link {
+            color: $green-01;
+            font-weight: $font-weight-semibold;
+          }
+        }
+      }
+    }
+  }
+
+  &__confirmation-item {
+    @include flex(row);
+    gap: toRem(24);
+  }
+
+  &__confirmation-preview-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__confirmation-preview-image {
+    padding: toRem(14) toRem(41);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+
+    &--hotel {
+      padding: toRem(4) toRem(14);
+    }
+  }
+
+  &__confirmation-preview-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);
+    flex: 1 1 0;
+  }
+
+  &__confirmation-preview-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+
+  &__confirmation-preview-detail {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-secondary;
+  }
+
+  &__confirmation-preview-brand {
+    display: flex;
+    align-items: center;
+    gap: toRem(8);
+  }
+
+  &__confirmation-preview-logo {
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(100);
+  }
+
+  &__confirmation-preview-information {
+    display: flex;
+    align-items: center;
+    gap: toRem(12);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__confirmation-preview-button {
+    display: flex;
+    align-items: center;
+    padding: toRem(3) toRem(16);
+    gap: toRem(8);
+    background: $success-surface;
+    border: toRem(1) solid $success-main;
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $success-main;
+  }
+
+  &__confirmation-preview-dot {
+    width: toRem(5);
+    height: toRem(5);
+    background: $neutral-separator;
+    border-radius: toRem(100);
+  }
+
+  &__confirmation-bill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: toRem(8);
+
+    &--text {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $neutral-secondary;
+    }
+
+    &--bold {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+    }
+  }
+
+  &__confirmation-wrapper {
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(xs-2) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__confirmation-item-brand {
+    padding: toRem(9) toRem(28);
+    @include flex(column, center, center);
+    border: 1px solid $neutral-separator;
+    border-radius: toRem(4);
+    width: 112px;
+    height: 56px;
+    margin-bottom: toRem(8);
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  &__confirmation-item-title {
+    color: $neutral-primary;
+  }
+
+  &__confirmation-item-details {
+    @include flex(row, center);
+    gap: toRem(12);
+    @extend .fs-lg;
+    color: $neutral-secondary;
+    margin-top: toRem(12);
+  }
+
+  &__confirmation-item-details-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: $neutral-separator;
+  }
+}

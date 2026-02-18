@@ -1,0 +1,1398 @@
+// Initialize first
+@import "../init";
+
+.booking-hotel {
+  background-color: $neutral-light;
+
+  &-agent {
+    min-height: 100vh;
+  }
+
+  &__header {
+    padding: toRem(24) 0;
+    background: $white;
+
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: toRem(120);
+
+      @include media-breakpoint-down(xl) {
+        flex-direction: column;
+        gap: toRem(48);
+      }
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: toRem(24);
+      color: $neutral-primary;
+
+      &-button {
+        color: $green-01;
+      }
+    }
+
+    &-stepper {
+      display: flex;
+      flex-grow: 1;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        padding: toRem(8) toRem(16);
+        gap: toRem(12);
+        border-left: toRem(1) solid $neutral-input;
+        font-size: $font-size-base;
+        @extend .fs-base;
+        color: $neutral-secondary;
+
+        &.current {
+          border-left: toRem(2) solid $green-01;
+          background: $neutral-light;
+          font-weight: $font-weight-bold;
+
+          .booking-hotel__header-stepper-number {
+            color: $green-01;
+            border-color: $green-01;
+            background: $white;
+          }
+        }
+
+        &.done {
+          border-left: toRem(2) solid $blue-whale-01;
+          color: $blue-whale-01;
+          font-weight: $font-weight-semibold;
+
+          .booking-hotel__header-stepper-number {
+            color: $white;
+            border-color: $blue-whale-01;
+            background: $blue-whale-01;
+          }
+        }
+      }
+
+      &-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: toRem(24);
+        height: toRem(24);
+        border: toRem(1) solid $neutral-input;
+        border-radius: toRem(100);
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      @include media-breakpoint-down(xs-3) {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+      }
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(20);
+    padding-top: toRem(40);
+    padding-bottom: toRem(80);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    color: $neutral-primary;
+    background: $white;
+    border-radius: toRem(16);
+    min-width: toRem(360);
+    white-space: nowrap;
+
+    &-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      @extend .fs-xl;
+    }
+
+    &-preview {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+
+      &-image {
+        border-radius: toRem(10);
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(8);
+
+        &-title {
+          font-size: $font-size-base;
+          font-weight: $font-weight-bold;
+          @extend .fs-base;
+        }
+
+        &-desc {
+          font-size: $font-size-base;
+          font-weight: $font-weight-normal;
+          @extend .fs-base;
+        }
+
+        &-box {
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+          font-size: $font-size-sm;
+          @extend .fs-sm;
+        }
+
+        &-dot {
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-separator;
+          border-radius: toRem(100);
+        }
+
+        @include media-breakpoint-down(sm) {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      @include media-breakpoint-down(xs-1) {
+        flex-direction: column;
+        gap: toRem(16);
+      }
+    }
+
+    &-separator {
+      height: toRem(1);
+      width: 100%;
+      background-color: $neutral-separator;
+    }
+
+    &-time {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: toRem(8);
+
+      &-type {
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        font-size: $font-size-base;
+        @extend .fs-base;
+      }
+
+      &-date {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        @extend .fs-base;
+      }
+    }
+
+    &-total {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(8);
+
+      &-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        @extend .fs-base;
+      }
+
+      &-price {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        gap: toRem(4);
+
+        &--text {
+          font-size: $h5-font-size;
+          font-weight: $font-weight-bold;
+          line-height: $h5-line-height;
+        }
+
+        &--link {
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          @extend .fs-base;
+        }
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  &__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+
+    @include media-breakpoint-down(xs-2) {
+      width: 100%;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    padding: toRem(24);
+    gap: toRem(24);
+    color: $neutral-primary;
+    background: $white;
+    border-radius: toRem(16);
+
+    &-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(12);
+
+      &-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+
+        &--optional {
+          font-size: $font-size-sm;
+          font-weight: $font-weight-normal;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      gap: toRem(20);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
+    }
+
+    &-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-xl;
+    }
+
+    &-desc {
+      font-size: $font-size-base;
+      font-weight: $font-weight-normal;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-icon {
+      display: flex;
+      gap: toRem(8);
+    }
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    input,
+    textarea {
+      padding: toRem(13) toRem(16);
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+    }
+
+    &-combobox {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: $neutral-light;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(10);
+
+      &-separator {
+        height: toRem(32);
+        border-left: toRem(1) solid $neutral-input;
+      }
+
+      select,
+      input {
+        border: none;
+      }
+    }
+
+    &-banner {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      padding: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        padding: toRem(12);
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(50);
+      }
+
+      &-text {
+        font-size: $font-size-base;
+        color: $neutral-primary;
+      }
+
+      &-link {
+        color: $green-01;
+      }
+    }
+  }
+
+  &__guest {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    input {
+      padding: toRem(13) toRem(16);
+    }
+
+    &-toggle {
+      display: flex;
+      gap: toRem(24);
+
+      input[type="checkbox"] {
+        padding: 0;
+        border: 0;
+        position: relative;
+        width: 40px;
+        height: 20px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: $neutral-input;
+        outline: none;
+        border-radius: 2rem;
+        cursor: pointer;
+
+        &::before {
+          content: "";
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: $white;
+          position: absolute;
+          top: toRem(2);
+          left: 8%;
+          transition: 0.5s;
+        }
+
+        &:checked {
+          background: $green-01;
+
+          &::before {
+            transform: translateX(108%);
+          }
+        }
+      }
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+      cursor: pointer;
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+    }
+  }
+
+  &__special {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    &-question {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+
+      &-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-row {
+        display: flex;
+        gap: toRem(24);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+        }
+      }
+
+      &-block {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        min-width: toRem(217);
+      }
+    }
+
+    &-separator {
+      width: 100%;
+      border-top: toRem(1) solid $neutral-separator;
+    }
+
+    &-toggle {
+      display: flex;
+      gap: toRem(8);
+      align-items: center;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+    }
+  }
+
+  &__additional {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    &-question {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(16);
+
+      &-title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-row {
+        display: flex;
+        gap: toRem(24);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+        }
+      }
+
+      &-block {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        min-width: toRem(271);
+      }
+    }
+
+    &-banner {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      padding: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        padding: toRem(12);
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(50);
+      }
+
+      &-text {
+        font-size: $font-size-base;
+        color: $neutral-primary;
+      }
+
+      &-link {
+        margin-left: auto;
+        display: flex;
+        gap: toRem(10);
+        align-items: center;
+        color: $green-01;
+      }
+    }
+  }
+
+  &__aggreement {
+    display: flex;
+    align-items: center;
+    gap: toRem(14);
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    color: $neutral-primary;
+
+    &-link {
+      font-weight: $font-weight-semibold;
+      color: $green-01;
+    }
+  }
+
+  &__timer {
+    background: $blue-whale-05;
+    padding: toRem(24) 0;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: toRem(16);
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-countdown {
+      display: flex;
+      align-items: center;
+      gap: toRem(16);
+      color: $blue-whale-01;
+    }
+
+    &-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: toRem(8);
+      padding: toRem(8);
+      background-color: $blue-whale-01;
+      border-radius: toRem(2);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $white;
+      @extend .fs-lg;
+    }
+  }
+
+  &__payment {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(16);
+
+    input {
+      padding: toRem(13) toRem(16);
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
+    }
+
+    &-input {
+      position: relative;
+
+      &--icon {
+        position: absolute;
+        right: toRem(16);
+        top: 50%;
+        transform: translateY(-50%);
+        color: $green-01;
+      }
+    }
+    &-option {
+      @include flex(row, center);
+      padding: toRem(16) toRem(24);
+      gap: toRem(16);
+      background: $white;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(12);
+
+      .form-check-input {
+        position: relative;
+        margin: 0;
+        width: 20px;
+        height: 20px;
+        background-size: 100%;
+        top: unset;
+        padding: 10px;
+        transform: unset;
+      }
+      &-card {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+      }
+      &-owner {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+      }
+    }
+    &-details {
+      @include flex(column, stretch);
+      padding: toRem(24);
+      gap: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(16);
+
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        gap: toRem(16);
+
+        &-col {
+          display: flex;
+          flex-direction: column;
+          gap: toRem(4);
+        }
+        &-location {
+          display: flex;
+          gap: toRem(8);
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+        }
+        &-name {
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $neutral-primary;
+        }
+        &-price {
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $neutral-secondary;
+        }
+      }
+      &-facilities {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        font-size: $font-size-sm;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+
+        &-box {
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+        }
+
+        &-dots {
+          width: toRem(5);
+          height: toRem(5);
+          border-radius: toRem(100);
+          background: $neutral-input;
+        }
+      }
+      &-guest {
+        display: flex;
+        gap: toRem(12);
+
+        &-label {
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-subtle;
+        }
+        &-name {
+          font-size: $font-size-base;
+          font-weight: $font-weight-semibold;
+          color: $neutral-primary;
+        }
+      }
+    }
+  }
+
+  &__complete {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: toRem(24);
+    gap: toRem(32);
+    background: $white;
+    border-radius: toRem(16);
+    margin: auto;
+    width: fit-content;
+    min-width: toRem(540);
+    margin-top: toRem(40);
+    margin-bottom: toRem(80);
+    transform: translateY(50%);
+
+    &-top {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: toRem(64);
+
+      &-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: toRem(24);
+      }
+
+      &-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(12);
+        background: $success-surface;
+        border-radius: toRem(120);
+      }
+
+      &-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: toRem(8);
+        color: $neutral-primary;
+
+        &--name {
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $neutral-secondary;
+          @extend .fs-xl;
+        }
+      }
+
+      &-buttons {
+        display: flex;
+        gap: toRem(12);
+        width: 100%;
+
+        & > * {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: toRem(24);
+    gap: toRem(32);
+    background: $white;
+    border-radius: toRem(16);
+    margin-top: toRem(40);
+    margin-bottom: toRem(80);
+
+    &-image {
+      @include media-breakpoint-down(xs-3) {
+        width: 100% !important;
+        img {
+          width: 100% !important;
+        }
+      }
+    }
+
+    &-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(32);
+
+      &-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(32);
+      }
+
+      &-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(12);
+        background: $success-surface;
+        border-radius: toRem(120);
+      }
+
+      &-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);
+        color: $neutral-primary;
+
+        &--name {
+          font-size: $font-size-xl;
+          font-weight: $font-weight-semibold;
+          color: $neutral-secondary;
+          @extend .fs-xl;
+        }
+      }
+
+      &-buttons {
+        display: flex;
+        gap: toRem(12);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+          width: 100%;
+        }
+      }
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
+    }
+
+    &-separator {
+      border-top: toRem(1) solid $neutral-separator;
+    }
+
+    &-details {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(64);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+        gap: toRem(48);
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+      max-width: toRem(608);
+
+      &__title {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(12);
+        color: $neutral-primary;
+
+        &-location {
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          color: $green-01;
+
+          &-text {
+            font-size: $font-size-lg;
+            color: $neutral-secondary;
+            @extend .fs-lg;
+          }
+        }
+
+        &-rating {
+          display: flex;
+          gap: toRem(8);
+          color: $warning-main;
+        }
+
+        &-brand {
+          display: flex;
+          align-items: center;
+          gap: toRem(8);
+          font-size: $font-size-lg;
+          color: $neutral-primary;
+          @extend .fs-lg;
+
+          &-image {
+            border-radius: toRem(100);
+          }
+        }
+      }
+
+      &__details {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+
+        &-row {
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+        }
+
+        &-dot {
+          width: toRem(5);
+          height: toRem(5);
+          background-color: $neutral-input;
+          border-radius: toRem(100);
+        }
+
+        &-schedule {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: toRem(8);
+          font-weight: $font-weight-semibold;
+          color: $neutral-primary;
+
+          &-type {
+            display: flex;
+            align-items: center;
+            gap: toRem(8);
+            font-weight: $font-weight-base;
+            color: $neutral-secondary;
+          }
+        }
+      }
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(16);
+
+        &-rows {
+          display: flex;
+          align-items: flex-start;
+          gap: toRem(8);
+          color: $neutral-secondary;
+        }
+
+        &-icon {
+          color: $success-main;
+        }
+
+        &-text {
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+
+          &--highlighted {
+            font-weight: $font-weight-bold;
+            color: $blue-whale-01;
+          }
+
+          &--handler {
+            font-weight: $font-weight-bold;
+            color: $neutral-primary;
+          }
+
+          &--link {
+            color: $green-01;
+            font-weight: $font-weight-semibold;
+          }
+        }
+      }
+    }
+
+    &-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      &__booking {
+        display: flex;
+        align-items: flex-start;
+        gap: toRem(16);
+
+        &-image {
+          object-fit: cover;
+          min-width: toRem(71);
+          border-radius: toRem(4);
+        }
+
+        &-desc {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: toRem(8);
+        }
+
+        &-tag {
+          font-size: $font-size-sm;
+          font-weight: $font-size-base;
+          color: $neutral-subtle;
+          @extend .fs-sm;
+        }
+
+        &-name {
+          font-size: $font-size-base;
+          font-weight: $font-weight-bold;
+          color: $neutral-primary;
+          @extend .fs-base;
+        }
+
+        &-date {
+          display: flex;
+          align-items: center;
+          gap: toRem(12);
+          font-size: $font-family-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+
+          &--dots {
+            width: toRem(5);
+            height: toRem(5);
+            background: $neutral-input;
+            border-radius: toRem(100);
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-total {
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(16);
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(4);
+    }
+
+    &-details {
+      font-weight: $font-weight-base;
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+      gap: toRem(24);
+    }
+  }
+
+  &__invoice {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(48);
+    padding: toRem(24);
+    width: 100%;
+  }
+
+  &__invoice-container {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    min-height: 100vh;
+  }
+
+  &__invoice-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+
+    &--payment {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+
+      span {
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        font-size: $font-size-xl;
+      }
+    }
+
+    &--customer {
+      display: flex;
+      justify-content: space-around;
+
+      span {
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        font-size: $font-size-xl;
+      }
+    }
+
+    &--top {
+      display: grid;
+      grid-template-columns: 300px auto;
+      gap: toRem(32);
+    }
+
+    &--includes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: toRem(32);
+
+      &-item {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(4);
+      }
+
+      @include media-breakpoint-down(sm) {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: toRem(32);
+      }
+    }
+
+    span {
+      font-weight: $font-weight-semibold;
+      color: $neutral-primary;
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__invoice-booking {
+    thead {
+      border-bottom: toRem(1) solid $neutral-separator;
+    }
+
+    th {
+      font-size: toRem(14);
+      padding: toRem(16);
+    }
+
+    td {
+      font-size: toRem(14);
+      color: $neutral-primary;
+      padding: toRem(16);
+      font-weight: $font-weight-base;
+    }
+  }
+
+  &__invoice-booking-important {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold !important;
+    font-style: italic;
+  }
+
+  &__invoice-top-header {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+
+    &--separator {
+      background-color: $neutral-secondary;
+      height: toRem(1);
+    }
+
+    &--row {
+      display: flex;
+      flex-direction: row !important;
+      gap: toRem(8);
+    }
+  }
+
+  &__invoice-top-header-label {
+    font-size: $h6-font-size;
+    color: $neutral-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__invoice-top-header-value {
+    font-size: $h3-font-size;
+    color: $neutral-primary;
+    font-weight: $font-weight-bold;
+  }
+
+  &__invoice-top-header-address {
+    display: flex;
+    align-items: center;
+    gap: toRem(4);
+    font-size: $font-size-xl;
+    color: $neutral-primary;
+    font-weight: $font-weight-semibold;
+
+    .react-svg {
+      svg {
+        color: $green-01 !important;
+      }
+    }
+  }
+
+  &__invoice-top-header-checkin {
+    font-size: $font-size-xl;
+    color: $neutral-primary;
+    font-weight: $font-weight-semibold;
+
+    &--date {
+      font-size: $h4-font-size !important;
+    }
+  }
+
+  &__invoice-top-header-star {
+    display: flex;
+    flex-direction: row;
+    gap: toRem(4);
+    color: $warning-main;
+  }
+
+  &__invoice-top-header-checkin {
+    display: flex;
+    flex-direction: row;
+    gap: toRem(56);
+
+    &--wrap {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(8);
+    }
+  }
+
+  &__invoice-header {
+    background-color: $blue-whale-01;
+    color: $white;
+    padding: toRem(8);
+
+    &--customer {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  &__invoice-header-title {
+    color: $white;
+    margin-left: toRem(16);
+  }
+
+  &__invoice-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: auto;
+    border-top: toRem(1) solid $neutral-separator;
+  }
+
+  &__invoice-footer-top {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    border-top: toRem(1) solid $neutral-separator;
+    padding: toRem(24);
+  }
+
+  &__invoice-footer-item {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+
+  &__invoice-footer-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: toRem(8);
+    color: $green-01 !important;
+
+    a {
+      color: $green-01 !important;
+    }
+
+    span {
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__invoice-footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary;
+    color: $white;
+    font-weight: $font-weight-base;
+    padding: toRem(16);
+    font-weight: $font-weight-semibold !important;
+
+    a {
+      color: white;
+      font-weight: $font-weight-semibold !important;
+    }
+  }
+}
+.booking-error-banner{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: toRem(24);
+  border-radius: toRem(12);
+  border: 1px solid $danger-border;
+  background-color: $danger-main;
+  color: $white;
+}
+.booking-hotel__confirmation-image{
+  object-fit: cover;
+}
+
+@media screen {
+  #bookingHotelInvoice,
+  #bookingHotelPaymentInvoice {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+    overflow: hidden;
+    left: 0;
+    z-index: -1;
+  }
+}

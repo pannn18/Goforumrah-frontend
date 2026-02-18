@@ -1,0 +1,598 @@
+.admin-guestreview-business {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border-radius: 0 0 toRem(12) toRem(12);
+    gap: toRem(24);
+    background: $white;
+    width: 100%;
+
+    &__dropdown {
+        &.custom-dropdown-menu__option {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            padding: toRem(12) toRem(20);
+            gap: toRem(12);
+            color: $neutral-primary;
+
+        }
+
+        &.custom-dropdown-menu__option:not(:last-child) {
+            border-bottom: 1px solid $neutral-separator ;
+        }
+
+        &.dropdown-toggle-arrow {
+            &.react-svg {
+                color: $green-01;
+            }
+        }
+    }
+
+    &__summary {
+        display: flex;
+        flex-direction: column;
+        background-color: $white;
+        gap: toRem(20);
+        padding: toRem(24);
+    }
+
+    &__top-content {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(24);
+
+        @include media-breakpoint-down(sm){
+            flex-direction: column;
+        }
+
+        &-separator {
+            background-color: $neutral-separator;
+            width: toRem(1);
+        }
+    }
+
+    &__average-rating {
+
+        &--wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(12);
+            max-width: toRem(276);
+            width: 100%;
+        }
+
+        &--header {
+            color: $neutral-primary;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            display: flex;
+            flex-direction: column;
+            gap: toRem(12);
+        }
+
+        &--overall {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(4);
+        }
+
+        &--review {
+            display: flex;
+            align-items: center;
+            gap: toRem(13);
+        }
+
+        &--star {
+            color: $warning-main;
+            display: flex;
+            gap: toRem(4);
+        }
+
+        &--desc {
+            color: $neutral-subtle;
+            font-size: $font-size-base;
+            font-weight: $font-weight-base;
+        }
+
+        &-chart {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(4);
+            align-items: flex-start;
+        }
+
+        &-rate {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: toRem(12);
+            width: 100%;
+
+            &--number {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                color: $warning-main;
+            }
+
+            &--rating {
+                color: $neutral-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                width: toRem(12);
+            }
+
+            &--bar {
+                display: flex;
+                align-items: center;
+                background: $neutral-input;
+                border-radius: toRem(6);
+                height: toRem(6);
+                width: 100%;
+            }
+
+            &--level {
+                display: flex;
+                align-items: center;
+                background-color: $warning-main;
+                height: toRem(6);
+                border-radius: toRem(6);
+            }
+        }
+    }
+
+    &__overall-category {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(24);
+
+        &--header {
+            color: $neutral-primary;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            display: flex;
+            flex-direction: column;
+            gap: toRem(4);
+        }
+
+        &--desc {
+            color: $neutral-primary;
+            font-size: $font-size-base;
+            font-weight: $font-weight-base;
+        }
+
+        &-split {
+            display: flex;
+            width: 100%;
+            gap: toRem(24);
+
+            @include media-breakpoint-down(lg){
+                flex-direction: column;
+            }
+
+            &--wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: toRem(16);
+            }
+        }
+
+        &-chart {
+            width: 100%;
+
+            &--wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: toRem(8);
+                max-width: toRem(246);
+            }
+
+            &--desc {
+                color: $neutral-primary;
+                font-size: $font-size-base;
+                font-weight: $font-weight-bold;
+            }
+        }
+
+        &-bar {
+            &--wrapper {
+                display: flex;
+                flex-direction: row;
+                gap: toRem(4);
+            }
+        }
+
+        &-rate {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: toRem(12);
+            width: 100%;
+
+            &--wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: toRem(4);
+            }
+
+            &--value {
+                display: flex;
+                text-align: right;
+                justify-content: flex-end;
+                color: $neutral-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-semibold;
+                width: toRem(22);
+            }
+
+            &--number {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                color: $warning-main;
+            }
+
+            &--rating {
+                color: $neutral-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                width: toRem(12);
+            }
+
+            &-bar {
+                display: flex;
+                align-items: center;
+                background: $neutral-input;
+                border-radius: toRem(6);
+                height: toRem(6);
+                width: 100%;
+            }
+
+            &-level {
+                display: flex;
+                align-items: center;
+                background-color: $info-main;
+                height: toRem(6);
+                border-radius: toRem(6);
+            }
+        }
+    }
+
+    &__sidemenu {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+        flex: 0 0 auto;
+        width: 25%;
+
+        &-separator {
+            height: toRem(1);
+            width: 100%;
+            background-color: $neutral-separator;
+        }
+    }
+
+    &__sidemenu-rating-star {
+        color: $warning-main;
+        display: flex;
+        gap: toRem(8);
+    }
+
+    &__sidemenu-search-place {
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        padding: toRem(24);
+        border-radius: toRem(16);
+    }
+
+    &__sidemenu-search-hotel-location {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: toRem(12);
+
+        &-name {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-base;
+            color: $neutral-subtle;
+        }
+
+    }
+
+    &__sidemenu-search-hotel-button {
+        padding: toRem(12) toRem(24) !important;
+        border-radius: $border-radius-sm;
+        min-height: unset !important;
+        font-size: $font-size-sm;
+    }
+
+
+    &__sidemenu-filter {
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+        padding: toRem(24);
+        border-radius: toRem(16);
+        max-width: toRem(276);
+        width: 100%;
+        height: 100%;
+
+        @include media-breakpoint-down(lg){
+            max-width: none;
+        }
+
+        &-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: $font-weight-bold;
+            color: $green-01;
+            font-size: $font-size-base;
+        }
+    }
+
+    &__sidemenu-filter-block {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(20);
+    }
+
+    &__sidemenu-filter-head {
+        display: flex;
+        justify-content: space-between;
+        gap: toRem(8);
+        font-weight: 600;
+        font-size: $font-size-lg;
+        color: $neutral-primary;
+        @extend .fs-lg;
+    }
+
+    &__sidemenu-filter-item {
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+
+        .form-check-label {
+            font-size: $font-size-base;
+            font-weight: 600;
+            color: $neutral-secondary;
+            @extend .fs-base;
+        }
+
+        .form-check-label,
+        .form-check-input {
+            cursor: pointer;
+        }
+
+        .form-check-input:checked~.form-check-label {
+            color: $neutral-secondary;
+        }
+    }
+
+    &__guest-rating {
+        display: flex;
+        gap: toRem(20);
+
+        @include media-breakpoint-down(lg){
+            flex-direction: column;
+        }
+
+        &-inner {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(24);
+            width: 100%;
+
+            &-info {
+                display: flex;
+                justify-content: space-between;
+
+                @include media-breakpoint-down(xs-2){
+                    flex-direction: column;
+                    gap: toRem(16);
+                }
+            }
+
+        }
+
+    }
+
+
+
+    &__guest-summary {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: $white;
+        gap: toRem(20);
+        padding: toRem(24);
+
+        &-header {
+            display: flex;
+            gap: toRem(12);
+            width: 100%;
+
+            &-separator {
+                background-color: $neutral-separator;
+                width: toRem(1);
+            }
+        }
+
+        &-rating {
+            display: flex;
+            align-items: center;
+            color: $warning-main;
+            padding: toRem(8) toRem(0);
+            gap: toRem(8);
+
+            &--value {
+                color: $neutral-primary;
+            }
+        }
+
+        &-desc {
+            display: flex;
+            flex-direction: column;
+            color: $neutral-primary;
+            font-size: $font-size-base;
+            font-weight: $font-weight-base;
+
+            &--wrapper {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            &--customer {
+                color: $neutral-primary;
+                font-size: $font-family-base;
+                font-weight: $font-weight-semibold;
+            }
+
+            &--id {
+                color: $neutral-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-base;
+            }
+
+            &--date {
+                color: $neutral-subtle;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-base;
+            }
+        }
+
+        &-comment {
+            display: flex;
+            align-items: flex-start;
+            background-color: $neutral-light;
+            border-left: toRem(1) solid $neutral-input;
+            padding: toRem(16);
+            width: 100%;
+
+            &--value {
+                color: $neutral-primary;
+                font-size: $font-size-base;
+                font-weight: $font-size-base;
+            }
+        }
+
+        &-split {
+            display: flex;
+            width: 100%;
+            gap: toRem(24);
+
+            @include media-breakpoint-down(md){
+                flex-direction: column;
+            }
+
+            &--wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: toRem(16);
+            }
+        }
+
+        &-chart {
+            width: 100%;
+
+            &--wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: toRem(8);
+                max-width: toRem(246);
+            }
+
+            &--desc {
+                color: $neutral-primary;
+                font-size: $font-size-base;
+                font-weight: $font-weight-bold;
+            }
+        }
+
+        &-bar {
+            &--wrapper {
+                display: flex;
+                flex-direction: row;
+                gap: toRem(4);
+            }
+        }
+
+        &-rate {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: toRem(12);
+            width: 100%;
+
+            &--wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: toRem(4);
+            }
+
+            &--value {
+                display: flex;
+                text-align: right;
+                justify-content: flex-end;
+                color: $neutral-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-semibold;
+                width: toRem(22);
+            }
+
+            &--number {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                color: $warning-main;
+            }
+
+            &--rating {
+                color: $neutral-primary;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                width: toRem(12);
+            }
+
+            &-bar {
+                display: flex;
+                align-items: center;
+                background: $neutral-input;
+                border-radius: toRem(6);
+                height: toRem(6);
+                width: 100%;
+            }
+
+            &-level {
+                display: flex;
+                align-items: center;
+                background-color: $info-main;
+                height: toRem(6);
+                border-radius: toRem(6);
+
+                
+            }
+        }
+    }
+
+}
+
+.container {
+    &-guestreview {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(24);
+    }
+
+}

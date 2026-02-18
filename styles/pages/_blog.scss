@@ -1,0 +1,455 @@
+@import "../init";
+
+.blog{
+  // Header
+  &__header {
+    position: relative;
+    padding: toRem(120) 0 toRem(122);
+    margin-bottom: toRem(44);
+  }
+  &__header-bg {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  &__header-bg-overlay {
+    background-color: rgba(0, 0, 0, 0.16);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  &__header-bg-overlay-shadow {
+    background: linear-gradient(
+      180deg,
+      rgba(5, 44, 71, 0) 0%,
+      rgba(5, 44, 71, 0.6) 68.75%
+    );
+    position: absolute;
+    width: 100%;
+    height: 56%;
+    bottom: 0;
+    left: 0;
+  }
+  &__header-content {
+    @include flex(column, center);
+    text-align: center;
+
+    .tabs {
+      margin-bottom: toRem(88);
+    }
+
+    .heading {
+      color: $white;
+    }
+
+    .subheading {
+      color: $white;
+      margin-top: toRem(16);
+    }
+  }
+  &__header-form {
+    position: absolute;
+    bottom: toRem(-44);
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: toRem(86);
+  }
+
+  // Showcase
+  &__showcase{
+    display: flex;
+    flex-direction: column;   
+    align-items: center;     
+    padding: toRem(72) 0 toRem(32);
+    gap: 30px;
+  }
+  
+  &__showcase-main{
+    display: flex;
+    gap: toRem(32);
+    @include media-breakpoint-down (lg) {
+      display: contents;
+    }
+  }
+  &__showcase-main-imagery{
+    border-radius: toRem(16);
+    object-fit: cover;
+    width: toRem(692);
+    height: toRem(288);
+    @include media-breakpoint-down (lg) {
+      width: 100%;
+    }
+    // width={692} height={288}
+  }
+  &__showcase-main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: toRem(40);
+  }
+  &__showcase-main-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);
+  }
+  &__showcase-main-title{
+    color: $neutral-primary;
+  }
+  &__showcase-main-subtitle{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__showcase-main-button{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $green-01;    
+  }
+
+  // Explore
+  &__explore{
+    padding: toRem(80) 0;
+    background: $neutral-light;
+  }
+  &__explore-tabs-menu {
+    @include flex(row, stretch, center);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin-top: toRem(24);
+
+    @include media-breakpoint-down (md) {
+      overflow-x: auto;
+      white-space: nowrap;
+      justify-content: left;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 1px;
+      background-color: $neutral-separator;
+      left: 0;
+      bottom: 0;
+    }
+
+    & > * {
+      border-radius: 0;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid $neutral-input;
+      padding: toRem(16) toRem(32);
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $blue-whale-01;
+
+      &:not(.active):hover {
+        background-color: shade-color(transparent, $btn-hover-bg-shade-amount);
+      }
+
+      &.active {
+        font-weight: $font-weight-bold;
+        color: $green-01;
+        border-bottom: 2px solid $green-01;
+      }
+    }
+  }
+  &__explore-button {
+    margin-top: toRem(48);
+    @include flex(row, center, center);
+
+    a {
+      @extend .fs-lg;
+      @include flex(row, center);
+      gap: toRem(10);
+    }
+  }
+
+  // CTA Section
+  &__cta{
+    padding: toRem(64) 0;
+  }
+  &__cta-banner{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(80);
+    padding: toRem(64);
+    background: $blue-whale-01;
+    border-radius: toRem(20);
+    overflow: hidden;
+    @include media-breakpoint-down (sm) {
+      padding: toRem(32);
+    }
+    
+  }
+  &__cta-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(16);
+  }
+  &__cta-text-title{
+    color: $white;
+    @include media-breakpoint-down (sm) {
+      font-size: $h3-font-size;
+    }
+  }
+  &__cta-text-subtitle{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;    
+    color: $white;
+  }
+  &__cta-button{
+    padding: toRem(20) toRem(40);
+  }
+  &__cta-imagery{
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    height: 80%;
+
+    @include media-breakpoint-down (lg) {
+      height: 60%;
+      transform: translateX(toRem(100));
+    }
+    @include media-breakpoint-down (md) {
+      display: none;
+    }
+  }
+
+  // Search Result
+  &__result{
+    padding-top: toRem(68);
+    padding-bottom: toRem(80);
+  }
+  &__result-wrapper{
+    @include flex(column, stretch);
+    gap: toRem(30);
+  }
+  &__result-summary{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+    padding-bottom: toRem(24);
+    border-bottom: toRem(1) solid $neutral-separator;
+
+    strong{
+      font-weight: $font-weight-bold;
+    }
+  }
+  &__result-card{
+    @include flex(row, stretch);
+    background: $white;
+    border: toRem(1) solid $neutral-light;
+    border-radius: toRem(24);
+
+    @include media-breakpoint-down(md){
+      @include flex(column, stretch);
+    }
+  }
+  &__result-card__thumbnail{
+    border-top-left-radius: toRem(24);
+    border-bottom-left-radius: toRem(24);
+    object-fit: cover;
+    object-position: center;
+    max-width: toRem(247);    
+
+    @include media-breakpoint-down(lg){
+      max-width: toRem(220);
+    }
+    @include media-breakpoint-down(md){
+      max-width: unset;
+      width: 100%;
+      border-bottom-left-radius: unset;
+      border-top-right-radius: toRem(24);
+    }
+  }
+  &__result-card__content{
+    @include flex(row, flex-start);
+    gap: toRem(40);
+    padding: toRem(24);
+    padding-left: toRem(40);    
+
+    @include media-breakpoint-down(lg){
+      gap: toRem(24);
+      padding: toRem(24);
+    }
+    @include media-breakpoint-down(md){
+      flex-direction: column;
+    }
+  }
+  &__result-card__content-inner{
+    @include flex(column, flex-start);
+    gap: toRem(12);    
+  }
+  &__result-card__content-label{
+    @include flex(row, center, center);
+    padding: toRem(4) toRem(12);
+    background: $green-06;
+    border: toRem(1) solid $green-01;
+    border-radius: toRem(30);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $green-01;
+  }
+  &__result-card__content-title{
+    color: $neutral-primary;
+  }
+  &__result-card__content-description{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+    max-height: calc($line-height-font-lg * 2);
+    line-height: $line-height-font-lg;
+  }
+  &__result-card__content-link{
+    white-space: nowrap;
+    color: $green-01;
+  }
+}
+
+.blog-detail{
+
+  &__wrapper{
+    display: flex;
+    flex-direction: column;
+    max-width: toRem(794);
+    margin: 0 auto;
+  }
+  &__breadcrumb{
+    display: flex;
+    gap: toRem(16);    
+    font-size: $font-size-base;
+    color: $green-01;
+    font-weight: $font-weight-base;
+    
+    &--link{
+      font-weight: $font-weight-semibold;
+      color: $green-01;
+    }
+    &--current{
+      color: $neutral-subtle;
+    }
+  }
+  &__thumbnail{
+    border-radius: toRem(12);
+    object-fit: cover;
+    width: toRem(794);
+    height: toRem(412);
+    @include media-breakpoint-down (lg) {
+      width: 100%;
+      height: 60%;
+    }
+
+    // width={794} height={412}
+  }
+  &__header{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(24);
+    padding: toRem(40) 0;
+  }
+  &__header-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(8);
+  }
+  &__header-title{
+    color: $neutral-primary;
+  }
+  &__header-date{
+    font-size: $font-size-sm;
+    font-weight: $font-size-base;
+    color: $neutral-primary;
+  }
+  &__header-social{
+    display: flex;
+    gap: toRem(16);
+  }
+  &__header-social-item{
+    display: flex;
+    align-items: center;
+    padding: toRem(11);
+    color: $neutral-primary;
+    background-color: $green-06;
+    border: toRem(1.5) solid transparent;
+    border-radius: toRem(8);
+    transition: all .2s;
+    cursor: pointer;
+
+    &:hover{
+      background-color: $white;
+      border-color: $green-01;
+    }
+  }
+  &__paragraph{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+    padding-bottom: toRem(40);
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+  &__box{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: toRem(40) 0;
+    gap: toRem(24);
+
+    &--row{
+      flex-direction: row;
+    }
+  }
+  &__box-image{
+    border-radius: toRem(12);
+    object-fit: cover;
+  }
+  &__box-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(12);
+  }
+  &__box-title{
+    color: $neutral-primary;
+  }
+  &__box-desc{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;    
+    color: $neutral-primary;
+  }
+  &__box-quote{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    font-style: italic;
+    color: $neutral-subtle;
+  }  
+}

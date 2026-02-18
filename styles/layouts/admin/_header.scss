@@ -1,0 +1,251 @@
+.admin-header {
+  height: 92px;
+  position: fixed;
+  z-index: $zindex-fixed;
+  top: 0;
+  left: 236px;
+  right: 0;
+  background-color: $white;
+  border-bottom: 1px solid $neutral-separator;
+  @include flex(row, center, space-between);
+  padding: toRem(8) toRem(24) 0;
+
+  @include media-breakpoint-down(xl) {
+    gap: toRem(16);
+    left: 0;
+  }
+
+  &__sidemenu-toggle {
+    display: none;
+
+    @include media-breakpoint-down(xl) {
+      display: block;
+      outline: none;
+      background: transparent;
+      border: none;
+    }
+  }
+
+  &__title {
+    color: $neutral-primary;
+  }
+
+  &__title-back {
+    @include flex(row, center);
+    gap: toRem(16);
+    background: none;
+    border: none;
+    padding: 0;
+
+    svg {
+      padding: toRem(2);
+    }
+  }
+
+  &__title-wrapper {
+    @include flex(row, center);
+    gap: toRem(16);
+  }
+
+  &__right-content {
+    @include flex(row, center);
+    gap: toRem(32);
+
+    @include media-breakpoint-down(xl) {
+      gap: toRem(16);
+    }
+  }
+
+  &__search {
+    position: relative;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+
+    input {
+      height: 40px;
+      width: 320px;
+      padding-left: toRem(46);
+    }
+
+    .react-svg {
+      width: 20px;
+      height: 20px;
+      color: $neutral-subtle;
+      position: absolute;
+      left: toRem(16);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__notification {
+    position: relative;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  &__notification-toggle {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    color: $primary;
+    cursor: pointer;
+
+    &--has-dot {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: toRem(2);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $danger-main;
+        border: 2px solid $white;
+      }
+    }
+  }
+
+  &__notification-dropdown {
+    border-radius: toRem(20);
+    max-width: toRem(336);
+    left: toRem(-180) !important;
+  }
+
+  &__notification-dropdown__header {
+    padding: toRem(20);
+    padding-bottom: toRem(16);
+    border-bottom: toRem(1) solid $neutral-separator;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+
+  &__notification-dropdown__list {
+    padding: 0 toRem(16);
+    @include flex(column, stretch);
+  }
+
+  &__notification-dropdown__list-item {
+    padding: toRem(16) 0;
+    @include flex(row, flex-start);
+    gap: toRem(8);
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+
+  &__notification-dropdown__list-content {
+    @include flex(column, flex-start);
+    gap: toRem(8);
+  }
+
+  &__notification-dropdown__list-content-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+
+    b {
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__notification-dropdown__list-content-time {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+
+  &__notification-dropdown__list-profile {
+    position: relative;
+    width: toRem(48);
+    height: toRem(48);
+    border-radius: toRem(100);
+  }
+
+  &__notification-dropdown__list-profile--dot {
+    position: absolute;
+    width: toRem(8);
+    height: toRem(8);
+    background: $green-01;
+    border-radius: toRem(100);
+    top: toRem(3);
+    right: toRem(3);
+  }
+
+  &__notification-dropdown__footer {
+    padding: toRem(16);
+    @include flex(row, center, center);
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $green-01;
+  }
+
+  &__user {
+    position: relative;
+  }
+
+  &__user-group {
+    display: block;
+
+    @include media-breakpoint-down(xs-3) {
+      display: none;
+    }
+  }
+
+  &__user-toggle {
+    position: relative;
+    @include flex(row, center);
+    gap: toRem(12);
+    cursor: pointer;
+  }
+
+  &__user-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__user-name {
+    @extend .fs-base;
+    @extend .fw-bold;
+    color: $neutral-primary;
+    white-space: nowrap;
+  }
+
+  &__user-title {
+    @extend .fs-xs;
+    color: $neutral-primary;
+    margin-top: toRem(2);
+    white-space: nowrap;
+  }
+
+  &__user-arrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__user-dropdown {
+    border-radius: toRem(16);
+    max-width: toRem(202);
+    padding: toRem(8);
+    left: toRem(-104) !important;
+
+    @include media-breakpoint-down(xs-3) {
+      margin-left: toRem(-64);
+    }
+  }
+
+  &__user-dropdown__link {
+    padding: toRem(12) toRem(16);
+    @include flex(row, center);
+    gap: toRem(12);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+}

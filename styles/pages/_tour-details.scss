@@ -1,0 +1,1630 @@
+.tour-details{
+
+  &__wrapper {
+    display: flex;
+    // align-items: flex-start;
+    gap: toRem(20);
+    padding-top: toRem(40);
+    padding-bottom: toRem(80);
+  }
+
+  &__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(40);
+    max-width: toRem(736);
+  }
+
+  &__tours-plan {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    
+  }
+
+  &__nav{
+    display: flex;
+    border-bottom: toRem(1) solid $neutral-light;
+
+    &-item{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: toRem(16);
+      background: $white;
+      border: none;
+      border-bottom: toRem(1) solid transparent;
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      color: $blue-whale-01;
+      cursor: pointer;
+      @extend .fs-base;      
+
+      &.active{
+        border-bottom: toRem(2) solid $neutral-primary;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+      }
+    }
+  }
+
+  &__header{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24) 0;
+    align-items: stretch;
+
+    &-breadcrumb{
+      display: flex;
+      gap: toRem(16);
+      font-size: $font-size-base;
+      color: $green-01;
+      font-weight: $font-weight-base;
+      
+      &--link{
+        font-weight: $font-weight-semibold;
+        color: $green-01;
+      }
+      &--current{
+        color: $neutral-subtle;
+      }
+    }
+
+    &-filter{
+      padding: toRem(20);
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(16);
+    }
+  }
+
+  &__content{
+    display: flex;
+    gap: toRem(24);    
+    margin-bottom: toRem(160);
+  }
+
+  &__brand{
+    display: flex;
+    align-items: center;
+    gap: toRem(16);
+    margin-bottom: toRem(24);
+
+    &-logo{
+      object-fit: cover;
+      border-radius: toRem(100);
+    }
+
+    &-content{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(4);
+    }
+
+    &-rating{
+      display: flex;
+      align-items: center;
+      gap: toRem(4);
+    }
+
+    &-chips{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: toRem(3) toRem(16);
+      background-color: $blue-whale-01;
+      border-radius: toRem(32);
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $white;
+      @extend .fs-base;
+    }
+  }
+
+  &__imagery{
+    display: flex;
+    gap: toRem(8);
+    margin-top: toRem(32);
+
+    &-src{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: toRem(8);
+    }
+  }
+
+  &__summary{
+    display: flex;
+    justify-content: space-between;
+    gap: toRem(40);
+    padding: toRem(16) 0 toRem(16) 0;
+    align-items: flex-start;
+    
+    &-main{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    &-item{
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: toRem(40) 0;
+      gap: toRem(16);
+      border-bottom: toRem(1) solid $neutral-separator;
+
+      &:last-child{
+        border: 0;
+      }
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+
+      &--row{
+        flex-direction: row;
+        gap: toRem(40);
+      }
+
+      &--borderless{
+        border: none;
+      }
+    }
+
+    &-benefit{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(12);
+
+      &-title{
+        font-size: $font-size-xl;
+        color: $neutral-primary;
+        font-weight: $font-weight-bold;
+        margin-bottom: toRem(4);
+        @extend .fs-xl;
+      }
+      &-subtitle{
+        font-size: $font-size-xl;
+        color: $neutral-secondary;
+        font-weight: $font-weight-base;
+        @extend .fs-xl;
+      }
+    }
+
+    &-disclaimer{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(12);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-base;
+      color: $neutral-primary;
+      @extend .fs-lg;
+
+      &-icon{
+        color: $success-main;
+      }
+    }
+
+    &-left{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(16);
+      
+      &-stars{
+        display: flex;
+        gap: toRem(14);
+      }
+      &-location{
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        color: $neutral-subtle;
+        font-size: $font-size-xl;
+
+        &--dots{
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-input;
+          border-radius: toRem(100);
+        }
+      }
+      
+      &-details{
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+      }
+    }
+    &-right{
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+      align-items: flex-end;
+
+      &-price{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: toRem(8);
+        font-size: $font-size-lg;
+        color: $neutral-primary;
+        @extend .fs-lg;
+      }
+      &-total{
+        display: flex;        
+        align-items: baseline;
+        gap: toRem(8);        
+        color: $neutral-primary;        
+        
+        &--range{
+          font-size: $font-size-lg;
+          color: $neutral-primary;
+          @extend .fs-lg;
+        }
+      }
+    }
+  }
+
+  &__sidecontent{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+    max-width: toRem(360);
+
+    &-details{
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(24);
+      padding: toRem(24);
+      background: $white;
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(16);
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+
+      &-separtor{
+        border-top: toRem(1) solid $neutral-separator;
+      }
+    }
+
+    &-booking{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(16);
+
+      &-image{
+        object-fit: cover;
+        min-width: toRem(71);
+      }
+
+      &-desc{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);        
+      }
+
+      &-tag{
+        font-size: $font-size-sm;
+        font-weight: $font-size-base;
+        color: $neutral-subtle;
+        @extend .fs-sm;
+      }
+
+      &-name{
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-date{
+        display: flex;
+        align-items: center;
+        gap: toRem(12);
+        font-size: $font-family-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-base;
+
+        &--dots{
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-input;
+          border-radius: toRem(100);
+        }
+      }
+    }
+
+    &-price{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: toRem(8);
+
+      &-title{
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-column{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: toRem(4);
+      }
+
+      &-link{
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+      }
+    }
+
+    &-flag{
+      display: flex;
+      align-items: flex-start;
+      padding: toRem(16) toRem(20);
+      gap: toRem(16);
+      background: $info-surface;
+      border-left: toRem(6) solid $info-main;
+      border-radius: toRem(6);
+
+      &-content{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(8);
+      }
+
+      &-header{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+      &-text{
+        font-size: $font-size-sm;
+        font-weight: $font-weight-base;
+        color: $neutral-subtle;
+        @extend .fs-sm;
+      }
+    }
+  }
+
+  &__similar{
+    display: flex;
+    flex-direction: column;
+    padding: toRem(40) 0;
+    gap: toRem(32);
+    
+    &-list{
+      display: flex;
+      gap: toRem(20);
+    }
+
+    &-card{
+      display: flex;
+      flex-direction: column;      
+      gap: toRem(24);
+
+      &-image{
+        object-fit: cover;
+        border-radius: toRem(16);
+      }
+
+      &-content{
+        display: flex;
+        flex-direction: column;      
+        gap: toRem(16);
+      }
+
+      &-text{
+        display: flex;
+        flex-direction: column;      
+        gap: toRem(12);
+      }
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+
+      &-location{
+        display: flex;
+        gap: toRem(8);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-subtle;
+        @extend .fs-lg;
+
+        &--icon{
+          color: $green-01;
+        }
+      }
+
+      &-price{
+        display: flex;
+        align-items: baseline;
+        gap: toRem(4);
+
+        &--total{
+          font-size: $font-size-xl;
+          font-weight: $font-weight-bold;
+          color: $neutral-primary;
+          @extend .fs-xl;
+        }
+        &--range{
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-primary;
+          @extend .fs-base;
+        }
+      }
+    }
+  }
+
+  &__desc{
+    display: flex;
+    justify-content: space-between;
+    gap: toRem(20);
+    padding: 0 0 toRem(40) 0;
+
+    &-left{
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+      max-width: toRem(645);
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+      &-description{
+        font-size: $font-size-lg;
+        color: $neutral-secondary;
+        @extend .fs-lg;
+
+        &--button{
+          font-weight: $font-weight-bold;
+          color: $green-01;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-right{
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+      align-items: flex-start;
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }      
+    }
+
+    &-facilities{
+      display: flex;
+      align-items: stretch;
+      gap: toRem(12);
+
+      &-item{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: toRem(12);
+        gap: toRem(8);
+        background: $white;
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(10);
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+        color: $neutral-primary;
+        @extend .fs-sm;
+
+        &--grow{
+          flex: 1 1 0;
+        }
+      }
+
+      &-more{
+        white-space: pre-wrap;
+        padding: toRem(12) toRem(24);
+        max-width: toRem(124);
+      }
+    }
+  }
+
+  &__reviews{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(40) 0;
+
+    &-header{
+      display: flex;
+      gap: toRem(12);
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-xl;
+
+      &-overall{
+        display: flex;        
+        align-items: center;
+        gap: toRem(8);        
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+
+      &-chips{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(3) toRem(16);
+        background-color: $blue-whale-01;
+        border-radius: toRem(32);
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $white;
+        @extend .fs-base;
+      }
+    }
+
+    &-row{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(20);
+      position: relative;
+    }
+
+    &-review{
+      display: flex;      
+      align-items: flex-start;
+      padding: toRem(20);
+      gap: toRem(16);
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+      max-width: toRem(364);
+
+      &-column{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        align-items: flex-start;
+      }
+
+      &-content{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;        
+        gap: toRem(12);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+        @extend .fs-base;
+
+        &--button-wrap {
+        position: absolute;
+        background: linear-gradient(270deg, #FFFFFF 19.16%, rgba(255, 255, 255, 0.83) 57.85%, rgba(255, 255, 255, 0) 100%);
+        right: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: toRem(77) toRem(32) toRem(77) toRem(153);
+        justify-content: flex-end;
+        text-align: center;
+        }
+
+        &--button {
+          width: toRem(80);
+          color: $green-01;
+          text-align: center;
+        }
+
+        &--chips{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: toRem(3) toRem(16);
+          background-color: $blue-whale-01;
+          border-radius: toRem(32);
+          font-size: $font-size-base;
+          font-weight: $font-weight-semibold;
+          color: $white;
+          @extend .fs-base;
+        }
+      }
+
+      &-customer{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;        
+        gap: toRem(4);
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-base;
+
+        &--location{
+          display: flex;          
+          align-items: center;        
+          gap: toRem(8);
+          font-size: $font-size-sm;
+          font-weight: $font-weight-base;
+          color: $neutral-subtle;
+          @extend .fs-sm;
+        }
+      }
+    }
+  }
+
+  &__location{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(40) 0;
+
+    &-details{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &-header{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);        
+      }
+      &-name{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+      }
+      &-specific{
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-subtle;
+        @extend .fs-lg;
+
+        &--pin{
+          color: $green-01;
+        }
+      }
+    }
+  }
+
+  &__room{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(40) 0;
+
+    &-wrapper{
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+    }
+
+    &-item{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(24);
+
+      &-preview{
+        display: flex;
+        flex-direction: column;
+        border: toRem(1) solid $neutral-input;
+        border-radius: toRem(16);
+
+        &-title{
+          display: flex;          
+          justify-content: center;
+          align-items: center;
+          padding: toRem(16) toRem(20) toRem(20);
+          gap: toRem(8);
+          color: $neutral-primary;
+        }
+
+        &-image{
+          border-radius: toRem(10);
+          border-top-left-radius: toRem(16);
+          border-top-right-radius: toRem(16);
+        }
+      }
+
+      &-list{
+        display: flex;
+        flex-direction: column;        
+        align-items: center;        
+        gap: toRem(12);
+        flex-grow: 1;
+      }
+
+      &-link{
+        display: flex;
+        flex-direction: row;        
+        align-items: center;        
+        gap: toRem(10);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $green-01;
+        @extend .fs-lg;
+      }
+    }
+
+    &-detail{
+      display: flex;           
+      align-items: center;        
+      gap: toRem(24);
+      background-color: $white;
+      border: toRem(1) solid $neutral-input;
+      border-radius: toRem(16);
+      width: 100%;
+
+      &-content{
+        display: flex;
+        flex-direction: column;        
+        align-items: stretch;
+        flex-grow: 1;
+        padding: toRem(24);
+        padding-right: 0;
+        gap: toRem(16);
+        border-right: toRem(1) solid $neutral-separator;
+
+        &--separator{
+          border-bottom: toRem(1) solid $neutral-separator;
+        }
+      }
+
+      &-split{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: toRem(12);
+        padding: toRem(24);
+
+        &__price{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: toRem(4);       
+          color: $neutral-primary;
+
+          &-type{
+            font-size: $font-size-base;
+            font-weight: $font-weight-base;            
+            @extend .fs-base;
+          }
+        }
+
+        &__action{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: toRem(12);
+
+          &-link{
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;            
+            color: $green-01;
+            @extend .fs-sm;
+          }
+        }
+      }
+
+      &-title{
+        display: flex;
+        flex-direction: column;    
+        align-items: flex-start;                 
+        gap: toRem(12);
+        color: $neutral-primary;
+      }
+
+      &-facilities{
+        display: flex;          
+        align-items: center;                 
+        gap: toRem(20);
+
+        &__item{
+          display: flex;          
+          align-items: center;                 
+          gap: toRem(12);
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+
+        &__dots{
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-separator;
+          border-radius: toRem(32);
+        }
+      }
+
+      &-specification{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: toRem(16) toRem(32);
+
+        &__item{
+          display: flex;
+          flex-direction: column;    
+          align-items: flex-start;                 
+          gap: toRem(12);
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+      }
+    }
+  }
+
+  &__facility{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(32);
+
+    &-wrapper{
+      display: flex;
+      gap: toRem(24);    
+    }
+
+    &-content{
+      display: flex;      
+      flex-direction: column;      
+      flex-grow: 1;
+      gap: toRem(24);
+      width: 100%;
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+        min-width: toRem(270);
+      }
+
+      &-list{
+        display: grid;    
+        gap: toRem(24);      
+        width: 100%;      
+      }
+
+      &-item{
+        display: flex;        
+        align-items: center;
+        gap: toRem(12);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-lg;
+
+      &-icon {
+        color: $success-main;
+      }
+
+      &-icon--red {
+        color: $danger-main;
+      }
+
+      &-desc {
+        min-width: toRem(324);
+        color: $neutral-primary;
+      }
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+      }
+
+        &--dots{
+          width: toRem(5);
+          height: toRem(5);
+          border-radius: toRem(32);
+          background: $neutral-secondary;
+        }
+      }
+    }
+
+    &-link{
+      display: flex;
+      flex-direction: row;        
+      align-items: center;        
+      gap: toRem(10);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $green-01;
+      @extend .fs-lg;
+    }
+  }
+
+  &__detail-plan{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(32);
+
+    &-wrapper{
+      display: flex;
+      flex-direction: column;
+      gap: toRem(32);  
+    }
+
+    &-link {
+      display: flex;
+      flex-direction: row;        
+      align-items: center;   
+      justify-content: center;     
+      gap: toRem(10);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $green-01;
+      @extend .fs-lg;
+    }
+
+    &-content{
+      display: flex;        
+      flex-grow: 1;
+      gap: toRem(20);
+      width: 100%;
+      position: relative;
+      
+
+      &-line-left {
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          transform: translate(-48%, 65%);
+          width: toRem(20);
+          height: toRem(20);
+          // left: toRem(12);
+          border-radius: 50%;
+          z-index: 1;
+          background-color: $white;
+          border: 2px solid $green-01;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          // left: toRem(12);
+          top: 0;
+          bottom: -32px;
+          transform: translate(-3.5%, 5%);
+          width: toRem(20);
+          border-left: 2px dashed $green-01;
+        }
+      }
+
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+        min-width: toRem(270);
+      }
+
+      &-list{
+        display: grid;    
+        gap: toRem(24);      
+        width: 100%;      
+      }
+
+      &-item{
+        display: flex;        
+        align-items: center;
+        gap: toRem(12);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-lg;
+
+      &-desc {
+        min-width: toRem(451);
+        padding-bottom: toRem(20);
+        color: $neutral-secondary;
+      }
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+      }
+
+        &--dots{
+          width: toRem(5);
+          height: toRem(5);
+          border-radius: toRem(32);
+          background: $neutral-secondary;
+        }
+      }
+
+    }
+
+    &-link{
+      display: flex;
+      flex-direction: row;        
+      align-items: center;        
+      gap: toRem(10);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $green-01;
+      @extend .fs-lg;
+    }
+  }
+
+  &__guest{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    border-bottom: toRem(1) solid $neutral-separator;
+
+    &-wrapper{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: toRem(20);
+    }
+
+    &-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-rating{
+        display: flex;
+        align-items: center;
+        gap: toRem(16);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-lg;
+      }
+
+      &-chips{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: toRem(3) toRem(16);
+        background-color: $blue-whale-01;
+        border-radius: toRem(32);
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $white;
+        @extend .fs-base;
+      }
+
+      &-overall{        
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        @extend .fs-lg;
+      }
+
+      &-dots{
+        height: toRem(5);
+        width: toRem(5);
+        background: $neutral-separator;
+      }
+
+      &-filter{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: toRem(8) toRem(24);
+        padding-right: toRem(52);
+        gap: toRem(12);
+        background-color: $white;
+        border: toRem(1) solid $neutral-separator;
+        border-radius: toRem(100);
+
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+    }
+
+    &-summary{
+      display: flex;      
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(16);
+      padding: toRem(20);
+      background: $white;
+      border: toRem(1) solid $neutral-separator;
+      max-width: toRem(265);
+      width: 100%;
+
+      &-item{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(8);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+        @extend .fs-base;
+      }
+      &-rate{
+        display: flex;      
+        align-items: center;
+        gap: toRem(12);
+        width: 100%;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-base;
+        color: $neutral-primary;
+        @extend .fs-sm;
+      }
+
+      &-bar{
+        position: relative;
+        width: 100%;
+        height: toRem(6);
+        max-width: toRem(196);
+        background: $neutral-input;
+        border-radius: toRem(10);
+
+        &--filler{
+          position: absolute;          
+          height: toRem(6);
+          max-width: toRem(196);
+          background: $info-main;
+          border-radius: toRem(10);
+        }
+      }
+    }
+
+    &-content{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: toRem(16);      
+    }
+
+    &-review{
+      display: flex;    
+      align-items: flex-start;
+      gap: toRem(20);
+      padding: toRem(20);
+      background: $white;
+      border: toRem(1) solid $neutral-separator;
+      border-radius: toRem(12);
+
+      &-guest{
+        display: flex;        
+        align-items: center;
+        gap: toRem(16);
+
+        &--profile{
+          width: toRem(48);
+          height: toRem(48);
+          border-radius: toRem(100);
+        }
+
+        &--bio{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: toRem(4);
+          white-space: nowrap;
+        }
+
+        &--name{
+          font-size: $font-size-base;
+          font-weight: $font-weight-bold;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+
+        &--location{
+          display: flex;          
+          align-items: center;
+          gap: toRem(8);
+          font-size: $font-size-sm;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-sm;
+        }
+      }
+
+      &-content{
+        display: flex;        
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(12);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-base;
+
+        &--chips{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: toRem(3) toRem(16);
+          background-color: $blue-whale-01;
+          border-radius: toRem(32);
+          font-size: $font-size-base;
+          font-weight: $font-weight-bold;
+          color: $white;
+          @extend .fs-base;
+        }
+
+        &--reaction{
+          display: flex;                  
+          align-items: center;
+          gap: toRem(8);
+          background: transparent;
+          border: none;
+          outline: none;
+          font-size: $font-size-sm;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-sm;
+        }
+      }
+    }
+
+    &-pagination {
+      @include flex(row, center, center);
+      padding: toRem(24) 0 toRem(40) 0;
+    }
+  }
+
+  &__information{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    border-bottom: toRem(1) solid $neutral-separator;
+
+    &-wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-content{
+      display: flex;
+      align-items: flex-start;
+      gap: toRem(16);
+      width: 100%;
+
+      &:not(:last-child) {
+      border-bottom: toRem(1) solid $neutral-separator;
+      }
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(32);
+      }
+
+      &-title{
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+        min-width: toRem(270);
+      }
+
+      &-details{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+        padding-bottom: toRem(32);
+        // border-bottom: toRem(1) solid $neutral-separator;
+        width: 100%;
+      }
+      
+      &-clock{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: toRem(16);
+      }
+
+      &-desc{
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-lg;
+
+        &--dots{
+          width: toRem(5);
+          height: toRem(5);
+          background: $neutral-secondary;
+          border-radius: toRem(100);
+        }
+
+        &--icon{
+          margin-left: auto;
+        }
+
+        b{
+          font-weight: $font-weight-bold;
+        }
+
+        ul{
+          margin: 0;
+        }
+      }
+
+      &-list{
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
+      }
+
+      &-item{
+        display: flex;
+        align-items: center;
+        gap: toRem(8);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+        color: $neutral-secondary;
+        @extend .fs-lg;
+
+        &--time{
+          font-weight: $font-weight-semibold;
+          color: $neutral-primary;
+        }
+        &--warning{
+          font-size: $font-size-base;
+          font-weight: $font-weight-base;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+      }
+    }
+
+    &-link{
+      display: flex;
+      flex-direction: row;        
+      align-items: center;        
+      gap: toRem(10);
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $green-01;
+      padding: 0 0 toRem(40);
+      @extend .fs-lg;
+    }
+  }
+
+  &__card {
+    display: flex;
+    padding: toRem(24);
+    gap: toRem(24);
+    color: $neutral-primary;
+    border-radius: toRem(8);
+    border: toRem(2) solid $green-01;
+    background: $green-06;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size-xl;
+
+    &.collapsed{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: $font-size-xl;
+      background: $white;
+      border: toRem(2) solid $neutral-input;
+    }
+
+    &-heading {
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(32);
+      }
+    }
+
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+    }
+
+    &-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(12);
+
+      &-wrapper {
+        display: flex;
+      }
+
+      &-desc {
+        font-weight: $font-weight-semibold;
+        color: $neutral-secondary;
+      }
+
+      &-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $neutral-primary;
+        @extend .fs-xl;
+        
+        &--optional {
+          font-size: $font-size-sm;
+          font-weight: $font-weight-normal;
+          color: $neutral-secondary;
+          @extend .fs-base;
+        }
+      }
+    }
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      gap: toRem(20);
+    }
+
+    &-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-xl
+    }
+
+    &-desc {
+      font-size: $font-size-base;
+      font-weight: $font-weight-normal;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-icon {
+      display: flex;
+      gap: toRem(8);
+    }
+  }
+
+  &__special {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+    padding: toRem(24);
+
+    &.show {
+      background-color: $neutral-light;
+    }
+
+    &-location {
+      display: flex;
+      flex-direction: column;
+      min-height: toRem(104);
+
+      &-footer {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-summary {
+        &-desc {
+          display: flex;
+          align-items: center;
+          color: $neutral-primary;
+          font-weight: $font-weight-bold;
+          font-size: $font-size-base;
+        }
+
+        &-price {
+          color: $neutral-primary;
+          font-weight: $font-weight-bold;
+          font-size: $h5-font-size;
+        }
+
+      }
+
+      &-title {
+        display: flex;
+        gap: toRem(4);
+        align-items: center;
+        justify-content: flex-start;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $neutral-primary;
+      }
+
+      &-row {
+        display: flex;
+        gap: toRem(24);
+      }
+
+      &-block {
+        display: flex;
+        align-items: flex-start;
+        gap: toRem(16);
+        min-width: toRem(344);
+        max-height: toRem(104);
+        padding: toRem(16) 0;
+
+        &-item {
+          margin-bottom: unset;
+          color: $neutral-primary;
+          font-weight: $font-weight-normal;
+        }
+
+        &-left {
+          display: flex;
+          flex-direction: column;
+          gap: toRem(8);
+        }
+
+        &-right {
+          display: flex;
+          flex-direction: column;
+          gap: toRem(8);
+        }
+
+
+      }
+    }
+
+    &-separator {
+      width: 100%;
+      border-top: toRem(1) solid $neutral-separator;
+    }
+
+    &-toggle {
+      display: flex;
+      gap: toRem(8);
+      align-items: center;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      color: $neutral-primary;
+      @extend .fs-base;
+    }
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(24);
+    }
+  }
+
+}

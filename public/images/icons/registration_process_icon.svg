@@ -1,0 +1,27 @@
+<svg width="100%" height="100%" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Imagery">
+<g clip-path="url(#clip0_4183_111678)">
+<rect width="80" height="80" rx="6" fill="#052C47"/>
+<path id="Rectangle 41" d="M14 22C14 18.6863 16.6863 16 20 16H61C64.3137 16 67 18.6863 67 22V83H14V22Z" fill="#1CB78D"/>
+<rect id="Rectangle 42" x="20.4" y="24.4" width="7.2" height="7.2" rx="1.6" fill="#E8F8F4" stroke="#C6EDE3" stroke-width="0.8"/>
+<rect id="Rectangle 43" x="20.4" y="40.4" width="7.2" height="7.2" rx="1.6" fill="#E8F8F4" stroke="#C6EDE3" stroke-width="0.8"/>
+<rect id="Rectangle 44" x="20.4" y="56.4" width="7.2" height="7.2" rx="1.6" fill="#E8F8F4" stroke="#C6EDE3" stroke-width="0.8"/>
+<rect id="Rectangle 45" x="20.4" y="70.4" width="7.2" height="7.2" rx="1.6" fill="#E8F8F4" stroke="#C6EDE3" stroke-width="0.8"/>
+<path id="Vector 30 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M31 26.5C31 25.6716 31.6716 25 32.5 25H57.5C58.3284 25 59 25.6716 59 26.5C59 27.3284 58.3284 28 57.5 28H32.5C31.6716 28 31 27.3284 31 26.5Z" fill="#F4FBF9"/>
+<path id="Vector 30 (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd" d="M31 42.5C31 41.6716 31.6716 41 32.5 41H57.5C58.3284 41 59 41.6716 59 42.5C59 43.3284 58.3284 44 57.5 44H32.5C31.6716 44 31 43.3284 31 42.5Z" fill="#F4FBF9"/>
+<path id="Vector 30 (Stroke)_3" fill-rule="evenodd" clip-rule="evenodd" d="M31 58.5C31 57.6716 31.6716 57 32.5 57H57.5C58.3284 57 59 57.6716 59 58.5C59 59.3284 58.3284 60 57.5 60H32.5C31.6716 60 31 59.3284 31 58.5Z" fill="#F4FBF9"/>
+<path id="Vector 30 (Stroke)_4" fill-rule="evenodd" clip-rule="evenodd" d="M31 72.5C31 71.6716 31.6716 71 32.5 71H57.5C58.3284 71 59 71.6716 59 72.5C59 73.3284 58.3284 74 57.5 74H32.5C31.6716 74 31 73.3284 31 72.5Z" fill="#F4FBF9"/>
+<path id="Vector 31 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M31 29.75C31 29.3358 31.3419 29 31.7636 29L58.2364 29C58.6581 29 59 29.3358 59 29.75C59 30.1642 58.6581 30.5 58.2364 30.5L31.7636 30.5C31.3419 30.5 31 30.1642 31 29.75Z" fill="#F4FBF9"/>
+<path id="Vector 31 (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd" d="M31 45.75C31 45.3358 31.3419 45 31.7636 45L58.2364 45C58.6581 45 59 45.3358 59 45.75C59 46.1642 58.6581 46.5 58.2364 46.5L31.7636 46.5C31.3419 46.5 31 46.1642 31 45.75Z" fill="#F4FBF9"/>
+<path id="Vector 31 (Stroke)_3" fill-rule="evenodd" clip-rule="evenodd" d="M31 61.75C31 61.3358 31.3419 61 31.7636 61L58.2364 61C58.6581 61 59 61.3358 59 61.75C59 62.1642 58.6581 62.5 58.2364 62.5L31.7636 62.5C31.3419 62.5 31 62.1642 31 61.75Z" fill="#F4FBF9"/>
+<path id="Vector 31 (Stroke)_4" fill-rule="evenodd" clip-rule="evenodd" d="M31 75.75C31 75.3358 31.3419 75 31.7636 75L58.2364 75C58.6581 75 59 75.3358 59 75.75C59 76.1642 58.6581 76.5 58.2364 76.5L31.7636 76.5C31.3419 76.5 31 76.1642 31 75.75Z" fill="#F4FBF9"/>
+<path id="Vector 32" d="M22 28L24 30L29.5 24" stroke="#CA3232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector 33" d="M22 60L24 62L29.5 56" stroke="#CA3232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_4183_111678">
+<rect width="80" height="80" rx="6" fill="white"/>
+</clipPath>
+</defs>
+</svg>

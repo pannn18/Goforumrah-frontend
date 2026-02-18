@@ -1,0 +1,389 @@
+.agent-booking{
+  padding-top: toRem(40);
+  padding-bottom: toRem(120);
+  background: $neutral-light;
+
+  &__summary{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(40);
+    padding: toRem(24);
+    background: $white;
+    margin: toRem(24) 0;
+    border-radius: toRem(16);
+  }
+  &__summary-header{
+    display: flex;
+    justify-content: space-between;    
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+      gap: toRem(24);
+    }
+  }
+  &__summary-list{
+    display: flex;    
+    
+    @include media-breakpoint-down(lg) {
+      flex-wrap: wrap;
+      gap: toRem(12);
+    }
+
+    @include media-breakpoint-down(xs-3) {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: toRem(12);
+    }
+
+    @include media-breakpoint-down(xs-2) {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: toRem(12);
+    }
+    
+  }
+  &__summary-list-item{
+    display: flex;    
+    flex-direction: column;
+    gap: toRem(4);
+    flex: 1 1 auto;
+  }
+  &__summary-list-label{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__summary-list-text{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+  &__summary-list-chips{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: toRem(3) toRem(16);
+    border-radius: toRem(32);
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    width: fit-content;    
+
+    &--upcoming{background: $info-main;}
+    &--active{background: $neutral-primary;}
+    &--completed{background: $success-main;}
+    &--unpaid{background: $warning-main;}
+    &--cancelled{background: $danger-main;}
+  }
+
+  &__content{
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+  }
+  &__wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    border-radius: toRem(16);
+    flex: 1 1 auto;
+    background: $white;
+  }
+  &__hotel{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(24);
+    padding: toRem(24);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+  &__hotel-divider{
+    width: 100%;
+    border-bottom: toRem(1) solid $neutral-separator;
+  }
+  &__hotel-detail{
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+  &__hotel-detail__text{
+    display: flex;
+    flex-direction: column;
+    gap: toRem(12);
+    margin-right: auto; 
+  }
+  &__hotel-detail__name{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+  &__hotel-detail__desc{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__hotel-checkin{
+    display: flex;
+    gap: toRem(24);
+      
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+    }
+  }
+  &__hotel-checkin__box{
+    display: flex;
+    align-items: flex-start;
+    gap: toRem(12);
+    flex: 1 1 auto;
+  }
+  &__hotel-checkin__icon{
+    padding: toRem(10);
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(8);
+    color: $neutral-primary;
+  }
+  &__hotel-checkin__text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: toRem(12);
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+  }
+  &__hotel-checkin__text-date{
+    display: flex;
+    gap: toRem(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+  &__hotel-checkin__text-time{
+    display: flex;
+    gap: toRem(6);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+  &__room{
+    display: flex;
+    gap: toRem(24);
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
+  }
+  &__room-box{
+    @include flex(column, flex-start);
+    gap: toRem(12);    
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-subtle;
+    flex: 1 1 auto;
+  }
+  &__room-desc{
+    @include flex(row, center);
+    gap: toRe(12);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+
+  &__location{
+    @include flex(column, flex-start);
+    gap: toRem(12);
+  }
+  &__location-inner{
+    @include flex(row, center);
+    gap: toRem(16);
+
+      @include media-breakpoint-down(md) {
+        @include flex(column);
+      }
+  }
+  &__location-map{
+    position: relative;
+    border-radius: toRem(16);
+
+      @include media-breakpoint-down(md) {
+        img {
+          width: 100% !important;
+        }
+      }
+  }
+  &__location-map-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__location-map-overlay{
+    background-color: #041d2f;
+    opacity: 0.4;
+    border-radius: toRem(16);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+  }
+  &__location-text{
+    @include flex(column, flex-start);
+    gap: toRem(8);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+  }
+  &__location-address{
+    @include flex(row, center);
+    gap: toRem(4);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+  &__facilities{
+    @include flex(column, stretch);
+    gap: toRem(12);
+  }
+  &__facilities-list{
+    @include flex(row, stretch);
+    gap: toRem(12);
+
+    @include media-breakpoint-down(md) {
+      flex-wrap: wrap
+    }
+  }
+  &__facilities-box{
+    @include flex(column, flex-start);
+    padding: toRem(12);
+    gap: toRem(8);
+    flex: 1 1 0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+  &__facilities-button{    
+    padding: toRem(14) toRem(24);
+    max-width: toRem(128);
+    white-space: pre-wrap;    
+    font-size: $font-size-base;
+  }
+
+  &__additional{
+    @include flex(column, stretch);
+    gap: toRem(26);
+    padding: toRem(24);
+    background: $white;
+    border: toRem(1) solid $neutral-separator;
+    border-radius: toRem(12);
+  }
+  &__additional-title{
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__additional-desc{
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    color: $neutral-secondary;
+  }
+
+
+  // Manage Sidebar
+  &__manage{
+    @include flex(column, stretch);
+    min-width: toRem(360);
+    padding: toRem(24);    
+    gap: toRem(16);
+    border-radius: toRem(16);
+    background: $white;
+
+    @include media-breakpoint-down(lg) {
+      min-width: unset;
+      width: 100% !important;
+    }
+  }
+  &__manage-title{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-primary;
+  }
+  &__manage-list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: toRem(16) toRem(20);
+    gap: toRem(16);
+    background: $white;
+    border-bottom: toRem(1) solid $neutral-separator;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $neutral-primary;
+
+    &--cancel {
+      color: $danger-main;
+    }
+    &--disable {
+      opacity: 50%;
+      cursor: default;
+    }
+  }
+  &__manage-list-icon {
+    color: $green-01;
+  }
+  &__manage-list-arrow {
+    color: $neutral-input;
+    margin-left: auto;
+  }
+
+  // OffCanvas
+  &__offcanvas-header{
+    padding: toRem(24);
+  }
+  &__offcanvas-button{
+    color: $neutral-secondary;
+    border: none;
+    background: transparent;
+
+    &:hover{
+      color: $neutral-primary;
+    }
+  }
+  &__offcanvas-body{
+    @include flex(column, stretch);
+    padding: toRem(24);
+    gap: toRem(24);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-base;
+    color: $neutral-primary;
+  }
+  &__offcanvas-group{
+    @include flex(column,stretch);
+    gap: toRem(8);
+  }  
+  &__offcanvas-options{
+    @include flex(row, center, space-between);
+    padding: toRem(16);        
+    gap: toRem(16);
+    border-bottom: toRem(1) solid $neutral-separator;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+  }
+}

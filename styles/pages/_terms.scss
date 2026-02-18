@@ -1,0 +1,140 @@
+.terms-condition {
+  .terms {
+    max-width: toRem(764);
+    padding: toRem(40) 0;
+    margin: 0 auto;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 0;
+    }
+
+    &__breadcrumb {
+      padding: 0;
+      background: $white;
+
+      &-inner {
+        @include flex(row, center, flex-start);
+        gap: toRem(16);
+        padding: toRem(16) 0;
+        font-size: $font-size-base;
+        color: $green-01;
+        font-weight: $font-weight-base;
+      }
+
+      &--link {
+        font-weight: $font-weight-semibold;
+        color: $green-01;
+      }
+      &--current {
+        color: $neutral-subtle;
+      }
+    }
+
+    &__header {
+      @include flex(row, center, flex-start);
+      gap: toRem(8);
+      padding: toRem(40) 0;
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: toRem(20);
+      }
+    }
+    &__header-text {
+      @include flex(column, flex-start);
+      gap: toRem(8);
+      flex-grow: 1;
+      color: $neutral-primary;
+
+      span {
+        font-size: $font-size-base;
+        font-weight: $font-size-base;
+      }
+    }
+    &__tab {
+      display: flex;
+      flex-direction: column;
+      gap: toRem(20);
+      align-items: stretch;
+      overflow: hidden;
+    }
+    &__tabs-menu {
+      @include flex(row, stretch, center);
+      position: relative;
+      z-index: 1;
+      width: 100%;
+
+      @include media-breakpoint-down(xl) {
+        justify-content: flex-start;
+      }
+      @include media-breakpoint-down(lg) {
+        overflow: auto;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 1px;
+        background-color: $neutral-separator;
+        left: 0;
+        bottom: 0;
+      }
+
+      & > * {
+        border-radius: 0;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid $neutral-input;
+        padding: toRem(16) toRem(32);
+        font-size: $font-size-base;
+        font-weight: $font-weight-base;
+        color: $blue-whale-01;
+        flex: 1 1 auto;
+
+        @include media-breakpoint-down(lg) {
+          padding: toRem(16) toRem(24);
+        }
+        @include media-breakpoint-down(md) {
+          padding: toRem(14) toRem(20);
+        }
+        @include media-breakpoint-down(sm) {
+          padding: toRem(12) toRem(16);
+        }
+
+        &:not(.active):hover {
+          background-color: shade-color(
+            transparent,
+            $btn-hover-bg-shade-amount
+          );
+        }
+
+        &.active {
+          font-weight: $font-weight-bold;
+          color: $green-01;
+          border-bottom: 2px solid $green-01;
+        }
+      }
+    }
+    &__box {
+      @include flex(column, flex-start);
+      gap: toRem(20);
+      padding: toRem(40) 0;
+      color: $neutral-primary;
+      &-title {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+      }
+      p {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-base;
+      }
+      a {
+        font-weight: $font-weight-base;
+        text-decoration: underline;
+      }
+    }
+  }
+}

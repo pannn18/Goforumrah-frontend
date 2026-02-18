@@ -1,0 +1,132 @@
+.custom-dropdown-menu {
+  position: absolute;
+  z-index: $zindex-dropdown;
+  top: 100%;
+  left: 0;
+  margin-top: toRem(20);
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: 0px 12px 44px rgba(5, 44, 71, 0.08);
+
+  &--right {
+    right: 0;
+    left: auto;
+  }
+
+  &__header {
+    @include flex(row, center, space-between);
+    padding: toRem(20) toRem(20) toRem(8);
+  }
+
+  &__body {
+    padding: toRem(8) toRem(20) toRem(20);
+  }
+
+  &__footer {
+    padding: toRem(24);
+  }
+
+  &__title {
+    @extend .fs-xl;
+    @extend .fw-bold;
+    color: $neutral-primary;
+  }
+
+  &__options {
+    @include flex(column, stretch);
+    max-height: 356px;
+    overflow-y: auto;
+  }
+
+  &__option {
+    padding: toRem(16) toRem(20);
+    @include flex(row, center);
+    gap: toRem(12);
+    color: $neutral-primary;
+
+    &:not(&--readonly) {
+      cursor: pointer;
+
+      &:hover {
+        background-color: $neutral-separator;
+      }
+    }
+
+    &:not(:last-child):not(&--readonly) {
+      border-bottom: 1px solid $neutral-separator;
+    }
+
+    &--border:not(:last-child) {
+      border-bottom: 1px solid $neutral-separator;
+    }
+
+    &--border-all {
+      border-bottom: 1px solid $neutral-separator;
+    }
+  }
+
+  &__option-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__option-title {
+    @extend .fw-semibold;
+  }
+
+  &__option-description {
+    @extend .fs-sm;
+  }
+
+  &__partner-hotel {
+      position: absolute;
+      z-index: $zindex-dropdown;
+      top: 100%;
+      right: 0;
+      left:  unset !important;
+      cursor: pointer;
+      margin-top: toRem(20);
+      background-color: $white;
+      border-radius: $border-radius-lg;
+      box-shadow: 0px 12px 44px rgba(5, 44, 71, 0.08);
+  }
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown-toggle {
+  @include flex(row, center, center);
+  background-color: $white !important;
+  padding: toRem(8) toRem(24);
+  border-radius: $border-radius-pill;
+  border: 1px solid $neutral-input;
+  @extend .fw-semibold;
+  color: $neutral-primary;
+  cursor: pointer;
+
+  &--allocation{
+    width: min-content;
+  }
+
+  &--reservation{
+    border-radius: toRem(10) !important;
+    justify-content: space-between;
+    padding: toRem(13) toRem(16) !important;
+  }
+
+  &__
+
+  .react-svg {
+    color: $neutral-subtle;
+
+    &:not(.dropdown-toggle-arrow) {
+      margin-right: toRem(8);
+    }
+  }
+
+  .dropdown-toggle-arrow {
+    margin-left: toRem(12);
+  }
+}

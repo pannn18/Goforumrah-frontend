@@ -1,0 +1,11 @@
+.form-select{
+  padding: toRem(13) toRem(16);
+  border-radius: toRem(10);
+  border: 1px solid $neutral-input;
+  box-shadow: none !important;
+  outline: none !important;
+  cursor: pointer;
+  &:focus, &:focus-visible, &:focus-within{
+    border: 1px solid $dark;
+  }
+}
