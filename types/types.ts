@@ -86,4 +86,7 @@ export interface FlightSearchList {
   hierarchy: string
   type: string
   highlighting: (number[])[]
+  code?: string        
+  id?: string          
+  skyId?: string
 }
