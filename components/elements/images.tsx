@@ -12,6 +12,7 @@ export const BlurPlaceholderImage = ({ src: srcProps, alt, ...props }: ImageProp
       placeholder="blur"
       blurDataURL={Images.Placeholder}
       onError={() => setSrc(Images.Placeholder)}
+      unoptimized={true}
       {...props} />
   )
 }
