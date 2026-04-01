@@ -92,7 +92,7 @@ export default async function handler(
         data: response.data,
         error: response.error
       })
-      const statusCode = response.status || 500
+      const statusCode = Number(response.status) || 500
       res.status(statusCode).json({
         error: response.error,
         message: 'Failed to fetch flight details',
