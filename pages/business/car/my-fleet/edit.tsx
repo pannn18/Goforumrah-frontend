@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import SVGIcon from '@/components/elements/icons';
 import { Icons } from '@/types/enums';
 import placeholder from '@/public/images/placeholder.svg';
-import { carModels } from '@/lib/carmodels';
+import { carModels } from '@/lib/carModels';
 
 const EditFleet = () => {
    const router = useRouter()
