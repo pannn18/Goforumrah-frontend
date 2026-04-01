@@ -101,7 +101,7 @@ export default async function handler(
     if (response.ok) {
       res.status(200).json(response.data)
     } else {
-      const statusCode = response.status || 500
+      const statusCode = Number(response.status) || 500
       res.status(statusCode).json({
         error: response.error,
         status: false
