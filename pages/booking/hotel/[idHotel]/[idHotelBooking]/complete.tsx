@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
   const { status, data, ok, error } = await callAPI('/hotel-booking/detail', 'POST', { id_hotel_booking: idHotelBooking }, true, session.user.accessToken)
   
   if (ok) {            
-    if(data.status === 0){
+    if(data.status === 0  ){
       return {
         redirect: {
           destination: `/booking/hotel/${data?.id_hotel}/${data?.id_hotel_booking}`,

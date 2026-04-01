@@ -12,26 +12,36 @@ import SVGIcon from '@/components/elements/icons'
 import airlineEmiratesAirways from '@/assets/images/airline_partner_emirates.png'
 import Link from 'next/link'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { callAPI, callMystiflyAPI, callSkyscannerAPI } from '@/lib/axiosHelper'
+import { callAPI, callFlightHistoryAPI, callMystiflyAPI, callSkyscannerAPI } from '@/lib/axiosHelper'
 import { useSession } from 'next-auth/react'
 import moment from 'moment'
 import { useReactToPrint } from 'react-to-print';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import airlines from "@/lib/db/airlines.json"
+import LoadingOverlay from '@/components/loadingOverlay'
 
 import Currency from "currencies.json"
 import { UseCurrencyConverter } from "@/components/convertCurrency"
 
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const uniqueID = context.params?.id as string
+  const isNumericID = /^\d+$/.test(uniqueID)
 
-export const getServerSideProps: GetServerSideProps<{
-  tripDetails: any
-  airports: any
-  uniqueID: string
-}> = async (context) => {
-  const uniqueID = context.params?.id
+  // Numeric ID = booking sistem sendiri, fetch di client side
+  if (isNumericID) {
+    return {
+      props: {
+        tripDetails: null,
+        airports: null,
+        uniqueID,
+        isOwnBooking: true,
+      }
+    }
+  }
 
+  // String = Mystifly MFRef
   const { ok, data: tripDetails, status, error } = await callMystiflyAPI({
     url: 'https://restapidemo.myfarebox.com/api/tripdetails/' + uniqueID,
     method: 'GET',
@@ -48,7 +58,8 @@ export const getServerSideProps: GetServerSideProps<{
         props: {
           tripDetails: tripDetails.Data.TripDetailsResult,
           airports: airports.places,
-          uniqueID: uniqueID as string
+          uniqueID,
+          isOwnBooking: false,
         },
       }
     }
@@ -62,8 +73,11 @@ export const getServerSideProps: GetServerSideProps<{
 export default function Page({
   tripDetails,
   airports,
-  uniqueID
+  uniqueID,
+  isOwnBooking,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
+  // ─── ALL HOOKS MUST BE AT TOP (Rules of Hooks) ───────────────────────────
   const MYSTIFLY_PASSENGERS = {
     'ADT': 'Adult',
     'CHD': 'Children',
@@ -75,6 +89,43 @@ export default function Page({
   const { changePrice, currencySymbol } = UseCurrencyConverter();
 
   const [isStatusCompleted, setIsStatusCompleted] = useState(true)
+  const [userPersonal, setUserPersonal] = useState<any>([])
+  const ETicketRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const fetchPersonalUser = async () => {
+      const payload = { id_customer: session?.user?.id }
+      const { data, ok, error } = await callAPI('/customer/personal/show', 'POST', payload, true)
+      try {
+        if (data) setUserPersonal(data)
+        else console.log('Data personal not found!')
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+    fetchPersonalUser()
+  }, [session?.user?.id])
+
+  const pageStyle = `
+  @page {
+      size: A3;
+  }
+  @media all { .pagebreak { display: none; } }
+  @media print {
+    .pagebreak { page-break-before: always; }
+    @supports (-webkit-print-color-adjust: exact) { body { -webkit-print-color-adjust: exact; } }
+  }`;
+
+  const handleETicketPrint = useReactToPrint({
+    content: () => ETicketRef.current,
+    documentTitle: `${userPersonal?.title}. ${userPersonal?.fullname}-${uniqueID}`,
+    pageStyle
+  });
+
+  // ─── OWN BOOKING - after all hooks ───────────────────────────────────────
+  if (isOwnBooking) {
+    return <OwnBookingDetail uniqueID={uniqueID} />
+  }
 
   const itineraries = tripDetails?.TravelItinerary?.Itineraries.length ? tripDetails?.TravelItinerary?.Itineraries[0]?.ItineraryInfo?.ReservationItems : []
   const itinerariesNoReturn = itineraries.filter(itinerary => !itinerary?.IsReturn)
@@ -106,117 +157,27 @@ export default function Page({
 
   const foundAirline = (airlines as any[]).find((airline: any) => airline.code === itineraries?.[0]?.MarketingAirlineCode)
 
-  useEffect(() => {
-
-    const fetchPersonalUser = async () => {
-
-      const payload = {
-        id_customer: session?.user?.id
-      }
-
-      const { data, ok, error } = await callAPI('/customer/personal/show', 'POST', payload, true)
-
-      try {
-        if (data) {
-          setUserPersonal(data)
-        } else {
-          console.log('Data personal not found!')
-        }
-      } catch (err) {
-        console.log(err.message)
-      }
-
-    }
-
-    fetchPersonalUser()
-
-  }, [session?.user?.id])
-
-
-  const [userPersonal, setUserPersonal] = useState<any>([])
-  // console.log(userPersonal)
-
-  const pageStyle = `
-  @page {
-      size: A3;
-  }
-
-  @media all {
-      .pagebreak {
-        display: none;
-      }
-    }
-
-  @media print {
-
-  .pagebreak {
-    page-break-before: always;
-  }
-
-  @supports (-webkit-print-color-adjust: exact) {
-    body {
-      -webkit-print-color-adjust: exact;
-    }
-  }
-}
-`;
-
-  const ETicketRef = useRef<HTMLDivElement | null>(null);
-  const handleETicketPrint = useReactToPrint({
-    content: () => ETicketRef.current,
-    documentTitle: `${userPersonal?.title}. ${userPersonal?.fullname}-${uniqueID}-${destination?.AirlinePNR}`,
-    pageStyle
-  });
-
   const handleETicketSave = async () => {
     const componentRef = ETicketRef.current;
-
-    if (!componentRef) {
-      console.error('ETicketRef is not defined');
-      return;
-    }
-
-    // Set the ETicket to visible 
+    if (!componentRef) { console.error('ETicketRef is not defined'); return; }
     componentRef.style.display = 'block';
     componentRef.style.opacity = '1';
     componentRef.style.pointerEvents = 'visible';
-
-
     try {
       await new Promise(resolve => setTimeout(resolve, 100));
-
       const canvas = await html2canvas(componentRef);
-
-      // Set the ETicket to unvisible  
       componentRef.style.display = 'none';
       componentRef.style.opacity = '0';
       componentRef.style.opacity = 'none';
-
       const imgData = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF({
-        unit: 'mm',
-        format: 'a3',
-      });
-
+      const pdf = new jsPDF({ unit: 'mm', format: 'a3' });
       const contentHeight = (canvas.height * 297) / canvas.width;
-      // console.log('canvas height : ', canvas.height)
-      // console.log('canvas width : ', canvas.width)
-      // console.log('content height : ', contentHeight)
-
       pdf.addImage(imgData, 'PNG', 0, 0, 297, contentHeight);
-
-      // save file
       pdf.save(`${userPersonal?.title}. ${userPersonal?.fullname}-${uniqueID}-${destination?.AirlinePNR}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error.message);
     }
   };
-
-
-  // console.log(tripDetails)
-  // console.log(destination)
-  // console.log(fareBreakdowns)
 
   return (
     <Layout>
@@ -263,16 +224,12 @@ export default function Page({
                         <div className='booking-hotel__invoice-top-header'>
                           <div className='booking-hotel__invoice-top-header booking-hotel__invoice-top-header--booking'>
                             <span className='booking-hotel__invoice-top-header-label'>Order ID</span>
-                            <div className='booking-hotel__invoice-top-header-value'>
-                              {uniqueID}
-                            </div>
+                            <div className='booking-hotel__invoice-top-header-value'>{uniqueID}</div>
                           </div>
                           <div className="booking-hotel__confirmation-separator"></div>
                           <div className='booking-hotel__invoice-top-header booking-hotel__invoice-top-header--hotel'>
                             <span className='booking-hotel__invoice-top-header-label'>Booking Code (PNR)</span>
-                            <div className='booking-hotel__invoice-top-header-value'>
-                              {destination?.AirlinePNR}
-                            </div>
+                            <div className='booking-hotel__invoice-top-header-value'>{destination?.AirlinePNR}</div>
                           </div>
                         </div>
                         <div className="cancelation__flight-summary--eTicket">
@@ -319,7 +276,6 @@ export default function Page({
                                         <th>Passport Number</th>
                                         <th>Cabin</th>
                                         <th>Baggage</th>
-                                        {/* <th>Total</th> */}
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -327,20 +283,11 @@ export default function Page({
                                         <td className='booking-hotel__invoice-booking-important'>
                                           {passenger?.Passenger?.PaxName?.PassengerTitle} {passenger?.Passenger?.PaxName?.PassengerFirstName} {passenger?.Passenger?.PaxName?.PassengerLastName}
                                         </td>
-                                        <td>
-                                          {passenger?.Passenger?.EmailAddress}
-                                        </td>
-                                        <td className='booking-hotel__invoice-booking-important'>
-                                          {passenger?.Passenger?.PhoneNumber}
-                                        </td>
-                                        <td>
-                                          {passenger?.Passenger?.PassportNumber}
-                                        </td>
+                                        <td>{passenger?.Passenger?.EmailAddress}</td>
+                                        <td className='booking-hotel__invoice-booking-important'>{passenger?.Passenger?.PhoneNumber}</td>
+                                        <td>{passenger?.Passenger?.PassportNumber}</td>
                                         <td>{destination?.CabinClassType}</td>
-                                        <td>
-                                          <p>{fareBreakdowns?.CabinBaggageInfo[index]}</p>
-                                        </td>
-                                        {/* <td>{tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.Amount} {tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.CurrencyCode}</td> */}
+                                        <td><p>{fareBreakdowns?.CabinBaggageInfo[index]}</p></td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -351,7 +298,6 @@ export default function Page({
                             <p className='d-flex justify-content-end booking-hotel__invoice-booking-important fs-6'>Total : {tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.Amount} {tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.CurrencyCode}</p>
                           </Fragment>
                         )}
-
                       </div>
                     </main>
                     <footer className="booking-hotel__invoice-footer">
@@ -360,8 +306,7 @@ export default function Page({
                           <span className='booking-hotel__invoice-footer-title'> FOR ANY QUESTIONS, VISIT GOFORUMARAH HELP CENTER :</span>
                           <div className="booking-hotel__invoice-footer-link">
                             <SVGIcon src={Icons.Help} width={24} height={24} />
-                            <Link href={'https://goforumrah.com/contact-us'}>
-                              https://goforumrah.com/contact-us                            </Link>
+                            <Link href={'https://goforumrah.com/contact-us'}>https://goforumrah.com/contact-us</Link>
                           </div>
                         </div>
                         <div className="booking-hotel__invoice-footer-item">
@@ -380,7 +325,6 @@ export default function Page({
                         </div>
                       </div>
                     </footer>
-                    {/* E TICKET */}
                   </div>
                   {/* E TICKET */}
                 </>
@@ -406,9 +350,7 @@ export default function Page({
                 <hr className="cancelation__card-separator" />
                 <div className="cancelation__payment-total">
                   <p className="cancelation__payment-total-text">Total payment</p>
-                  <h5>{currencySymbol} {changePrice(tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.Amount)} 
-                  {/* {tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.CurrencyCode} */}
-                  </h5>
+                  <h5>{currencySymbol} {changePrice(tripDetails?.TravelItinerary?.TripDetailsPTC_FareBreakdowns[0]?.TripDetailsPassengerFare?.TotalFare?.Amount)}</h5>
                 </div>
               </div>
             </div>
@@ -450,11 +392,9 @@ export default function Page({
                     const origin = itinerary?.DepartureAirportLocationCode
                     const originKey = Object.keys(airports || {}).find(key => airports[key]?.iata === origin)
                     const originName = airports?.[originKey]?.name
-
                     const destination = itinerary?.ArrivalAirportLocationCode
                     const destinationKey = Object.keys(airports || {}).find(key => airports[key]?.iata === destination)
                     const destinationName = airports?.[destinationKey]?.name
-
                     return (
                       <Fragment key={`departure-flight-details-${index}`}>
                         <div className="cancelation__flight-details cancelation__flight-details--solid-line">
@@ -546,11 +486,9 @@ export default function Page({
                       const origin = itinerary?.DepartureAirportLocationCode
                       const originKey = Object.keys(airports || {}).find(key => airports[key]?.iata === origin)
                       const originName = airports?.[originKey]?.name
-
                       const destination = itinerary?.ArrivalAirportLocationCode
                       const destinationKey = Object.keys(airports || {}).find(key => airports[key]?.iata === destination)
                       const destinationName = airports?.[destinationKey]?.name
-
                       return (
                         <Fragment key={`departure-flight-details-${index}`}>
                           <div className="cancelation__flight-details cancelation__flight-details--solid-line">
@@ -627,23 +565,10 @@ export default function Page({
               </div>
             </div>
 
-            {/* {!isStatusCompleted && <FlightManage />} */}
-
             {/* FlightManage */}
             <div className="cancelation__flight border-0">
               <p className="cancelation__card-title">Manage your Booking</p>
               <div>
-                {/* TODO: Disabled due to no design */}
-                {/* <Link href="#" className="cancelation__flight-manage">
-                  <SVGIcon src={Icons.User} className="cancelation__flight-manage-icon" width={24} height={24} />
-                  <p>Edit guest details</p>
-                  <SVGIcon src={Icons.ArrowRight} className="cancelation__flight-manage-arrow" width={24} height={24} />
-                </Link> */}
-                {/* <Link href="#" className="cancelation__flight-manage">
-                  <SVGIcon src={Icons.SandClock} className="cancelation__flight-manage-icon" width={24} height={24} />
-                  <p>Reschedule</p>
-                  <SVGIcon src={Icons.ArrowRight} className="cancelation__flight-manage-arrow" width={24} height={24} />
-                </Link> */}
                 <Link href={cancelAllowed ? `/user/booking/flights/${uniqueID}/cancel` : `/user/booking/flights/${uniqueID}`} className="cancelation__flight-manage cancelation__flight-manage--cancel">
                   <SVGIcon src={Icons.Cancel} width={24} height={24} />
                   <p>Cancel booking {!cancelAllowed && '(Not allowed)'}</p>
@@ -659,6 +584,385 @@ export default function Page({
     </Layout>
   )
 }
+
+
+// ─── OWN BOOKING COMPONENT ───────────────────────────────────────────────────
+function OwnBookingDetail({ uniqueID }: { uniqueID: string }) {
+  const { data: session, status } = useSession()
+  const { changePrice, currencySymbol } = UseCurrencyConverter()
+
+  const [loading, setLoading] = useState(true)
+  const [booking, setBooking] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [userPersonal, setUserPersonal] = useState<any>([])
+  const [isStatusCompleted, setIsStatusCompleted] = useState(true)
+
+  const ETicketRef = useRef<HTMLDivElement | null>(null)
+
+  const pageStyle = `
+  @page { size: A3; }
+  @media all { .pagebreak { display: none; } }
+  @media print {
+    .pagebreak { page-break-before: always; }
+    @supports (-webkit-print-color-adjust: exact) { body { -webkit-print-color-adjust: exact; } }
+  }`
+
+  const handleETicketPrint = useReactToPrint({
+    content: () => ETicketRef.current,
+    documentTitle: `${userPersonal?.title}. ${userPersonal?.fullname}-${uniqueID}`,
+    pageStyle
+  })
+
+  const handleETicketSave = async () => {
+    const componentRef = ETicketRef.current
+    if (!componentRef) return
+    componentRef.style.display = 'block'
+    componentRef.style.opacity = '1'
+    componentRef.style.pointerEvents = 'visible'
+    try {
+      await new Promise(resolve => setTimeout(resolve, 100))
+      const canvas = await html2canvas(componentRef)
+      componentRef.style.display = 'none'
+      componentRef.style.opacity = '0'
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF({ unit: 'mm', format: 'a3' })
+      const contentHeight = (canvas.height * 297) / canvas.width
+      pdf.addImage(imgData, 'PNG', 0, 0, 297, contentHeight)
+      pdf.save(`${userPersonal?.title}. ${userPersonal?.fullname}-${uniqueID}.pdf`)
+    } catch (err: any) {
+      console.error('Error generating PDF:', err.message)
+    }
+  }
+
+  useEffect(() => {
+    if (status !== 'authenticated' || !session) return
+
+    const fetchDetail = async () => {
+      setLoading(true)
+      try {
+        const { ok, data, error } = await callFlightHistoryAPI(
+          '/flight-booking/detail',
+          'POST',
+          { id_flight_booking: Number(uniqueID) },
+          true
+        )
+        if (ok && data) setBooking(data)
+        else setError(error || 'Failed to load booking detail')
+      } catch (err: any) {
+        setError(err.message || 'Something went wrong')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    const fetchPersonalUser = async () => {
+      const { data } = await callAPI('/customer/personal/show', 'POST', { id_customer: session?.user?.id }, true)
+      if (data) setUserPersonal(data)
+    }
+
+    fetchDetail()
+    fetchPersonalUser()
+  }, [uniqueID, status, session])
+
+  if (loading) return <LoadingOverlay />
+
+  const foundAirline = (airlines as any[]).find(
+    (a: any) => a.name === booking?.airline_name || a.code === booking?.airline_code
+  )
+
+  const durationMs = booking?.departure_time && booking?.arrival_time
+    ? moment(booking.arrival_time).diff(moment(booking.departure_time), 'minutes')
+    : 0
+
+  return (
+    <Layout>
+      <Navbar showCurrency={true} />
+      <UserLayout
+        activeMenu='booking'
+        breadcrumb={[
+          { text: 'My Booking', url: '/user', category: 'flight' },
+          { text: `${booking?.origin || ''} to ${booking?.destination || ''}` },
+        ]}
+      >
+        {error ? (
+          <div className="w-100 h-100 d-flex align-items-center justify-content-center text-center"><p>{error}</p></div>
+        ) : !booking ? (
+          <div className="w-100 h-100 d-flex align-items-center justify-content-center text-center">Booking not found.</div>
+        ) : (
+          <div className="search-hotel">
+            <div className="cancelation__list">
+
+              {/* Utterance */}
+              <div className="cancelation__card cancelation__card--row">
+                <div className="cancelation__utterance ">
+                  <div className="cancelation__utterance-icon">
+                    <SVGIcon src={Icons.CheckRounded} width={48} height={48} />
+                  </div>
+                  <div className="cancelation__utterance-subtitile">
+                    {userPersonal?.fullname && (
+                      <p className="cancelation__utterance-subtitile">Thanks, {userPersonal?.title}. {userPersonal?.fullname}!</p>
+                    )}
+                    <h4>Your booking in {booking?.origin} to {booking?.destination} is {booking?.status}</h4>
+                  </div>
+                </div>
+                {isStatusCompleted && (
+                  <>
+                    <div className="cancelation__utterance-action">
+                      <button className="btn btn-lg btn-success" onClick={handleETicketPrint}>
+                        <SVGIcon src={Icons.Printer} width={20} height={20} />
+                        Print Confirmation
+                      </button>
+                      <button className="btn btn-lg btn-outline-success" onClick={handleETicketSave}>
+                        <SVGIcon src={Icons.Download} width={20} height={20} />
+                        Save File
+                      </button>
+                    </div>
+                    {/* E TICKET */}
+                    <div className='booking-hotel__invoice-container' id='bookingFlightPaymentInvoice' ref={ETicketRef}>
+                      <main className='booking-hotel__invoice'>
+                        <Image className='d-flex justify-content-center w-100 booking-hotel__invoice-image--keep-visible' src={logoTextDark} alt="Logo" width={300} />
+                        <div className="booking-hotel__invoice-wrapper--top">
+                          <div className='booking-hotel__invoice-top-header'>
+                            <div className='booking-hotel__invoice-top-header booking-hotel__invoice-top-header--booking'>
+                              <span className='booking-hotel__invoice-top-header-label'>Order ID</span>
+                              <div className='booking-hotel__invoice-top-header-value'>{uniqueID}</div>
+                            </div>
+                            <div className="booking-hotel__confirmation-separator"></div>
+                            <div className='booking-hotel__invoice-top-header booking-hotel__invoice-top-header--hotel'>
+                              <span className='booking-hotel__invoice-top-header-label'>Booking Reference</span>
+                              <div className='booking-hotel__invoice-top-header-value'>{booking?.booking_reference || '-'}</div>
+                            </div>
+                          </div>
+                          <div className="cancelation__flight-summary--eTicket">
+                            <div className="cancelation__flight-summary-logo--eTicket">
+                              <BlurPlaceholderImage className="" src={foundAirline?.image || Images.Placeholder} alt="Flight Logo" width={69} height={48} />
+                            </div>
+                            <div className="cancelation__flight-summary-content--eTicket">
+                              <div className="cancelation__flight-summary-schedule--eTicket">
+                                <p className="cancelation__flight-summaryschedule-sub">{booking?.departure_time ? moment(booking.departure_time).format('D MMM YY') : '-'}</p>
+                                <h4>{booking?.departure_time ? moment(booking.departure_time).format('HH:mm') : '-'}</h4>
+                                <p className="cancelation__flight-summaryschedule-sub">{booking?.origin}</p>
+                              </div>
+                              <div className="cancelation__flight-summary-duration--eTicket">
+                                <p className='cancelation__flight-summary-duration--eTicket-text'>{durationMs > 0 ? `${Math.floor(durationMs / 60)}h ${durationMs % 60}m` : ''}</p>
+                                <div className='cancelation__flight-summary-duration--eTicket-icon'>
+                                  <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} />
+                                  <SVGIcon src={Icons.Airplane} width={16} height={16} />
+                                </div>
+                                <p className='cancelation__flight-summary-duration--eTicket-text'>Direct</p>
+                              </div>
+                              <div className="cancelation__flight-summary-schedule--eTicket">
+                                <p className="cancelation__flight-summaryschedule-sub">{booking?.arrival_time ? moment(booking.arrival_time).format('D MMM YY') : '-'}</p>
+                                <h4>{booking?.arrival_time ? moment(booking.arrival_time).format('HH:mm') : '-'}</h4>
+                                <p className="cancelation__flight-summaryschedule-sub">{booking?.destination}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="booking-hotel__invoice-wrapper">
+                          <div className="booking-hotel__invoice-header">
+                            <h4 className='booking-hotel__invoice-header-title'><i>Passenger Details</i></h4>
+                          </div>
+                          {!!booking?.passengers?.length && (
+                            <Fragment>
+                              <div>
+                                {booking.passengers.map((passenger: any, index: number) => (
+                                  <div className="booking-hotel__invoice-wrapper" key={index}>
+                                    <table className='booking-hotel__invoice-booking'>
+                                      <thead>
+                                        <tr>
+                                          <th>Name</th>
+                                          <th>Passport Number</th>
+                                          <th>Nationality</th>
+                                          <th>Type</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td className='booking-hotel__invoice-booking-important'>{passenger?.title} {passenger?.firstname} {passenger?.lastname}</td>
+                                          <td>{passenger?.identity_number || '-'}</td>
+                                          <td>{passenger?.nationality || '-'}</td>
+                                          <td>{passenger?.passenger_type || '-'}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="booking-hotel__confirmation-separator"></div>
+                              <p className='d-flex justify-content-end booking-hotel__invoice-booking-important fs-6'>Total : {currencySymbol} {changePrice(booking?.total_price)}</p>
+                            </Fragment>
+                          )}
+                        </div>
+                      </main>
+                      <footer className="booking-hotel__invoice-footer">
+                        <div className="booking-hotel__invoice-footer-top">
+                          <div className="booking-hotel__invoice-footer-item">
+                            <span className='booking-hotel__invoice-footer-title'> FOR ANY QUESTIONS, VISIT GOFORUMARAH HELP CENTER :</span>
+                            <div className="booking-hotel__invoice-footer-link">
+                              <SVGIcon src={Icons.Help} width={24} height={24} />
+                              <Link href={'https://goforumrah.com/contact-us'}>https://goforumrah.com/contact-us</Link>
+                            </div>
+                          </div>
+                          <div className="booking-hotel__invoice-footer-item">
+                            <span className='booking-hotel__invoice-footer-title'>  CUSTOMER SERVICE (ID)</span>
+                            <div className="booking-hotel__invoice-footer-link">
+                              <SVGIcon src={Icons.Phone} width={24} height={24} />
+                              <span>+91 1234567890</span>
+                            </div>
+                          </div>
+                          <div className="booking-hotel__invoice-footer-item">
+                            <span className='booking-hotel__invoice-footer-title'>  ORDER ID </span>
+                            <div className="booking-hotel__invoice-footer-link">
+                              <SVGIcon src={Icons.BookingComplete} width={24} height={24} />
+                              {uniqueID}
+                            </div>
+                          </div>
+                        </div>
+                      </footer>
+                    </div>
+                    {/* E TICKET */}
+                  </>
+                )}
+              </div>
+
+              {!isStatusCompleted && <TicketCombo />}
+
+              {/* Payment */}
+              <div className="cancelation__card">
+                <div className="cancelation__payment">
+                  <div className="cancelation__payment-flight">
+                    <div className="cancelation__payment-flight-destination">
+                      <h4>{booking?.origin}</h4>
+                      <div className="cancelation__payment-flight-icon">
+                        <SVGIcon src={Icons.AirplaneLineMedium} width={165} height={8} />
+                        <SVGIcon src={Icons.Airplane} width={16} height={16} />
+                      </div>
+                      <h4>{booking?.destination}</h4>
+                    </div>
+                    <p className="cancelation__payment-flight">Order ID : {booking?.passengers?.[0]?.id_flight_booking}</p>
+                    <p className="cancelation__payment-flight">Booking Ref : {booking?.booking_reference || '-'}</p>
+                  </div>
+                  <hr className="cancelation__card-separator" />
+                  <div className="cancelation__payment-total">
+                    <p className="cancelation__payment-total-text">Total payment</p>
+                    <h5>{currencySymbol} {changePrice(booking?.total_price)}</h5>
+                  </div>
+                </div>
+              </div>
+
+              {/* Flight Detail */}
+              <div className="cancelation__card">
+                <p className="cancelation__card-title">Flight details</p>
+                <div className="cancelation__flight">
+                  <a className="cancelation__flight-header" data-bs-toggle="collapse" href="#departure-flight-details" role="button" aria-expanded="true" aria-controls="departure-flight-details">
+                    <p>Flight to {booking?.destination}</p>
+                    <SVGIcon src={Icons.ArrowDown} className="" width={20} height={20} />
+                  </a>
+                  <div className="cancelation__flight-summary">
+                    <div className="cancelation__flight-summary-logo">
+                      <BlurPlaceholderImage className="" src={foundAirline?.image || Images.Placeholder} alt="Flight Logo" width={69} height={48} />
+                    </div>
+                    <div className="cancelation__flight-summary-content">
+                      <div className="cancelation__flight-summary-schedule">
+                        <h4>{booking?.departure_time ? moment(booking.departure_time).format('HH:mm') : '-'}</h4>
+                        <p className="cancelation__flight-summaryschedule--sub">{booking?.origin}</p>
+                      </div>
+                      <div className="cancelation__flight-summary-duration">
+                        <p className='cancelation__flight-summary-duration--text'>{durationMs > 0 ? `${Math.floor(durationMs / 60)}h ${durationMs % 60}m` : ''}</p>
+                        <div className='cancelation__flight-summary-duration--icon'>
+                          <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} />
+                          <SVGIcon src={Icons.Airplane} width={16} height={16} />
+                        </div>
+                        <p className='cancelation__flight-summary-duration--text'>Direct</p>
+                      </div>
+                      <div className="cancelation__flight-summary-schedule">
+                        <h4>{booking?.arrival_time ? moment(booking.arrival_time).format('HH:mm') : '-'}</h4>
+                        <p className="cancelation__flight-summaryschedule--sub">{booking?.destination}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="cancelation__card-separator" />
+                  <div className="cancelation__flight-inner collapse show" id="departure-flight-details">
+                    {/* Departure */}
+                    <div className="cancelation__flight-details cancelation__flight-details--solid-line">
+                      <div className="cancelation__flight-details-title">
+                        <p className="cancelation__flight-details-title--time">{booking?.departure_time ? moment(booking.departure_time).format('HH:mm') : '-'}</p>
+                        <p className="cancelation__flight-details-title--date">{booking?.departure_time ? moment(booking.departure_time).format('D MMM YY') : '-'}</p>
+                      </div>
+                      <div className="cancelation__flight-details-content-right">
+                        <div className="cancelation__flight-details-content">
+                          <div className="cancelation__flight-details-airport">
+                            <p className="cancelation__flight-details-airport--name">{booking?.origin}</p>
+                          </div>
+                          <hr className="cancelation__card-separator" />
+                        </div>
+                        <div className="cancelation__flight-details-plane">
+                          <div className="cancelation__flight-details-logo">
+                            <BlurPlaceholderImage className="" src={foundAirline?.image || Images.Placeholder} alt="Flight Logo" width={35} height={24} />
+                          </div>
+                          <div>
+                            <p className="cancelation__flight-details-plane--type">{booking?.airline_name} {booking?.flight_number}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Arrival */}
+                    <div className="cancelation__flight-details">
+                      <div className="cancelation__flight-details-title">
+                        <p className="cancelation__flight-details-title--time">{booking?.arrival_time ? moment(booking.arrival_time).format('HH:mm') : '-'}</p>
+                        <p className="cancelation__flight-details-title--date">{booking?.arrival_time ? moment(booking.arrival_time).format('D MMM YY') : '-'}</p>
+                      </div>
+                      <div className="cancelation__flight-details-content">
+                        <div className="cancelation__flight-details-airport">
+                          <p className="cancelation__flight-details-airport--name">{booking?.destination}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Passengers */}
+                  <div className="cancelation__flight">
+                    <p className="cancelation__flight-header">Passenger</p>
+                    {!!booking?.passengers?.length && booking.passengers.map((passenger: any, index: number) => (
+                      <div key={`passenger-detail-${index}`} className="cancelation__flight-passenger-header">
+                        <div className="cancelation__flight-passenger-desc">
+                          <p className="cancelation__flight-passenger-desc--number">{index + 1}.</p>
+                          <div className="cancelation__flight-passenger-desc--icon">
+                            <SVGIcon src={Icons.User} width={20} height={20} />
+                          </div>
+                          <p className="cancelation__flight-passenger-desc--name">{passenger?.title} {passenger?.firstname} {passenger?.lastname}</p>
+                          {passenger?.passenger_type && (
+                            <div className="btn btn-sm btn-outline-info cancelation__flight-passenger-desc--button">{passenger.passenger_type}</div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* FlightManage */}
+              <div className="cancelation__flight border-0">
+                <p className="cancelation__card-title">Manage your Booking</p>
+                <div>
+                  <Link href={`/user/booking/flights/${uniqueID}/cancel`} className="cancelation__flight-manage cancelation__flight-manage--cancel">
+                    <SVGIcon src={Icons.Cancel} width={24} height={24} />
+                    <p>Cancel booking</p>
+                    <SVGIcon src={Icons.ArrowRight} className="cancelation__flight-manage-arrow" width={24} height={24} />
+                  </Link>
+                </div>
+              </div>
+              <FlightHelp />
+            </div>
+          </div>
+        )}
+      </UserLayout>
+      <Footer />
+    </Layout>
+  )
+}
+
 
 const TicketCombo = () => {
   return (
@@ -724,7 +1028,7 @@ const FlightHelp = () => {
     <div className="cancelation__flight border-0">
       <p className="cancelation__card-title">Need a help ?</p>
       <div className="cancelation__flight-help">
-        <Link href="#" className="cancelation__flight-help-card">
+        <Link href="/contact-us" target="_blank" className="cancelation__flight-help-card">
           <SVGIcon src={Icons.Help} className="cancelation__flight-help-icon" width={24} height={24} />
           <div className="cancelation__flight-help-text">
             <p className="cancelation__flight-help-title">Help center</p>
@@ -732,7 +1036,7 @@ const FlightHelp = () => {
           </div>
           <SVGIcon src={Icons.ArrowRight} className="cancelation__flight-help-arrow" width={24} height={24} />
         </Link>
-        <Link href="#" className="cancelation__flight-help-card">
+        <Link href="/contact-us" target="_blank" className="cancelation__flight-help-card">
           <SVGIcon src={Icons.Help} className="cancelation__flight-help-icon" width={24} height={24} />
           <div className="cancelation__flight-help-text">
             <p className="cancelation__flight-help-title">Call Customer care</p>

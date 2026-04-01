@@ -1129,7 +1129,7 @@ export const BookTransferSearchBar = (props: BookTransferSearchBarProps) => {
                         <div onClick={() => { handleClickPickupLocationOption('Jeddah') }} className="custom-dropdown-menu__option">
                           <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                           <div>
-                            <div className="custom-dropdown-menu__option-title">Jeddah</div>
+                            <div className="custom-dropdown-menu__option-title">oke</div>
                             <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                           </div>
                         </div>
@@ -1210,13 +1210,6 @@ export const BookTransferSearchBar = (props: BookTransferSearchBarProps) => {
                         <div className="custom-dropdown-menu__title">Popular Destination</div>
                       </div>
                       <div className="custom-dropdown-menu__options">
-                        <div onClick={() => { handleClickDropOffLocationOption('Jeddah') }} className="custom-dropdown-menu__option">
-                          <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
-                          <div>
-                            <div className="custom-dropdown-menu__option-title">Jeddah</div>
-                            <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
-                          </div>
-                        </div>
                         <div onClick={() => { handleClickDropOffLocationOption('Madinah') }} className="custom-dropdown-menu__option">
                           <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                           <div>
@@ -1224,10 +1217,17 @@ export const BookTransferSearchBar = (props: BookTransferSearchBarProps) => {
                             <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                           </div>
                         </div>
-                        <div onClick={() => { handleClickDropOffLocationOption('Riyadh') }} className="custom-dropdown-menu__option">
+                        <div onClick={() => { handleClickDropOffLocationOption('Mecca') }} className="custom-dropdown-menu__option">
                           <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                           <div>
-                            <div className="custom-dropdown-menu__option-title">Riyadh</div>
+                            <div className="custom-dropdown-menu__option-title">Mecca</div>
+                            <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
+                          </div>
+                        </div>
+                        <div onClick={() => { handleClickDropOffLocationOption('Al-Hawiyah') }} className="custom-dropdown-menu__option">
+                          <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
+                          <div>
+                            <div className="custom-dropdown-menu__option-title">Al-Hawiyah</div>
                             <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                           </div>
                         </div>
@@ -1317,24 +1317,24 @@ export const BookTransferSearchBar = (props: BookTransferSearchBarProps) => {
                     <div className="custom-dropdown-menu__title">Popular Destination</div>
                   </div>
                   <div className="custom-dropdown-menu__options">
-                    <div onClick={() => { handleClickPickupLocationOption('Jeddah') }} className="custom-dropdown-menu__option">
+                    <div onClick={() => { handleClickPickupLocationOption('Mecca') }} className="custom-dropdown-menu__option">
                       <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                       <div>
-                        <div className="custom-dropdown-menu__option-title">Jeddah</div>
+                        <div className="custom-dropdown-menu__option-title">Makkah</div>
                         <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                       </div>
                     </div>
-                    <div onClick={() => { handleClickPickupLocationOption('Madinah') }} className="custom-dropdown-menu__option">
+                    <div onClick={() => { handleClickPickupLocationOption('Al-Huda') }} className="custom-dropdown-menu__option">
                       <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                       <div>
-                        <div className="custom-dropdown-menu__option-title">Madinah</div>
+                        <div className="custom-dropdown-menu__option-title">Al-Huda</div>
                         <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                       </div>
                     </div>
-                    <div onClick={() => { handleClickPickupLocationOption('Riyadh') }} className="custom-dropdown-menu__option">
+                    <div onClick={() => { handleClickPickupLocationOption('Masturah') }} className="custom-dropdown-menu__option">
                       <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                       <div>
-                        <div className="custom-dropdown-menu__option-title">Riyadh</div>
+                        <div className="custom-dropdown-menu__option-title">Masturah</div>
                         <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                       </div>
                     </div>
@@ -1379,24 +1379,24 @@ export const BookTransferSearchBar = (props: BookTransferSearchBarProps) => {
                         <div className="custom-dropdown-menu__title">Popular Destination</div>
                       </div>
                       <div className="custom-dropdown-menu__options">
-                        <div onClick={() => { handleClickDropOffLocationOption('Jeddah') }} className="custom-dropdown-menu__option">
+                        <div onClick={() => { handleClickDropOffLocationOption('Mecca') }} className="custom-dropdown-menu__option">
                           <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                           <div>
-                            <div className="custom-dropdown-menu__option-title">Jeddah</div>
+                            <div className="custom-dropdown-menu__option-title">Makkah</div>
                             <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                           </div>
                         </div>
-                        <div onClick={() => { handleClickDropOffLocationOption('Madinah') }} className="custom-dropdown-menu__option">
+                        <div onClick={() => { handleClickDropOffLocationOption('Al-Huda') }} className="custom-dropdown-menu__option">
                           <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                           <div>
-                            <div className="custom-dropdown-menu__option-title">Madinah</div>
+                            <div className="custom-dropdown-menu__option-title">Al-Huda</div>
                             <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                           </div>
                         </div>
-                        <div onClick={() => { handleClickDropOffLocationOption('Riyadh') }} className="custom-dropdown-menu__option">
+                        <div onClick={() => { handleClickDropOffLocationOption('Masturah') }} className="custom-dropdown-menu__option">
                           <SVGIcon src={Icons.Car} width={20} height={20} className="custom-dropdown-menu__option-icon" />
                           <div>
-                            <div className="custom-dropdown-menu__option-title">Riyadh</div>
+                            <div className="custom-dropdown-menu__option-title">Masturah</div>
                             <div className="custom-dropdown-menu__option-description">Saudi Arabia</div>
                           </div>
                         </div>
@@ -1539,21 +1539,21 @@ export const TourPackageSearchBar = (props: TourPackageSearchBarProps) => {
             <div className="custom-dropdown-menu__title">Popular Destination</div>
           </div>
           <div className="custom-dropdown-menu__options">
-            <div onClick={() => { handleClickLocationOption('Makkah') }} className="custom-dropdown-menu__option">
+            <div onClick={() => { handleClickLocationOption('Makkah, Saudi Arabia') }} className="custom-dropdown-menu__option">
               <SVGIcon src={Icons.Hotel} width={20} height={20} className="custom-dropdown-menu__option-icon" />
               <div>
                 <div className="custom-dropdown-menu__option-title">Makkah, Saudi Arabia</div>
                 <div className="custom-dropdown-menu__option-description">Makkah</div>
               </div>
             </div>
-            <div onClick={() => { handleClickLocationOption('Madinah') }} className="custom-dropdown-menu__option">
+            <div onClick={() => { handleClickLocationOption('Madinah, Saudi Arabia') }} className="custom-dropdown-menu__option">
               <SVGIcon src={Icons.Hotel} width={20} height={20} className="custom-dropdown-menu__option-icon" />
               <div>
                 <div className="custom-dropdown-menu__option-title">Madinah, Saudi Arabia</div>
                 <div className="custom-dropdown-menu__option-description">Madinah</div>
               </div>
             </div>
-            <div onClick={() => { handleClickLocationOption('Riyadh') }} className="custom-dropdown-menu__option">
+            <div onClick={() => { handleClickLocationOption('Riyadh, Saudi Arabia') }} className="custom-dropdown-menu__option">
               <SVGIcon src={Icons.Hotel} width={20} height={20} className="custom-dropdown-menu__option-icon" />
               <div>
                 <div className="custom-dropdown-menu__option-title">Riyadh, Saudi Arabia</div>

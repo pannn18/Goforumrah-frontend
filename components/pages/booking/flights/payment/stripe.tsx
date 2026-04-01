@@ -4,17 +4,32 @@ import { Stripe, StripeElementsOptions, StripePaymentElementOptions } from '@str
 import { useSession } from 'next-auth/react'
 import { UseCurrencyConverter } from '@/components/convertCurrency'
 import { useFlightStore } from '@/lib/stores/flightStore'
+import { callFlightHistoryAPI } from '@/lib/axiosHelper'
 
-interface Props {
-  flightBookingID: number
+interface PassengerData {
+  fullname: string
+  email: string
+  phone: string
+  title: string
+  nationality: string
+  passportNumber: string
+  dateOfBirth: string
+  passportIssued?: string
+  passportCountry?: string
+  passportExpiry?: string
+}
+
+interface StripePaymentProps {
   stripe: Stripe
   clientSecret: string
   price: number
+  passengerData: PassengerData | null
+  selectedFlight: any
   onError: (error: string) => void
   onSuccess: () => void
 }
 
-export default function StripePaymentElements(props: Props) {
+export default function StripePaymentElements(props: StripePaymentProps) {
   const { stripe, clientSecret } = props
 
   const options: StripeElementsOptions = {
@@ -28,7 +43,13 @@ export default function StripePaymentElements(props: Props) {
   )
 }
 
-const CheckoutForm = ({ flightBookingID, price, onError, onSuccess }: Props) => {
+const CheckoutForm: React.FC<StripePaymentProps> = ({ 
+  price, 
+  passengerData, 
+  selectedFlight, 
+  onError, 
+  onSuccess 
+}) => {
   const options: StripePaymentElementOptions = {
     fields: {
       billingDetails: {
@@ -43,7 +64,7 @@ const CheckoutForm = ({ flightBookingID, price, onError, onSuccess }: Props) => 
   const [origin, setOrigin] = useState('')
   const [loading, setLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
-  const { setBookingDetails, selectedFlight } = useFlightStore()
+  const { createFlightBooking, saveFlightPayment, setBookingDetails } = useFlightStore()
 
   React.useEffect(() => {
     setOrigin(window.location.origin || '')
@@ -64,8 +85,8 @@ const CheckoutForm = ({ flightBookingID, price, onError, onSuccess }: Props) => 
     setLoading(true)
 
     try {
-      console.log('🔄 Processing payment...')
-      
+      console.log('[PAYMENT] Processing payment...')
+
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
@@ -85,42 +106,124 @@ const CheckoutForm = ({ flightBookingID, price, onError, onSuccess }: Props) => 
         return
       }
 
-      console.log('✓ Payment intent created:', result.paymentIntent.id)
+      console.log('[SUCCESS] Payment confirmed:', result.paymentIntent.id)
 
       if (result.paymentIntent.status === 'succeeded') {
-        console.log('✅ Payment succeeded!')
+        console.log('[CREATE] Creating flight booking AFTER payment success...')
 
-        // Extract flight info from selectedFlight
-        const firstLeg = selectedFlight?.firstLeg
-        const airline = firstLeg?.carriers?.[0]?.name || firstLeg?.segments?.[0]?.airline?.name || 'Unknown Airline'
-        const flightNumber = firstLeg?.segments?.[0]?.airline?.flightNumber || 'N/A'
-        const origin = firstLeg?.segments?.[0]?.originIata || 'N/A'
-        const destination = firstLeg?.segments?.[firstLeg.segments.length - 1]?.destinationIata || 'N/A'
-        const departureTime = firstLeg?.departureDateTime || ''
-        const arrivalTime = firstLeg?.arrivalDateTime || ''
+        // 1. CREATE BOOKING (after payment success)
+        const firstSegment = selectedFlight.firstLeg?.segments?.[0]
+        const lastSegment = selectedFlight.firstLeg?.segments?.[selectedFlight.firstLeg.segments.length - 1]
 
-        // Save complete booking details to Zustand
+        const bookingPayload = {
+          id_customer: session?.user?.id,
+          mfref: selectedFlight.fareSourceCode || selectedFlight.id,
+          airline_name: selectedFlight.firstLeg?.carriers?.[0]?.name || 'Unknown',
+          flight_number: firstSegment?.airline?.flightNumber || 'N/A',
+          origin: firstSegment?.originIata || '',
+          destination: lastSegment?.destinationIata || '',
+          departure_time: selectedFlight.firstLeg?.departureDateTime || null,
+          arrival_time: selectedFlight.firstLeg?.arrivalDateTime || null,
+          total_price: selectedFlight.price.amount,
+          currency: selectedFlight.price.unit,
+          contact_fullname: passengerData?.fullname,
+          contact_email: passengerData?.email,
+          contact_phone: passengerData?.phone,
+          passengers: [
+            {
+              title: passengerData?.title || 'Mr',
+              firstname: passengerData?.fullname?.split(' ')[0] || '',
+              lastname: passengerData?.fullname?.split(' ').slice(1).join(' ') || '',
+              identity_number: passengerData?.passportNumber || '',
+              nationality: passengerData?.nationality || 'ID',
+              date_of_birth: passengerData?.dateOfBirth || '',
+              passport_expiry: passengerData?.passportExpiry || '',
+              passenger_type: 'adult'
+            }
+          ]
+        }
+
+        console.log('[PAYLOAD] Booking payload:', bookingPayload)
+
+        const bookingResult = await createFlightBooking(bookingPayload)
+        console.log('[DEBUG] Full booking result:', JSON.stringify(bookingResult, null, 2))
+
+        if (!bookingResult.success) {
+          console.error('[ERROR] Booking creation failed:', bookingResult.message)
+          onError('Payment succeeded but failed to create booking')
+          setLoading(false)
+          return
+        }
+
+        const bookingId = bookingResult.data?.passengers?.[0]?.id_flight_booking
+
+        console.log('[DEBUG] Full booking result:', bookingResult)
+        console.log('[DEBUG] Booking data:', bookingResult.data)
+        console.log('[DEBUG] Booking ID:', bookingId)
+
+        if (!bookingId) {
+          console.error('[ERROR] No booking ID returned!')
+          onError('Failed to get booking ID')
+          setLoading(false)
+          return
+        }
+
+        console.log('[SUCCESS] Booking created with ID:', bookingId)
+
+        // 2. SAVE PAYMENT
+        const paymentPayload = {
+          id_flight_booking: bookingId,
+          amount: price,
+          payment_method: 'stripe',
+          transaction_id: result.paymentIntent.id
+        }
+
+        const paymentResult = await saveFlightPayment(paymentPayload)
+
+        if (!paymentResult.success) {
+          console.error('[ERROR] Payment save failed:', paymentResult.message)
+          onError('Booking created but failed to save payment')
+          setLoading(false)
+          return
+        }
+
+        console.log('[SUCCESS] Payment saved:', paymentResult.data)
+
+        // 3. CONFIRM BOOKING → status jadi 'confirmed'
+        const { ok: confirmOk, data: confirmData } = await callFlightHistoryAPI(
+          '/flight-booking/confirm',
+          'POST',
+          { id_flight_booking: bookingId },
+          true
+        )
+
+        if (!confirmOk) {
+          console.error('[ERROR] Booking confirmation failed:', confirmData)
+          // Tidak block user, booking & payment sudah tersimpan
+        } else {
+          console.log('[SUCCESS] Booking confirmed:', confirmData)
+        }
+
+        // 4. SET BOOKING DETAILS for confirmation page
         setBookingDetails({
-          bookingId: `FL-${flightBookingID}`,
-          pnr: result.paymentIntent.id.substring(0, 6).toUpperCase(), // Use first 6 chars as PNR
+          bookingId: `FL-${bookingId}`,
+          pnr: confirmData?.booking_reference || paymentResult.data?.ticket_number || result.paymentIntent.id.substring(0, 6).toUpperCase(),
           totalPrice: price,
           status: 'confirmed',
           paymentMethod: 'stripe',
           paymentReference: result.paymentIntent.id,
           createdAt: new Date().toISOString(),
-          // Flight info
-          flightNumber,
-          airline,
-          origin,
-          destination,
-          departureTime,
-          arrivalTime
+          flightNumber: firstSegment?.airline?.flightNumber || 'N/A',
+          airline: selectedFlight.firstLeg?.carriers?.[0]?.name || 'Unknown',
+          origin: firstSegment?.originIata || '',
+          destination: lastSegment?.destinationIata || '',
+          departureTime: selectedFlight.firstLeg?.departureDateTime || '',
+          arrivalTime: selectedFlight.firstLeg?.arrivalDateTime || ''
         })
 
-        console.log('✅ Booking details saved to store')
-        
+        console.log('[COMPLETE] Booking flow completed successfully')
+
         onSuccess()
-        
       } else if (result.paymentIntent.status === 'processing') {
         onError('Payment is processing. Please wait...')
         setLoading(false)
@@ -129,7 +232,7 @@ const CheckoutForm = ({ flightBookingID, price, onError, onSuccess }: Props) => 
         setLoading(false)
       }
     } catch (err: any) {
-      console.error('❌ Payment error:', err)
+      console.error('[ERROR] Payment error:', err)
       onError(err.message || 'An error occurred during payment')
       setLoading(false)
     }
@@ -147,10 +250,10 @@ const CheckoutForm = ({ flightBookingID, price, onError, onSuccess }: Props) => 
           <PaymentElement options={options} />
         </div>
       </div>
-      
+
       <div className="booking-hotel__aggreement form-check">
-        <input 
-          type="checkbox" 
+        <input
+          type="checkbox"
           className="form-check-input"
           checked={agreedToTerms}
           onChange={(e) => setAgreedToTerms(e.target.checked)}

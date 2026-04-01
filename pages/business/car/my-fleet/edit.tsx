@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import SVGIcon from '@/components/elements/icons';
 import { Icons } from '@/types/enums';
 import placeholder from '@/public/images/placeholder.svg';
+import { carModels } from '@/lib/carmodels';
 
 const EditFleet = () => {
    const router = useRouter()
@@ -24,8 +25,6 @@ const EditFleet = () => {
    const [CarPhotos, setCarPhotos] = useState<any>([])
    const [isEditing, setIsEditing] = useState(false);
    const [photosToDelete, setPhotosToDelete] = useState<any>([]);
-   const [carModel, setCarModel] = useState<any>([])
-   const [filteredCarModel, setFilteredCarModel] = useState<any>([])
    const [formData, setFormData] = useState<any>({
       fuel_type: '',
       car_brand: '',
@@ -39,69 +38,21 @@ const EditFleet = () => {
 
    const inputFileRef = useRef(null);
 
-
-   useEffect(() => {
-      if (formData.car_brand === '') return
-
-      try {
-         (async () => {
-            const where = encodeURIComponent(JSON.stringify({
-               "Make": {
-                  "$exists": true
-               }
-            }));
-            const response = await fetch(
-               `https://parseapi.back4app.com/classes/Carmodels_Car_Model_List_${formData.car_brand}?count=1&limit=500&order=Model,Category,Year&excludeKeys=Make&where=${where}`,
-               {
-                  headers: {
-                     'X-Parse-Application-Id': process.env.NEXT_PUBLIC_CAR_MODELS_ID, // This is your app's application id
-                     'X-Parse-REST-API-Key': process.env.NEXT_PUBLIC_CAR_MODELS_KEY, // This is your app's REST API key
-                  }
-               }
-            );
-            const data = await response.json(); // Here you have the data that you need
-            // console.log(`Car brand ${formData.car_brand} data: `, data);
-
-            if (data.results) {
-               setCarModel(data.results)
-            }
-         })();
-      } catch (error) {
-         console.log('Error: ', error);
-      }
-   }, [formData.car_brand])
-
-   //filter same car model name
-   useEffect(() => {
-      if (!carModel) return
-
-      const filteredCarModel = carModel.filter((car, index, self) =>
-         index === self.findIndex((t) => (
-            t.Model === car.Model
-         ))
-      )
-
-      setFilteredCarModel(filteredCarModel)
-   }, [carModel])
-
+   // Get models for selected brand
+   const availableModels = formData.car_brand ? (carModels[formData.car_brand] || []) : []
 
    //Photo Functionalities
-   const handleAddPhotosClick = () => { // For add photos
-      // Trigger input file click to open file dialog
+   const handleAddPhotosClick = () => {
       if (inputFileRef && inputFileRef.current) {
          inputFileRef.current.click();
       }
    };
 
-   // Function to handle delete photo
    const handleDeletePhotos = (id_fleet_photo) => {
       setCarPhotos(CarPhotos.filter((photo) => photo.id_fleet_photo !== id_fleet_photo));
       setPhotosToDelete([...photosToDelete, id_fleet_photo]);
    }
 
-   // console.log('photos to delete', photosToDelete);
-
-   // Function to toggle editing mode
    const toggleEditing = () => {
       setIsEditing(!isEditing);
    };
@@ -122,11 +73,8 @@ const EditFleet = () => {
 
       const promises = [];
 
-      // Iterate over each file
       for (let i = 0; i < files.length; i++) {
          const file = files[i];
-         console.log(file);
-
          const reader = new FileReader();
 
          promises.push(
@@ -136,12 +84,8 @@ const EditFleet = () => {
                   formData.photos.push(base64String);
                   resolve(base64String);
                };
-
-               reader.onerror = (error) => {
-                  reject(error);
-               };
-
-               reader.readAsDataURL(file); // Read the current file as a data URL
+               reader.onerror = (error) => { reject(error); };
+               reader.readAsDataURL(file);
             })
          );
       }
@@ -156,7 +100,6 @@ const EditFleet = () => {
             setIsLoading(false)
             router.reload();
          } else {
-            // Handle failure case here
             console.log(`Failed API call for car`, status, data, ok, error);
          }
       } catch (error) {
@@ -164,19 +107,14 @@ const EditFleet = () => {
       }
    };
 
-   // Function to handle save photo changes
    const handleSaveChanges = async () => {
       setIsLoading(true)
       try {
          const photoIdsToDelete = photosToDelete.map((id) => (id));
 
-         //Delete photo
          const deleteRequests = photoIdsToDelete.map(async (photoId) => {
-            console.log(`Deleting photo with ID: ${photoId}`);
             const response = await callAPI('/admin-car-business/fleet-photo/delete', 'POST', { id_fleet_photo: photoId }, true);
-
             if (response.ok) {
-               console.log(`Successfully deleted photo with ID: ${photoId}`);
                window.location.reload()
             } else {
                console.error(`Failed to delete photo with ID: ${photoId}`);
@@ -191,8 +129,6 @@ const EditFleet = () => {
       }
    }
 
-
-
    useEffect(() => {
       if (!id_car_business) return
 
@@ -205,9 +141,7 @@ const EditFleet = () => {
          try {
             setIsLoading(true)
             const { data, error, ok } = await callAPI(`/car-business/fleet/show-v2`, 'POST', payload, true)
-            if (error) {
-               console.log(error);
-            }
+            if (error) console.log(error);
             if (ok) {
                setFormData(data)
                setCarPhotos(data?.photos?.map(photo => ({
@@ -222,25 +156,19 @@ const EditFleet = () => {
       }
 
       getDataFleet()
-
    }, [id_car_business, id_car_business_fleet])
 
    const handleChange = (event) => {
       const { name, value } = event.target;
-
-      // Menggunakan spread operator untuk mempertahankan nilai sebelumnya dari formData
       setFormData((prevFormData) => ({
          ...prevFormData,
          [name]: value,
       }));
    };
 
-
    const onSubmit = async (e) => {
       e.preventDefault();
 
-
-      // Validation form submit
       let errorMessage = {
          full_type: '',
          car_brand: '',
@@ -253,65 +181,32 @@ const EditFleet = () => {
          car_photos: ""
       }
 
-      if (!formData.fuel_type) {
-         errorMessage.full_type = 'Fuel type cannot be empty'
-      }
-      if (!formData.car_brand) {
-         errorMessage.car_brand = 'Car brand cannot be empty'
-      }
-      if (!formData.model) {
-         errorMessage.model = 'Model cannot be empty'
-      }
-      if (!formData.edition) {
-         errorMessage.edition = 'Edition cannot be empty'
-      }
-      if (!formData.transmission) {
-         errorMessage.transmission = 'Transmission cannot be empty'
-      }
-      if (!formData.aircon) {
-         errorMessage.aircon = 'Aircon cannot be empty'
-      }
-      if (!formData.quantity) {
-         errorMessage.quantity = 'Quantity cannot be empty'
-      }
-      if (formData.quantity <= 0) {
-         errorMessage.quantity = 'Quantity must be more than 0'
-      }
-      if (!formData.total_car) {
-         errorMessage.total_car = 'Total car cannot be empty'
-      }
-      if (formData.total_car <= 0) {
-         errorMessage.total_car = 'Total car must be more than 0'
-      }
+      if (!formData.fuel_type) errorMessage.full_type = 'Fuel type cannot be empty'
+      if (!formData.car_brand) errorMessage.car_brand = 'Car brand cannot be empty'
+      if (!formData.model) errorMessage.model = 'Model cannot be empty'
+      if (!formData.edition) errorMessage.edition = 'Edition cannot be empty'
+      if (!formData.transmission) errorMessage.transmission = 'Transmission cannot be empty'
+      if (!formData.aircon) errorMessage.aircon = 'Aircon cannot be empty'
+      if (!formData.quantity) errorMessage.quantity = 'Quantity cannot be empty'
+      if (formData.quantity <= 0) errorMessage.quantity = 'Quantity must be more than 0'
+      if (!formData.total_car) errorMessage.total_car = 'Total car cannot be empty'
+      if (formData.total_car <= 0) errorMessage.total_car = 'Total car must be more than 0'
+      if (CarPhotos.length === 0) errorMessage.car_photos = 'Car photos cannot be empty'
 
-      if (CarPhotos.length === 0) {
-         errorMessage.car_photos = 'Car photos cannot be empty'
-      }
-
-      if (errorMessage.full_type || errorMessage.car_brand || errorMessage.model || errorMessage.edition || errorMessage.transmission || errorMessage.aircon || errorMessage.quantity || errorMessage.total_car || errorMessage.car_photos) {
+      if (Object.values(errorMessage).some(v => v !== '')) {
          setErrors(errorMessage);
          return
       }
 
-      // Reset error
-      if (!errorMessage.full_type && !errorMessage.car_brand && !errorMessage.model && !errorMessage.edition && !errorMessage.transmission && !errorMessage.aircon && !errorMessage.quantity && !errorMessage.total_car && !errorMessage.car_photos) {
-         setErrors(null);
-      }
+      setErrors(null);
 
-
-      // Submit form
       try {
          const { data, error, ok } = await callAPI('/car-business/fleet/store', 'POST', formData, true)
-         if (error) {
-            console.log(error);
-         }
-         if (ok) {
-            router.push('/business/car/my-fleet')
-         }
+         if (error) console.log(error);
+         if (ok) router.push('/business/car/my-fleet')
       } catch (error) {
          console.log('Error: ', error);
       }
-
    }
 
    if (!id_car_business || isLoading) {
@@ -346,15 +241,8 @@ const EditFleet = () => {
                         <div className='goform-group row'>
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
                               <label htmlFor="fuel_type" className="form-label goform-label">Fuel type : </label>
-                              <select
-                                 id="fuel_type"
-                                 name="fuel_type"
-                                 onChange={handleChange}
-                                 value={formData.fuel_type}
-                                 className="form-select goform-select-white goform-select"
-                                 aria-label="star rating select"
-                              >
-                                 <option value="" >-- Select Fuel Type --</option>
+                              <select id="fuel_type" name="fuel_type" onChange={handleChange} value={formData.fuel_type} className="form-select goform-select-white goform-select">
+                                 <option value="">-- Select Fuel Type --</option>
                                  <option value='Gasoline'>Gasoline</option>
                                  <option value='Diesel'>Diesel</option>
                                  <option value='Hydrogen'>Hydrogen</option>
@@ -366,14 +254,8 @@ const EditFleet = () => {
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
                               <label htmlFor="car_brand" className="form-label goform-label">Car Brand</label>
-                              <select
-                                 id="car_brand"
-                                 name="car_brand"
-                                 onChange={handleChange}
-                                 value={formData.car_brand}
-                                 className="form-select goform-select goform-select-white" aria-label="star rating select"
-                              >
-                                 <option value="" >-- Select Car Brand --</option>
+                              <select id="car_brand" name="car_brand" onChange={handleChange} value={formData.car_brand} className="form-select goform-select goform-select-white">
+                                 <option value="">-- Select Car Brand --</option>
                                  <option value='Acura'>Acura</option>
                                  <option value='Alfa_Romeo'>Alfa Romeo</option>
                                  <option value='Aston_Martin'>Aston Martin</option>
@@ -442,16 +324,10 @@ const EditFleet = () => {
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
                               <label htmlFor="model" className="form-label goform-label">Model </label>
-                              <select
-                                 id="model"
-                                 name="model"
-                                 onChange={handleChange}
-                                 value={formData.model}
-                                 className="form-select goform-select goform-select-white" aria-label="star rating select"
-                              >
-                                 <option value="" >-- Select Model --</option>
-                                 {filteredCarModel?.map((model, index) => (
-                                    <option key={index} value={model?.Model}>{model?.Model}</option>
+                              <select id="model" name="model" onChange={handleChange} value={formData.model} className="form-select goform-select goform-select-white">
+                                 <option value="">-- Select Model --</option>
+                                 {availableModels.map((model, index) => (
+                                    <option key={index} value={model}>{model}</option>
                                  ))}
                               </select>
                               <div className="form-control-message form-control-message--error">
@@ -460,17 +336,11 @@ const EditFleet = () => {
                            </div>
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
-                              <label htmlFor="edition" className="form-label goform-label">Edition</label>
-                              <select
-                                 id="edition"
-                                 name="edition"
-                                 onChange={handleChange}
-                                 value={formData.edition}
-                                 className="form-select goform-select goform-select-white" aria-label="star rating select"
-                              >
-                                 <option value="" >-- Select Edition --</option>
-                                 {carModel?.map((model, index) => (
-                                    <option key={index} value={model?.Year}>{model?.Year}</option>
+                              <label htmlFor="edition" className="form-label goform-label">Edition (Year)</label>
+                              <select id="edition" name="edition" onChange={handleChange} value={formData.edition} className="form-select goform-select goform-select-white">
+                                 <option value="">-- Select Edition --</option>
+                                 {Array.from({ length: 2025 - 2000 + 1 }, (_, i) => 2025 - i).map(year => (
+                                    <option key={year} value={year}>{year}</option>
                                  ))}
                               </select>
                               <div className="form-control-message form-control-message--error">
@@ -480,14 +350,8 @@ const EditFleet = () => {
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
                               <label htmlFor="transmission" className="form-label goform-label">Transmission</label>
-                              <select
-                                 id="transmission"
-                                 name="transmission"
-                                 onChange={handleChange}
-                                 value={formData.transmission}
-                                 className="form-select goform-select goform-select-white" aria-label="star rating select"
-                              >
-                                 <option value="" >-- Select Transmission --</option>
+                              <select id="transmission" name="transmission" onChange={handleChange} value={formData.transmission} className="form-select goform-select goform-select-white">
+                                 <option value="">-- Select Transmission --</option>
                                  <option value='Automatic'>Automatic</option>
                                  <option value='Manual'>Manual</option>
                               </select>
@@ -498,14 +362,8 @@ const EditFleet = () => {
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
                               <label htmlFor="aircon" className="form-label goform-label">Aircon :</label>
-                              <select
-                                 id="aircon"
-                                 name="aircon"
-                                 onChange={handleChange}
-                                 value={formData.aircon}
-                                 className="form-select goform-select goform-select-white" aria-label="star rating select"
-                              >
-                                 <option value="" >-- Select Aircon --</option>
+                              <select id="aircon" name="aircon" onChange={handleChange} value={formData.aircon} className="form-select goform-select goform-select-white">
+                                 <option value="">-- Select Aircon --</option>
                                  <option value={0}>Yes</option>
                                  <option value={1}>No</option>
                               </select>
@@ -515,16 +373,8 @@ const EditFleet = () => {
                            </div>
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
-                              <label htmlFor="quantity" className="form-label goform-label">Quantit (seat)</label>
-                              <input type="number"
-                                 id="quantity"
-                                 name="quantity"
-                                 onChange={handleChange}
-                                 value={formData.quantity}
-                                 placeholder='Enter your Quantity'
-                                 className="form-control goform-input goform-input--active"
-                                 aria-describedby="QuantityHelp"
-                              />
+                              <label htmlFor="quantity" className="form-label goform-label">Quantity (seat)</label>
+                              <input type="number" id="quantity" name="quantity" onChange={handleChange} value={formData.quantity} placeholder='Enter your Quantity' className="form-control goform-input goform-input--active" />
                               <div className="form-control-message form-control-message--error">
                                  <p>{errors?.quantity}</p>
                               </div>
@@ -532,15 +382,7 @@ const EditFleet = () => {
 
                            <div className='col-xl-4 col-lg-4 col-md-6 col-sm-12 company-detail__content-label'>
                               <label htmlFor="total_car" className="form-label goform-label">Total Car</label>
-                              <input type="number"
-                                 id="total_car"
-                                 name="total_car"
-                                 onChange={handleChange}
-                                 value={formData.total_car}
-                                 placeholder='Enter your total car'
-                                 className="form-control goform-input goform-input--active"
-                                 aria-describedby="totalCarHelp"
-                              />
+                              <input type="number" id="total_car" name="total_car" onChange={handleChange} value={formData.total_car} placeholder='Enter your total car' className="form-control goform-input goform-input--active" />
                               <div className="form-control-message form-control-message--error">
                                  <p>{errors?.total_car}</p>
                               </div>
@@ -560,36 +402,15 @@ const EditFleet = () => {
                                  </div>
                               </div>
                               <div className="admin-partner__photos-header-buttons">
-
                                  {isEditing ? (
                                     <div className="admin-partner__photos-header-buttons">
-                                       <button type="button" className="btn btn-md btn-outline-danger" onClick={toggleCancel}>
-                                          Cancel
-                                       </button>
-                                       <button
-                                          type="button"
-                                          className="btn btn-md btn-outline-success"
-                                          onClick={handleSaveChanges}
-                                       >
-                                          Save Changes
-                                       </button>
+                                       <button type="button" className="btn btn-md btn-outline-danger" onClick={toggleCancel}>Cancel</button>
+                                       <button type="button" className="btn btn-md btn-outline-success" onClick={handleSaveChanges}>Save Changes</button>
                                     </div>
                                  ) : (
                                     <div className="admin-partner__photos-header-buttons">
-                                       <button
-                                          type="button"
-                                          className="btn btn-md btn-outline-danger"
-                                          onClick={toggleEditing}
-                                       >
-                                          Remove
-                                       </button>
-                                       <button
-                                          type="button"
-                                          className="btn btn-md btn-outline-success"
-                                          onClick={handleAddPhotosClick}
-                                       >
-                                          Add Photos
-                                       </button>
+                                       <button type="button" className="btn btn-md btn-outline-danger" onClick={toggleEditing}>Remove</button>
+                                       <button type="button" className="btn btn-md btn-outline-success" onClick={handleAddPhotosClick}>Add Photos</button>
                                     </div>
                                  )}
                               </div>
@@ -597,23 +418,10 @@ const EditFleet = () => {
 
                            <div className="admin-partner__photos-list ">
                               {CarPhotos?.map((photo) => (
-                                 <div
-                                    key={photo?.id_fleet_photo}
-                                    className="admin-partner__photos-list position-relative"
-                                 >
-                                    <img
-                                       src={photo?.photo}
-                                       alt={`Preview ${photo?.id_fleet_photo}`}
-                                       className="admin-partner__detail-hotel__image-src"
-                                       width={123}
-                                       height={123}
-                                    />
+                                 <div key={photo?.id_fleet_photo} className="admin-partner__photos-list position-relative">
+                                    <img src={photo?.photo} alt={`Preview ${photo?.id_fleet_photo}`} className="admin-partner__detail-hotel__image-src" width={123} height={123} />
                                     {isEditing && (
-                                       <button
-                                          type="button"
-                                          className="admin-partner__detail-hotel__image-button show position-absolute"
-                                          onClick={() => handleDeletePhotos(photo?.id_fleet_photo)}
-                                       >
+                                       <button type="button" className="admin-partner__detail-hotel__image-button show position-absolute" onClick={() => handleDeletePhotos(photo?.id_fleet_photo)}>
                                           <SVGIcon src={Icons.Cancel} height={24} width={24} />
                                        </button>
                                     )}
@@ -622,32 +430,17 @@ const EditFleet = () => {
                               {CarPhotos?.length === 0 && (
                                  <div>
                                     <div className="position-relative">
-                                       <BlurPlaceholderImage
-                                          src={placeholder}
-                                          className="admin-partner__detail-hotel__image-src"
-                                          alt=""
-                                          width={123}
-                                          height={123}
-                                       />
+                                       <BlurPlaceholderImage src={placeholder} className="admin-partner__detail-hotel__image-src" alt="" width={123} height={123} />
                                     </div>
                                  </div>
                               )}
                               <div className="d-none">
-                                 <input
-                                    type="file"
-                                    className="form-control"
-                                    id={`photos`}
-                                    multiple
-                                    accept="image/*"
-                                    onChange={(event) => handleFileInputChange(event)}
-                                    ref={inputFileRef}
-                                 />
+                                 <input type="file" className="form-control" id="photos" multiple accept="image/*" onChange={(event) => handleFileInputChange(event)} ref={inputFileRef} />
                               </div>
                            </div>
                         </div>
                      </div>
                   </div>
-
                </div>
             </div>
 
@@ -670,7 +463,6 @@ const EditFleet = () => {
                   </div>
                </div>
             </div>
-
          </form>
       </Layout>
    );

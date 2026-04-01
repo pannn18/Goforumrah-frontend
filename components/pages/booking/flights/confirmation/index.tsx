@@ -9,7 +9,6 @@ import Image from 'next/image'
 import logoTextDark from '@/assets/images/logo_text_dark.svg'
 import { BlurPlaceholderImage } from '@/components/elements/images'
 
-// Airport IATA code to city name mapping
 const airportToCityMap: { [key: string]: string } = {
   // Indonesia
   'CGK': 'Jakarta', 'SUB': 'Surabaya', 'DPS': 'Denpasar', 'JED': 'Jeddah',
@@ -30,6 +29,9 @@ const getCityName = (iataCode: string): string => {
 }
 
 const BookingConfirmation = () => {
+  // All data comes from Zustand store
+  // passengerData was saved in details/index.tsx before navigating to payment
+  // bookingDetails was saved in stripe.tsx after payment success
   const { selectedFlight, passengerData, bookingDetails } = useFlightStore()
 
   const pageStyle = `
@@ -43,14 +45,13 @@ const BookingConfirmation = () => {
     }
   `
 
-  const componentRef = useRef()
+  const componentRef = useRef<HTMLDivElement>(null)
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `${passengerData?.fullname || 'Passenger'}-${bookingDetails?.bookingId || 'Booking'}-Flight-Ticket`,
     pageStyle: pageStyle
   })
 
-  // ✅ Redirect jika tidak ada flight data
   if (!selectedFlight) {
     return (
       <div className="container">
@@ -72,7 +73,7 @@ const BookingConfirmation = () => {
   return (
     <div className="container">
       <div className="booking-hotel__confirmation">
-        {/* ========== HEADER SUCCESS ========== */}
+        {/* HEADER SUCCESS */}
         <div className="booking-hotel__confirmation-top">
           <div className="booking-hotel__confirmation-top-header">
             <div className="booking-hotel__confirmation-top-image">
@@ -92,11 +93,11 @@ const BookingConfirmation = () => {
             </button>
           </div>
 
-          {/* ========== INVOICE UNTUK PRINT - HIDDEN DI UI ========== */}
+          {/* INVOICE UNTUK PRINT - HIDDEN DI UI */}
           <div className='booking-hotel__invoice-container' id='bookingFlightInvoice' ref={componentRef}>
             <main className='booking-hotel__invoice'>
               <Image className='d-flex justify-content-center w-100' src={logoTextDark} alt="Logo" width={300} />
-              
+
               <div className="booking-hotel__invoice-wrapper--top">
                 <div className='booking-hotel__invoice-top-header'>
                   <div className='booking-hotel__invoice-top-header booking-hotel__invoice-top-header--booking'>
@@ -211,7 +212,7 @@ const BookingConfirmation = () => {
                           {passengerData?.fullname || 'Passenger Name'}
                         </td>
                         <td>{passengerData?.email || 'email@example.com'}</td>
-                        <td>{passengerData?.phone || '+62 XXX-XXXX-XXXX'}</td>
+                        <td>{passengerData?.phone || '-'}</td>
                         <td>{selectedFlight.price.unit} {bookingDetails?.totalPrice || selectedFlight.price.amount}</td>
                       </tr>
                     </tbody>
@@ -230,7 +231,7 @@ const BookingConfirmation = () => {
                     <div><ul><li style={{ fontSize: '16px', fontWeight: '500' }}>Check-in Baggage: {firstLeg.baggage?.checkin || '20 kg'}</li></ul></div>
                   </div>
                 </div>
-                
+
                 <div className='booking-hotel__invoice-top-header'>
                   <div className="booking-hotel__invoice-header">
                     <h4 className='booking-hotel__invoice-header-title'><i>Important Information</i></h4>
@@ -249,7 +250,7 @@ const BookingConfirmation = () => {
             <footer className="booking-hotel__invoice-footer">
               <div className="booking-hotel__invoice-footer-top">
                 <div className="booking-hotel__invoice-footer-item">
-                  <span className='booking-hotel__invoice-footer-title'>FOR ANY QUESTIONS, VISIT GOFORUMARAH HELP CENTER:</span>
+                  <span className='booking-hotel__invoice-footer-title'>FOR ANY QUESTIONS, VISIT GOFORUMRAH HELP CENTER:</span>
                   <div className="booking-hotel__invoice-footer-link">
                     <SVGIcon src={Icons.Help} width={24} height={24} />
                     <Link href={'https://goforumara-git-dev-illiyinstudio.vercel.app/contact-us'}>
@@ -276,17 +277,17 @@ const BookingConfirmation = () => {
           </div>
         </div>
 
-        {/* ========== UI VISIBLE - FLIGHT CARDS ========== */}
+        {/* UI VISIBLE - FLIGHT CARDS */}
         <div className="booking-hotel__confirmation-separator"></div>
-        
+
         <div className="booking-flight__confirmation-item">
           <div className="booking-flight__confirmation-item-brand">
             {firstLeg.carriers?.[0]?.imageUrl ? (
-              <BlurPlaceholderImage 
-                src={firstLeg.carriers[0].imageUrl} 
-                alt={firstLeg.carriers[0].name} 
-                width={160} 
-                height={48} 
+              <BlurPlaceholderImage
+                src={firstLeg.carriers[0].imageUrl}
+                alt={firstLeg.carriers[0].name}
+                width={160}
+                height={48}
               />
             ) : (
               <div style={{ width: 160, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -305,16 +306,16 @@ const BookingConfirmation = () => {
             </div>
           </div>
         </div>
-        
+
         {secondLeg && (
           <div className="booking-flight__confirmation-item">
             <div className="booking-flight__confirmation-item-brand">
               {secondLeg.carriers?.[0]?.imageUrl ? (
-                <BlurPlaceholderImage 
-                  src={secondLeg.carriers[0].imageUrl} 
-                  alt={secondLeg.carriers[0].name} 
-                  width={160} 
-                  height={48} 
+                <BlurPlaceholderImage
+                  src={secondLeg.carriers[0].imageUrl}
+                  alt={secondLeg.carriers[0].name}
+                  width={160}
+                  height={48}
                 />
               ) : (
                 <div style={{ width: 160, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -334,9 +335,9 @@ const BookingConfirmation = () => {
             </div>
           </div>
         )}
-        
+
         <div className="booking-hotel__confirmation-separator"></div>
-        
+
         <div className="booking-hotel__confirmation-details">
           <div className="booking-hotel__confirmation-content">
             <div className="booking-hotel__confirmation-content__info">

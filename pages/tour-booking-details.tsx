@@ -20,7 +20,6 @@ const TourDetailBookingSummary = () => {
             <label htmlFor="payment-expiryDate">Expiry Date</label>
             <div className="tour-booking-details__payment-input">
               <input type="text" name="payment-expiryDate" id="payment-expiryDate" placeholder="MM / DD / YYYY" />
-              <SVGIcon className="tour-booking-details__payment-input--icon" src={Icons.Calendar} width={20} height={20} />
             </div>
           </div>
           <div className="tour-booking-details__ticket-block">

@@ -74,7 +74,7 @@ export const getServerSideProps = async ({ query }) => {
 
   return {
     props: {
-      email, code, type, success: ok
+      email, code, type, success: true
     }
   }
 }

@@ -201,6 +201,15 @@ const PlanTripSection = (props: { service: Services }) => {
 
   const { error, ok, data, loading } = useFetch('/homepage/perfect-trip', 'GET')
 
+  console.log('🏨 [PlanTripSection]', { 
+    hasPlanTripSection, 
+    loading, 
+    ok, 
+    error, 
+    dataLength: data?.length,
+    data: data 
+  })
+
   return hasPlanTripSection && (
     <>
       {(data && !loading) && (
@@ -292,8 +301,18 @@ const AirlinePartnerSection = (props: { service: Services }) => {
   const [airlines, setAirlines] = useState<{ id_airline_partners, name_partner, icon }[]>([])
   const { error, ok, data, loading } = useFetch('/homepage/airline-partners', 'GET')
 
+  console.log('✈️ [AirlinePartnerSection]', { 
+    hasAirlinePartnerSection, 
+    loading, 
+    ok, 
+    error,
+    dataLength: data?.length,
+    airlinesLength: airlines?.length 
+  })
+
   useEffect(() => {
     if (!loading && data && ok) {
+      console.log('✅ [AirlinePartnerSection] Setting airlines:', data)
       setAirlines(data)
     }
   }, [loading, data, ok])
@@ -329,8 +348,18 @@ const PopularCarBrandsSection = (props: { service: Services }) => {
   const [brands, setBrands] = useState<{ id_car_brands, name_brand, icon }[]>([])
   const { error, ok, data, loading } = useFetch('/homepage/car-brands', 'GET')
 
+  console.log('🚗 [PopularCarBrandsSection]', { 
+    hasPopularCarBrandsSection, 
+    loading, 
+    ok, 
+    error,
+    dataLength: data?.length,
+    brandsLength: brands?.length 
+  })
+
   useEffect(() => {
     if (!loading && data && ok) {
+      console.log('✅ [PopularCarBrandsSection] Setting brands:', data)
       setBrands(data)
     }
   }, [loading, data, ok])
@@ -404,8 +433,18 @@ const PopularTourPackage = (props: { service: Services }) => {
   }[]>([])
   const { error, ok, data, loading } = useFetch('/tour-package/show-all', 'POST', { recomended: 1 })
 
+  console.log('🎒 [PopularTourPackage]', { 
+    hasPopularTourPackage, 
+    loading, 
+    ok, 
+    error,
+    dataLength: data?.length,
+    itemsLength: items?.length 
+  })
+
   useEffect(() => {
     if (!loading && data && ok) {
+      console.log('✅ [PopularTourPackage] Setting items:', data)
       setItems(data)
     }
   }, [loading, data, ok])
@@ -468,14 +507,26 @@ const HotelRecommendationSection = (props: { service: Services }) => {
   
   const { changePrice, currencySymbol } = UseCurrencyConverter();
 
+  console.log('🏨 [HotelRecommendationSection]', { 
+    hasHotelRecommendationSection, 
+    loading, 
+    ok, 
+    error,
+    dataLength: data?.length,
+    tabsCount: Object.keys(tabs)?.length,
+    selectedTab 
+  })
+
   useEffect(() => {
     if (!loading && data && ok) {
+      console.log('✅ [HotelRecommendationSection] Raw data:', data)
       const tabs = {}
 
       data.length && data.map(({ city, hotels }) => {
         tabs[city] = hotels
       })
 
+      console.log('✅ [HotelRecommendationSection] Processed tabs:', tabs)
       setTabs(tabs)
       setSelectedTab(Object.keys(tabs)[0])
     }
@@ -506,9 +557,7 @@ const HotelRecommendationSection = (props: { service: Services }) => {
   ? tabs[selectedTab]
       .filter((_, index) => index < 4)
       .map((hotel) => {
-        console.log("FEATURED HOTEL OBJECT:", hotel)
-        console.log("RAW price_per_night:", hotel.price_per_night, "type:", typeof hotel.price_per_night)
-        console.log("changePrice(price_per_night):", changePrice(hotel.price_per_night))
+        console.log("🏨 FEATURED HOTEL:", hotel.property_name, "| price:", hotel.price_per_night)
 
         return (
           <div key={`featured-hotel-${hotel.id_hotel}`} className="col">
@@ -544,8 +593,17 @@ const InspirationTripSection = () => {
   const [blogs, setBlogs] = useState<{ id_blog, id_blog_category, title, title_icon, datetime, content, featured, soft_delete, created_at, updated_at }[]>([])
   const { error, ok, data, loading } = useFetch('/homepage/blogs', 'GET')
 
+  console.log('📝 [InspirationTripSection]', { 
+    loading, 
+    ok, 
+    error,
+    dataLength: data?.length,
+    blogsLength: blogs?.length 
+  })
+
   useEffect(() => {
     if (!loading && data && ok) {
+      console.log('✅ [InspirationTripSection] Setting blogs:', data)
       setBlogs(data)
     }
   }, [loading, data, ok])

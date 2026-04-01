@@ -285,7 +285,6 @@ const BookingConfirmation = (props:  IProps) => {
                     <div className="booking-hotel__invoice-footer-link">
                       <SVGIcon src={Icons.Help} width={24} height={24} />
                       <Link href={'https://goforumara-git-dev-illiyinstudio.vercel.app/contact-us'}>
-                        https://goforumara-git-dev-illiyinstudio.vercel.app/contact-us
                       </Link>
                     </div>
                   </div>

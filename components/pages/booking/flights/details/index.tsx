@@ -11,20 +11,32 @@ import PhoneInput from 'react-phone-number-input/input'
 import { useSession } from 'next-auth/react'
 import AuthModal from '@/components/modals/auth'
 import { useRouter } from 'next/router'
+import { RFHDate } from '@/components/forms/fields'
+import moment from 'moment'
+
+interface PassengerData {
+  fullname: string
+  email: string
+  phone: string
+  title: string
+  nationality: string
+  passportNumber: string
+  dateOfBirth: string
+  passportIssued?: string
+  passportCountry?: string
+  passportExpiry?: string
+}
 
 interface IProps {
-  handleNextStep: () => void
+  handleNextStep: (data: PassengerData) => void
 }
 
 interface FormData {
-  // Contact Details
   title: string
   fullname: string
   country: string
   phone: string
   email: string
-  
-  // Passenger Details
   passenger_title: string
   passenger_firstname: string
   passenger_lastname: string
@@ -38,12 +50,12 @@ interface FormData {
 
 const BookingDetails = (props: IProps) => {
   const { data: session, status } = useSession()
-  const { setPassengerData, selectedFlight } = useFlightStore()
+  const { selectedFlight, setPassengerData } = useFlightStore()
   const router = useRouter()
-  
+
   const [errorBanner, setErrorBanner] = useState<string | null>(null)
   const [agreementChecked, setAgreementChecked] = useState(false)
-  
+
   const [formData, setFormData] = useState<FormData>({
     title: 'Mr',
     fullname: '',
@@ -61,7 +73,6 @@ const BookingDetails = (props: IProps) => {
     passenger_passport_expiry: '',
   })
 
-  // Check if flight is selected
   useEffect(() => {
     if (!selectedFlight) {
       router.push('/flights')
@@ -70,18 +81,12 @@ const BookingDetails = (props: IProps) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleAgreementChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +96,6 @@ const BookingDetails = (props: IProps) => {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
 
-    // Validate required fields
     if (
       formData.fullname.trim() === '' ||
       formData.phone.trim() === '+1 ' ||
@@ -110,7 +114,6 @@ const BookingDetails = (props: IProps) => {
       return
     }
 
-    // Validate passport dates
     const issuedDate = new Date(formData.passenger_passport_issued)
     const expiryDate = new Date(formData.passenger_passport_expiry)
     const today = new Date()
@@ -127,8 +130,7 @@ const BookingDetails = (props: IProps) => {
       return
     }
 
-    // Save passenger data to store
-    setPassengerData({
+    const passengerData: PassengerData = {
       fullname: `${formData.passenger_firstname} ${formData.passenger_lastname}`,
       email: formData.email,
       phone: formData.phone,
@@ -139,17 +141,16 @@ const BookingDetails = (props: IProps) => {
       passportIssued: formData.passenger_passport_issued,
       passportCountry: formData.passenger_passport_country,
       passportExpiry: formData.passenger_passport_expiry,
-    })
+    }
 
-    console.log('✓ Passenger data saved to store')
-    
-    // Proceed to next step (payment)
-    props.handleNextStep()
+    // Save to Zustand so confirmation page can read it
+    setPassengerData(passengerData)
+
+    // Also pass via props to payment page
+    props.handleNextStep(passengerData)
   }
 
-  if (!selectedFlight) {
-    return null
-  }
+  if (!selectedFlight) return null
 
   return (
     <div className="container">
@@ -163,24 +164,24 @@ const BookingDetails = (props: IProps) => {
       </div>
       <div className="booking-hotel__wrapper">
         <form className="booking-hotel__inner">
-          <ContactSection 
+          <ContactSection
             formData={formData}
             handleInputChange={handleInputChange}
             handleSelectChange={handleSelectChange}
           />
-          <PassengerSection 
+          <PassengerSection
             formData={formData}
             handleInputChange={handleInputChange}
             handleSelectChange={handleSelectChange}
           />
-          <AggreementSection 
+          <AggreementSection
             agreementChecked={agreementChecked}
             handleAgreementChange={handleAgreementChange}
           />
-          <FooterSection 
+          <FooterSection
             agreementChecked={agreementChecked}
             handleSubmit={handleSubmit}
-            {...props}
+            handleNextStep={props.handleNextStep}
           />
         </form>
         <BookingSummary />
@@ -197,7 +198,7 @@ interface ContactSectionProps {
 }
 
 const ContactSection = (props: ContactSectionProps) => {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [selectedPhoneCode, setSelectedPhoneCode] = useState<string>('GB')
 
   const handlePhoneCodeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -211,12 +212,7 @@ const ContactSection = (props: ContactSectionProps) => {
         <div className="booking-hotel__contact-row">
           <div className="booking-hotel__contact-block">
             <label htmlFor="contact-title">Title</label>
-            <select 
-              name="title" 
-              id="contact-title" 
-              value={props.formData.title}
-              onChange={props.handleSelectChange}
-            >
+            <select name="title" id="contact-title" value={props.formData.title} onChange={props.handleSelectChange}>
               <option value="Mr">Mr</option>
               <option value="Mrs">Mrs</option>
               <option value="Ms">Ms</option>
@@ -224,29 +220,14 @@ const ContactSection = (props: ContactSectionProps) => {
           </div>
           <div className="booking-hotel__contact-block w-100">
             <label htmlFor="fullname">Full name</label>
-            <input 
-              type="text" 
-              name="fullname" 
-              id="fullname" 
-              placeholder="Enter your full name" 
-              value={props.formData.fullname}
-              onChange={props.handleInputChange}
-              required
-            />
+            <input type="text" name="fullname" id="fullname" placeholder="Enter your full name" value={props.formData.fullname} onChange={props.handleInputChange} required />
           </div>
         </div>
         <div className="booking-hotel__contact-block">
           <label htmlFor="country">Country/Region</label>
-          <select 
-            name="country" 
-            id="country" 
-            value={props.formData.country}
-            onChange={props.handleSelectChange}
-          >
+          <select name="country" id="country" value={props.formData.country} onChange={props.handleSelectChange}>
             {getCountries().map((country) => (
-              <option key={country} value={country}>
-                {countryLabels[country]}
-              </option>
+              <option key={country} value={country}>{countryLabels[country]}</option>
             ))}
           </select>
         </div>
@@ -255,11 +236,7 @@ const ContactSection = (props: ContactSectionProps) => {
             <label htmlFor="phone">Phone Number</label>
             <div className="form-control-field">
               <div className="PhoneInputCountry">
-                <select
-                  value={selectedPhoneCode}
-                  onChange={handlePhoneCodeChange}
-                  name="phone-code"
-                >
+                <select value={selectedPhoneCode} onChange={handlePhoneCodeChange} name="phone-code">
                   {getCountries().map((country) => (
                     <option key={country} value={country}>
                       {countryLabels[country]} +{getCountryCallingCode(country)}
@@ -275,9 +252,7 @@ const ContactSection = (props: ContactSectionProps) => {
                 country={selectedPhoneCode as CountryCode}
                 value={props.formData.phone}
                 onChange={(value) => {
-                  props.handleInputChange({
-                    target: { name: 'phone', value: value || '' }
-                  } as any)
+                  props.handleInputChange({ target: { name: 'phone', value: value || '' } } as any)
                 }}
                 placeholder="(888) 888-8888"
               />
@@ -286,15 +261,7 @@ const ContactSection = (props: ContactSectionProps) => {
         </div>
         <div className="booking-hotel__contact-block">
           <label htmlFor="email">Email Address</label>
-          <input 
-            type="email" 
-            name="email" 
-            id="email" 
-            placeholder="Enter your email address" 
-            value={props.formData.email}
-            onChange={props.handleInputChange}
-            required
-          />
+          <input type="email" name="email" id="email" placeholder="Enter your email address" value={props.formData.email} onChange={props.handleInputChange} required />
         </div>
         {status === 'unauthenticated' && (
           <div className="booking-hotel__contact-banner">
@@ -302,8 +269,8 @@ const ContactSection = (props: ContactSectionProps) => {
               <SVGIcon src={Icons.Lamp} width={20} height={20} />
             </div>
             <p className="booking-hotel__contact-banner-text">
-              Enjoy special discounts & other benefits! 
-              <a href="#" className="booking-hotel__contact-banner-link" data-bs-toggle="modal" data-bs-target="#auth-modal"> Log in</a> or 
+              Enjoy special discounts & other benefits!
+              <a href="#" className="booking-hotel__contact-banner-link" data-bs-toggle="modal" data-bs-target="#auth-modal"> Log in</a> or
               <a href="#" className="booking-hotel__contact-banner-link" data-bs-toggle="modal" data-bs-target="#auth-modal"> register</a> now.
             </p>
           </div>
@@ -322,17 +289,41 @@ interface PassengerSectionProps {
 const PassengerSection = (props: PassengerSectionProps) => {
   const [sameAsContact, setSameAsContact] = useState(false)
 
+  const [passengerDob, setPassengerDob] = useState<Date | undefined>(undefined)
+  const [passengerIssued, setPassengerIssued] = useState<Date | undefined>(undefined)
+  const [passengerExpiry, setPassengerExpiry] = useState<Date | undefined>(undefined)
+
+
+  const handleDobChange = (date: Date) => {
+    setPassengerDob(date)
+    props.handleInputChange({
+      target: { name: 'passenger_dob', value: moment(date).format('YYYY-MM-DD') },
+    } as any)
+  }
+
+  const handleIssuedChange = (date: Date) => {
+  setPassengerIssued(date)
+  props.handleInputChange({
+    target: { name: 'passenger_passport_issued', value: moment(date).format('YYYY-MM-DD') },
+  } as any)
+}
+
+const handleExpiryChange = (date: Date) => {
+  setPassengerExpiry(date)
+  props.handleInputChange({
+    target: { name: 'passenger_passport_expiry', value: moment(date).format('YYYY-MM-DD') },
+  } as any)
+}
+
   const handleSameAsContactChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked
     setSameAsContact(checked)
 
     if (checked) {
-      // Split fullname into first and last name
       const nameParts = props.formData.fullname.split(' ')
       const firstname = nameParts[0] || ''
       const lastname = nameParts.slice(1).join(' ') || ''
 
-      // Copy contact details to passenger details
       props.handleInputChange({ target: { name: 'passenger_title', value: props.formData.title } } as any)
       props.handleInputChange({ target: { name: 'passenger_firstname', value: firstname } } as any)
       props.handleInputChange({ target: { name: 'passenger_lastname', value: lastname } } as any)
@@ -345,24 +336,13 @@ const PassengerSection = (props: PassengerSectionProps) => {
       <p className="booking-hotel__card-title">Passenger Details</p>
       <div className="booking-hotel__guest">
         <div className="booking-hotel__guest-toggle">
-          <input 
-            type="checkbox" 
-            name="same-contact" 
-            id="same-contact"
-            checked={sameAsContact}
-            onChange={handleSameAsContactChange}
-          />
+          <input type="checkbox" name="same-contact" id="same-contact" checked={sameAsContact} onChange={handleSameAsContactChange} />
           <p>Same as contact details</p>
         </div>
         <div className="booking-hotel__guest-row">
           <div className="booking-hotel__guest-block">
             <label htmlFor="passenger-title">Title</label>
-            <select 
-              name="passenger_title" 
-              id="passenger-title"
-              value={props.formData.passenger_title}
-              onChange={props.handleSelectChange}
-            >
+            <select name="passenger_title" id="passenger-title" value={props.formData.passenger_title} onChange={props.handleSelectChange}>
               <option value="Mr">Mr</option>
               <option value="Mrs">Mrs</option>
               <option value="Ms">Ms</option>
@@ -370,108 +350,49 @@ const PassengerSection = (props: PassengerSectionProps) => {
           </div>
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-firstname">First name</label>
-            <input 
-              type="text" 
-              name="passenger_firstname" 
-              id="passenger-firstname" 
-              placeholder="Enter first name"
-              value={props.formData.passenger_firstname}
-              onChange={props.handleInputChange}
-              required
-            />
+            <input type="text" name="passenger_firstname" id="passenger-firstname" placeholder="Enter first name" value={props.formData.passenger_firstname} onChange={props.handleInputChange} required />
           </div>
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-lastname">Last name</label>
-            <input 
-              type="text" 
-              name="passenger_lastname" 
-              id="passenger-lastname" 
-              placeholder="Enter last name"
-              value={props.formData.passenger_lastname}
-              onChange={props.handleInputChange}
-              required
-            />
+            <input type="text" name="passenger_lastname" id="passenger-lastname" placeholder="Enter last name" value={props.formData.passenger_lastname} onChange={props.handleInputChange} required />
           </div>
         </div>
         <div className="booking-hotel__guest-row">
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-nationality">Nationality</label>
-            <select 
-              name="passenger_nationality" 
-              id="passenger-nationality"
-              value={props.formData.passenger_nationality}
-              onChange={props.handleSelectChange}
-            >
+            <select name="passenger_nationality" id="passenger-nationality" value={props.formData.passenger_nationality} onChange={props.handleSelectChange}>
               {getCountries().map((country) => (
-                <option key={country} value={country}>
-                  {countryLabels[country]}
-                </option>
+                <option key={country} value={country}>{countryLabels[country]}</option>
               ))}
             </select>
           </div>
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-dob">Date of birth</label>
-            <input 
-              type="date" 
-              name="passenger_dob" 
-              id="passenger-dob"
-              value={props.formData.passenger_dob}
-              onChange={props.handleInputChange}
-              required
-            />
+            <RFHDate date={passengerDob} id='passenger-dob' name='passenger_datebirth' onDateChange={handleDobChange} type="text" placeholder="DD / MM / YY" />
           </div>
         </div>
         <div className="booking-hotel__guest-row">
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-passport">Passport No.</label>
-            <input 
-              type="text" 
-              name="passenger_passport" 
-              id="passenger-passport" 
-              placeholder="Enter passport number"
-              value={props.formData.passenger_passport}
-              onChange={props.handleInputChange}
-              required
-            />
+            <input type="text" name="passenger_passport" id="passenger-passport" placeholder="Enter passport number" value={props.formData.passenger_passport} onChange={props.handleInputChange} required />
           </div>
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-passport-issued">Issued date</label>
-            <input 
-              type="date" 
-              name="passenger_passport_issued" 
-              id="passenger-passport-issued"
-              value={props.formData.passenger_passport_issued}
-              onChange={props.handleInputChange}
-              required
-            />
+            <RFHDate date={passengerIssued} id="passenger-passport-issued" name="passenger_passport_issued" onDateChange={handleIssuedChange} type="text" placeholder="DD / MM / YY" />
           </div>
         </div>
         <div className="booking-hotel__guest-row">
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-passport-country">Issuing Country</label>
-            <select 
-              name="passenger_passport_country" 
-              id="passenger-passport-country"
-              value={props.formData.passenger_passport_country}
-              onChange={props.handleSelectChange}
-            >
+            <select name="passenger_passport_country" id="passenger-passport-country" value={props.formData.passenger_passport_country} onChange={props.handleSelectChange}>
               {getCountries().map((country) => (
-                <option key={country} value={country}>
-                  {countryLabels[country]}
-                </option>
+                <option key={country} value={country}>{countryLabels[country]}</option>
               ))}
             </select>
           </div>
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-passport-expiry">Expiry date</label>
-            <input 
-              type="date" 
-              name="passenger_passport_expiry" 
-              id="passenger-passport-expiry"
-              value={props.formData.passenger_passport_expiry}
-              onChange={props.handleInputChange}
-              required
-            />
+            <RFHDate date={passengerExpiry} id='passenger-passport-expiry' name='passenger_passport_expiry' onDateChange={handleExpiryChange} type="text" placeholder="DD / MM / YY" />
           </div>
         </div>
       </div>
@@ -487,20 +408,29 @@ interface AggreementSectionProps {
 const AggreementSection = (props: AggreementSectionProps) => {
   return (
     <div className="booking-hotel__aggreement form-check">
-      <input 
-        type="checkbox" 
-        className="form-check-input"
-        checked={props.agreementChecked}
-        onChange={props.handleAgreementChange}
-      />
+      <input type="checkbox" className="form-check-input" checked={props.agreementChecked} onChange={props.handleAgreementChange} />
       <p>By clicking the button below, you have agreed to our <a href="#" className="booking-hotel__aggreement-link">Privacy Policy</a> and <a href="#" className="booking-hotel__aggreement-link">Terms & Conditions.</a></p>
     </div>
   )
 }
 
-interface FooterSectionProps extends IProps {
+interface PassengerData {
+  fullname: string
+  email: string
+  phone: string
+  title: string
+  nationality: string
+  passportNumber: string
+  dateOfBirth: string
+  passportIssued?: string
+  passportCountry?: string
+  passportExpiry?: string
+}
+
+interface FooterSectionProps {
   agreementChecked: boolean
   handleSubmit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  handleNextStep: (data: PassengerData) => void
 }
 
 const FooterSection = (props: FooterSectionProps) => {
@@ -524,23 +454,12 @@ const FooterSection = (props: FooterSectionProps) => {
           </div>
         </div>
         {isAuthenticated && (
-          <button 
-            onClick={props.handleSubmit}
-            type="button" 
-            className={`btn btn-lg btn-success ${!props.agreementChecked ? 'disabled' : ''}`}
-            disabled={!props.agreementChecked}
-          >
+          <button onClick={props.handleSubmit} type="button" className={`btn btn-lg btn-success ${!props.agreementChecked ? 'disabled' : ''}`} disabled={!props.agreementChecked}>
             Continue to Payment
           </button>
         )}
         {isNotAuthenticated && (
-          <button 
-            type="button" 
-            className={`btn btn-lg btn-success ${!props.agreementChecked ? 'disabled' : ''}`}
-            disabled={!props.agreementChecked}
-            data-bs-toggle="modal" 
-            data-bs-target="#auth-modal"
-          >
+          <button type="button" className={`btn btn-lg btn-success ${!props.agreementChecked ? 'disabled' : ''}`} disabled={!props.agreementChecked} data-bs-toggle="modal" data-bs-target="#auth-modal">
             Continue to Payment
           </button>
         )}

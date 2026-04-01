@@ -59,15 +59,21 @@ const SearchBookTransfer = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
 
   const loadBookTransfer = async (page) => {
+    if (typeof window === 'undefined') return
     const savedDateRange = localStorage.getItem('search-book-transfer-date')
+    if (!savedDateRange) return
     let initialDateRange: Range = JSON.parse(savedDateRange)
+    
 
     const savedPickupTime = localStorage.getItem('search-book-transfer-pickup-time')
-
     const savedDropOffTime = localStorage.getItem('search-book-transfer-dropoff-time')
 
     console.log("savedPickupTime : ", savedPickupTime);
     console.log("savedDropOffTime : ", savedDropOffTime);
+
+    const currentDateString = moment().format('YYYY-MM-DD');
+    const pickupTime = savedPickupTime ? moment(currentDateString + ' ' + savedPickupTime).format('HH:mm') : '00:00';
+    const dropOffTime = savedDropOffTime ? moment(currentDateString + ' ' + savedDropOffTime).format('HH:mm') : '00:00';
 
     if (!pickup || !dropoff || !initialDateRange || !savedPickupTime || !savedDropOffTime) return
 
@@ -90,21 +96,18 @@ const SearchBookTransfer = () => {
       }),
     }
 
-    setCheckInDate(moment(initialDateRange.startDate).format('YYYY-MM-DD'))
-    setCheckOutDate(moment(initialDateRange.endDate).format('YYYY-MM-DD'))
-    const currentDateString = moment().format('YYYY-MM-DD'); // Get the current date in a valid format
-    const pickupTime = moment(currentDateString + ' ' + savedPickupTime).format('HH:mm');
-    const dropOffTime = moment(currentDateString + ' ' + savedDropOffTime).format('HH:mm');
+const checkIn = moment(initialDateRange.startDate).format('YYYY-MM-DD')
+const checkOut = moment(initialDateRange.endDate).format('YYYY-MM-DD')
 
-    console.log("pickupTime : ", pickupTime);
-    console.log("dropOffTime : ", dropOffTime);
+setCheckInDate(checkIn)
+setCheckOutDate(checkOut)
 
-    const payload = {
-      drop_off: dropoff,
-      check_in: checkInDate,
-      check_out: checkOutDate,
-      ...updatedFilters,
-    }
+const payload = {
+  drop_off: dropoff,
+  check_in: checkIn,  // ← pakai variable lokal
+  check_out: checkOut, // ← pakai variable lokal
+  ...updatedFilters,
+}
     const calculateTotalPages = (totalCount) => {
       return Math.ceil(totalCount / 10);
     };
@@ -114,8 +117,8 @@ const SearchBookTransfer = () => {
       console.log("data car business show from apis: ", data.data)
       const modifiedData = data?.data?.map((car) => ({
         ...car,
-        checkInDate,
-        checkOutDate,
+        checkInDate: checkIn,
+        checkOutDate: checkOut,
         pickupTime,
         dropOffTime,
         car_photo_thumbnail: car?.photo?.photo,

@@ -46,22 +46,6 @@ interface FlightLeg {
   }
 }
 
-interface BookingDetails {
-  bookingId: string
-  pnr: string
-  totalPrice: number
-  status: string
-  createdAt: string
-  paymentMethod?: string
-  paymentReference?: string
-  flightNumber?: string
-  airline?: string
-  origin?: string
-  destination?: string
-  departureTime?: string
-  arrivalTime?: string
-}
-
 interface SelectedFlightData {
   token?: string
   id: string
@@ -100,6 +84,14 @@ interface BookingDetails {
   totalPrice: number
   status: string
   createdAt: string
+  paymentMethod?: string
+  paymentReference?: string
+  flightNumber?: string
+  airline?: string
+  origin?: string
+  destination?: string
+  departureTime?: string
+  arrivalTime?: string
 }
 
 interface FlightHistoryResponse {
@@ -172,13 +164,15 @@ export const useFlightStore = create<FlightStore>()(
 
       createFlightBooking: async (bookingData) => {
         try {
-          console.log('📝 Creating flight booking...')
+          console.log('[CREATE] Creating flight booking...')
 
-          // Payload minimal sesuai backend utama
+          // Send complete payload to backend
           const payload = {
-            id_customer: bookingData.id_customer,
-            mfref: bookingData.mfref,
+            ...bookingData  
           }
+
+          console.log('[PAYLOAD] [flightStore] Payload to backend:', payload)
+          console.log('[PAYLOAD] [flightStore] total_price value:', payload.total_price, 'type:', typeof payload.total_price)
 
           const result = await callFlightHistoryAPI(
             '/flight-booking/store',
@@ -188,7 +182,7 @@ export const useFlightStore = create<FlightStore>()(
           )
 
           if (result.ok) {
-            console.log('✓ Flight booking created successfully')
+            console.log('[SUCCESS] Flight booking created successfully')
             if (result.data?.id_flight_booking) {
               set({ 
                 bookingDetails: {
@@ -205,14 +199,14 @@ export const useFlightStore = create<FlightStore>()(
               data: result.data
             }
           } else {
-            console.error('✗ Failed to create flight booking:', result.error)
+            console.error('[ERROR] Failed to create flight booking:', result.error)
             return {
               success: false,
               message: result.error
             }
           }
         } catch (error: any) {
-          console.error('✗ Error creating flight booking:', error)
+          console.error('[ERROR] Error creating flight booking:', error)
           return {
             success: false,
             message: error?.message || 'Failed to create booking'
@@ -222,7 +216,7 @@ export const useFlightStore = create<FlightStore>()(
 
       confirmFlightBooking: async (id_flight_booking) => {
         try {
-          console.log('✅ Confirming flight booking...')
+          console.log('[CONFIRM] Confirming flight booking...')
 
           const result = await callFlightHistoryAPI(
             '/flight-booking/confirm',
@@ -232,21 +226,21 @@ export const useFlightStore = create<FlightStore>()(
           )
 
           if (result.ok) {
-            console.log('✓ Flight booking confirmed successfully')
+            console.log('[SUCCESS] Flight booking confirmed successfully')
             return { success: true, data: result.data }
           } else {
-            console.error('✗ Failed to confirm flight booking:', result.error)
+            console.error('[ERROR] Failed to confirm flight booking:', result.error)
             return { success: false, message: result.error }
           }
         } catch (error: any) {
-          console.error('✗ Error confirming flight booking:', error)
+          console.error('[ERROR] Error confirming flight booking:', error)
           return { success: false, message: error?.message || 'Failed to confirm booking' }
         }
       },
 
       saveFlightPayment: async (paymentData) => {
         try {
-          console.log('💳 Processing payment...')
+          console.log('[PAYMENT] Processing payment...')
 
           const payload = {
             id_flight_booking: paymentData.id_flight_booking,
@@ -263,21 +257,21 @@ export const useFlightStore = create<FlightStore>()(
           )
 
           if (result.ok) {
-            console.log('✓ Payment processed successfully')
+            console.log('[SUCCESS] Payment processed successfully')
             return { success: true, data: result.data }
           } else {
-            console.error('✗ Failed to process payment:', result.error)
+            console.error('[ERROR] Failed to process payment:', result.error)
             return { success: false, message: result.error }
           }
         } catch (error: any) {
-          console.error('✗ Error processing payment:', error)
+          console.error('[ERROR] Error processing payment:', error)
           return { success: false, message: error?.message || 'Payment failed' }
         }
       },
 
       cancelFlightBooking: async (id_flight_booking, reason) => {
         try {
-          console.log('❌ Canceling flight booking...')
+          console.log('[CANCEL] Canceling flight booking...')
 
           const payload: any = { id_flight_booking }
           if (reason) payload.cancellation_reason = reason
@@ -290,21 +284,21 @@ export const useFlightStore = create<FlightStore>()(
           )
 
           if (result.ok) {
-            console.log('✓ Flight booking canceled successfully')
+            console.log('[SUCCESS] Flight booking canceled successfully')
             return { success: true, data: result.data }
           } else {
-            console.error('✗ Failed to cancel flight booking:', result.error)
+            console.error('[ERROR] Failed to cancel flight booking:', result.error)
             return { success: false, message: result.error }
           }
         } catch (error: any) {
-          console.error('✗ Error canceling flight booking:', error)
+          console.error('[ERROR] Error canceling flight booking:', error)
           return { success: false, message: error?.message || 'Failed to cancel booking' }
         }
       },
 
       getFlightHistory: async (id_customer) => {
         try {
-          console.log('📖 Fetching flight history...')
+          console.log('[FETCH] Fetching flight history...')
 
           const result = await callFlightHistoryAPI(
             '/flight-booking/show',
@@ -314,21 +308,21 @@ export const useFlightStore = create<FlightStore>()(
           )
 
           if (result.ok) {
-            console.log('✓ Flight history fetched successfully')
+            console.log('[SUCCESS] Flight history fetched successfully')
             return { success: true, data: result.data }
           } else {
-            console.error('✗ Failed to fetch flight history:', result.error)
+            console.error('[ERROR] Failed to fetch flight history:', result.error)
             return { success: false, message: result.error }
           }
         } catch (error: any) {
-          console.error('✗ Error fetching flight history:', error)
+          console.error('[ERROR] Error fetching flight history:', error)
           return { success: false, message: error?.message || 'Failed to fetch flight history' }
         }
       },
 
       getBookingDetail: async (id_flight_booking) => {
         try {
-          console.log('📄 Fetching booking detail...')
+          console.log('[DETAIL] Fetching booking detail...')
 
           const result = await callFlightHistoryAPI(
             '/flight-booking/detail',
@@ -338,14 +332,14 @@ export const useFlightStore = create<FlightStore>()(
           )
 
           if (result.ok) {
-            console.log('✓ Booking detail fetched successfully')
+            console.log('[SUCCESS] Booking detail fetched successfully')
             return { success: true, data: result.data }
           } else {
-            console.error('✗ Failed to fetch booking detail:', result.error)
+            console.error('[ERROR] Failed to fetch booking detail:', result.error)
             return { success: false, message: result.error }
           }
         } catch (error: any) {
-          console.error('✗ Error fetching booking detail:', error)
+          console.error('[ERROR] Error fetching booking detail:', error)
           return { success: false, message: error?.message || 'Failed to fetch booking detail' }
         }
       },

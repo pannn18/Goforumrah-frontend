@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Icons, Images } from '@/types/enums'
 import Layout from '@/components/layout'
@@ -7,20 +7,28 @@ import Navbar from '@/components/layout/navbar'
 import Footer from '@/components/layout/footer'
 import { BlurPlaceholderImage } from "@/components/elements/images"
 import SVGIcon from '@/components/elements/icons'
-import ManageCardList from '@/components/pages/manage/manageCard'
 import airlineEmiratesAirways from '@/assets/images/airline_partner_emirates.png'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { callMystiflyAPI, callSkyscannerAPI } from '@/lib/axiosHelper'
+import { callAPI, callFlightHistoryAPI, callMystiflyAPI, callSkyscannerAPI } from '@/lib/axiosHelper'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import moment from 'moment'
+import LoadingOverlay from '@/components/loadingOverlay'
 
-export const getServerSideProps: GetServerSideProps<{
-  tripDetails: any
-  airports: any
-  uniqueID: string
-}> = async (context) => {
-  const uniqueID = context.params?.id
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const uniqueID = context.params?.id as string
+  const isNumericID = /^\d+$/.test(uniqueID)
+
+  if (isNumericID) {
+    return {
+      props: {
+        tripDetails: null,
+        airports: null,
+        uniqueID,
+        isOwnBooking: true,
+      }
+    }
+  }
 
   const { ok, data: tripDetails, status, error } = await callMystiflyAPI({
     url: 'https://restapidemo.myfarebox.com/api/tripdetails/' + uniqueID,
@@ -38,22 +46,24 @@ export const getServerSideProps: GetServerSideProps<{
         props: {
           tripDetails: tripDetails.Data.TripDetailsResult,
           airports: airports.places,
-          uniqueID: uniqueID as string
+          uniqueID,
+          isOwnBooking: false,
         },
       }
     }
   }
 
-  return {
-    notFound: true,
-  }
+  return { notFound: true }
 }
 
 export default function Page({
   tripDetails,
   airports,
-  uniqueID
+  uniqueID,
+  isOwnBooking,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
+  // ─── ALL HOOKS FIRST (Rules of Hooks) ───────────────────────────────────
   const router = useRouter()
   const { data: session, status } = useSession()
 
@@ -86,30 +96,26 @@ export default function Page({
     'Personal reasons',
   ]
   const [reason, setReason] = useState<string>(reasonOptions[0])
-
   const [confirmStep, setConfirmStep] = useState<boolean>(false)
+
+  // ─── OWN BOOKING - after all hooks ───────────────────────────────────────
+  if (isOwnBooking) {
+    return <OwnCancelPage uniqueID={uniqueID} />
+  }
 
   const isBeforeDeparture = moment(origin?.DepartureDateTime).isBefore()
   const cancelAllowed = (fareBreakdowns?.AirRefundCharges?.[isBeforeDeparture ? 'IsRefundableBeforeDeparture' : 'IsRefundableAfterDeparture'] || '').toLowerCase() === 'yes'
 
   const handleCancel = async () => {
     setError('')
-
-    const payload = {
-      UniqueID: uniqueID,
-      Target: 'Test'
-    }
-
+    const payload = { UniqueID: uniqueID, Target: 'Test' }
     setLoading(true)
-
     const { ok, data: response, status, error } = await callMystiflyAPI({
       url: 'https://restapidemo.myfarebox.com/api/v1/booking/cancel',
       method: 'POST',
       data: payload
     })
-
     setLoading(false)
-
     if (ok && response?.Success) {
       router.push(router.asPath + '/complete')
     } else {
@@ -134,7 +140,7 @@ export default function Page({
             <div className="cancelation__card cancelation__reason">
               <div className="cancelation__card-header">
                 <h5>Confirm cancellation</h5>
-                <p className="cancelation__card-subtitle">You are about to cancel your entire booking. Please review the details belom before cancelling</p>
+                <p className="cancelation__card-subtitle">You are about to cancel your entire booking. Please review the details below before cancelling</p>
               </div>
               <div className="cancelation__confirm-preview">
                 <p className="cancelation__confirm-title">Flight Preview</p>
@@ -191,9 +197,7 @@ export default function Page({
                       <p className="cancelation__modal-desc">Once a request has been submitted, you cannot change or add it again</p>
                     </div>
                     {error && (
-                      <div className="d-flex flex-column align-items-center text-center text-danger-main">
-                        {error}
-                      </div>
+                      <div className="d-flex flex-column align-items-center text-center text-danger-main">{error}</div>
                     )}
                   </div>
                   <div className="cancelation__modal-footer">
@@ -227,6 +231,175 @@ export default function Page({
           </div>
         )) : (
           <div className="w-100 h-100 d-flex align-items-center justify-content-center text-center" style={{ minHeight: 'calc(100vh - 80px)' }}>Sorry, we couldn't find it.</div>
+        )}
+      </UserLayout>
+      <Footer />
+    </Layout>
+  )
+}
+
+
+// ─── OWN CANCEL PAGE ─────────────────────────────────────────────────────────
+function OwnCancelPage({ uniqueID }: { uniqueID: string }) {
+  const router = useRouter()
+  const { data: session, status } = useSession()
+
+  const [loading, setLoading] = useState(false)
+  const [pageLoading, setPageLoading] = useState(true)
+  const [booking, setBooking] = useState<any>(null)
+  const [error, setError] = useState<string>('')
+  const [confirmStep, setConfirmStep] = useState(false)
+
+  const reasonOptions = [
+    'Airlines changing flight schedules',
+    'Due to the Corona virus pandemic',
+    'Accidentally placed an order',
+    'Wrong date',
+    'Personal reasons',
+  ]
+  const [reason, setReason] = useState<string>(reasonOptions[0])
+
+  useEffect(() => {
+    if (status !== 'authenticated' || !session) return
+    const fetchDetail = async () => {
+      setPageLoading(true)
+      const { ok, data } = await callFlightHistoryAPI(
+        '/flight-booking/detail',
+        'POST',
+        { id_flight_booking: Number(uniqueID) },
+        true
+      )
+      if (ok && data) setBooking(data)
+      setPageLoading(false)
+    }
+    fetchDetail()
+  }, [uniqueID, status, session])
+
+  const handleCancel = async () => {
+    setError('')
+    setLoading(true)
+    const { ok, data: response, error } = await callFlightHistoryAPI(
+      '/flight-booking/cancel',
+      'POST',
+      {
+        id_flight_booking: Number(uniqueID),
+        cancellation_reason: reason
+      },
+      true
+    )
+    setLoading(false)
+    if (ok && response?.status === 'success') {
+      router.push(`/user/booking/flights/${uniqueID}/cancel/complete`)
+    } else {
+      setError(response?.message || error || 'Unknown error')
+    }
+  }
+
+  if (pageLoading) return <LoadingOverlay />
+
+  return (
+    <Layout>
+      <Navbar showCurrency={true} />
+      <UserLayout
+        activeMenu='booking'
+        breadcrumb={[
+          { text: 'My Booking', url: '/user', category: 'flight' },
+          { text: `${booking?.origin || ''} to ${booking?.destination || ''}`, url: '/user/booking/flights/' + uniqueID },
+          { text: 'Cancel booking', ...(confirmStep ? { url: 'javascript:void(0)' } : {}) },
+          ...(confirmStep ? [{ text: 'Confirm cancellation' }] : [])
+        ]}
+      >
+        {confirmStep ? (
+          <>
+            <div className="cancelation__card cancelation__reason">
+              <div className="cancelation__card-header">
+                <h5>Confirm cancellation</h5>
+                <p className="cancelation__card-subtitle">You are about to cancel your entire booking. Please review the details below before cancelling</p>
+              </div>
+              <div className="cancelation__confirm-preview">
+                <p className="cancelation__confirm-title">Flight Preview</p>
+                <div className="cancelation__confirm-wrapper">
+                  <div className="cancelation__confirm-preview-image">
+                    <BlurPlaceholderImage src={Images.Placeholder} alt="Flight Logo" width={76} height={54} />
+                  </div>
+                  <div className="cancelation__confirm-preview-text">
+                    <p className="cancelation__confirm-preview-name">{booking?.origin} to {booking?.destination} (One Way)</p>
+                    <p className="cancelation__confirm-preview-detail">Direct</p>
+                    <div className="cancelation__confirm-preview-information">
+                      <div className="cancelation__confirm-preview-information">
+                        <SVGIcon src={Icons.Users} width={20} height={20} />
+                        <p>{booking?.passengers?.length || 0} passenger</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="cancelation__confirm-bill cancelation__confirm-bill--text">
+                <p>Your booking</p>
+                <p>{booking?.total_price} {booking?.currency}</p>
+              </div>
+              <div className="cancelation__confirm-bill cancelation__confirm-bill--bold">
+                <p>Reason</p>
+                <p>{reason}</p>
+              </div>
+              <div className="cancelation__card-footer">
+                <button type='button' className="btn btn-lg btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Continue</button>
+              </div>
+            </div>
+
+            <div className="modal fade" id="confirmationModal" tabIndex={-1} aria-hidden="true">
+              <div className="modal-dialog cancelation__modal">
+                <div className="modal-content cancelation__modal-body">
+                  <div className="cancelation__modal-content">
+                    <div className="cancelation__modal-image">
+                      <SVGIcon src={Icons.CircleCancel} width={48} height={48} />
+                    </div>
+                    <div className="cancelation__modal-text">
+                      <h3>Do you want to proceed with the cancellation ?</h3>
+                      <p className="cancelation__modal-desc">Once a request has been submitted, you cannot change or add it again</p>
+                    </div>
+                    {error && (
+                      <div className="d-flex flex-column align-items-center text-center text-danger-main">{error}</div>
+                    )}
+                  </div>
+                  <div className="cancelation__modal-footer">
+                    <button data-bs-dismiss="modal" className="btn btn-lg btn-outline-secondary cancelation__modal-button">Cancel</button>
+                    <button disabled={loading} type='button' onClick={handleCancel} className="btn btn-lg btn-success cancelation__modal-button">
+                      {loading ? 'Please wait...' : 'Request to cancel'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="cancelation__list">
+            <div className="cancelation__card cancelation__reason">
+              <div className="cancelation__card-header">
+                <h5>Reason for cancelling</h5>
+                <p className="cancelation__card-subtitle">We can find alternative solution if you need to make changes to your booking</p>
+              </div>
+              <div>
+                {reasonOptions.map((value, index) => (
+                  <label key={`reason-option-${index}`} className="cancelation__reason-option form-check" htmlFor={`own-reason-option-${index}`}>
+                    <p className="form-check-label">{value}</p>
+                    <input
+                      type="radio"
+                      name="ownCancelReason"
+                      id={`own-reason-option-${index}`}
+                      className="form-check-input cancelation__reason-input"
+                      checked={value === reason}
+                      onChange={(e) => e.target.checked && setReason(value)}
+                    />
+                  </label>
+                ))}
+              </div>
+              <div className="cancelation__card-footer">
+                <Link href={'/user/booking/flights/' + uniqueID} className="btn btn-lg btn-outline-success">Keep this booking</Link>
+                <button onClick={() => setConfirmStep(true)} type="button" className="btn btn-lg btn-success">Continue</button>
+              </div>
+            </div>
+          </div>
         )}
       </UserLayout>
       <Footer />

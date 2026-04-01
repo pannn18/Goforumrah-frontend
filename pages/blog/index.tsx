@@ -87,7 +87,7 @@ const BlogShowcase = ({blogs}) => {
         <div className="blog__showcase">
 
           <div className="blog__showcase-main" key={blogsData[0].index}>
-            <BlurPlaceholderImage className="blog__showcase-main-imagery" src={blogsData[0].title_icon || placeholder} alt="Main Blog Thumbnail" /> 
+          <BlurPlaceholderImage className="blog__showcase-main-imagery" src={blogsData[0].title_icon || placeholder} alt="Main Blog Thumbnail" width={800} height={600} /> 
             <div className="blog__showcase-main-content">
               <div className="blog__showcase-main-text">
                 <h3 className="blog__showcase-main-title">{blogsData[0].title}</h3>

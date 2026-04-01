@@ -8,11 +8,37 @@ const nextConfig = {
       '1000logos.net', 
       'logos-world.net', 
       'w7.pngwing.com',
-      'download.logo.wine', // ← TAMBAHKAN INI
+      'download.logo.wine', 
+      'picsum.photos',
+      'images.unsplash.com',
     ],
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'goforumrah-api.illiyin.studio',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.ngrok-free.dev',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.ngrok.io',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
         hostname: 'goforumrah-api.illiyin.studio',
         port: '',
         pathname: '/**',
@@ -58,17 +84,16 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
-  // Bypass SSL verification for development
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-    }
-    return config
   },
 }
 

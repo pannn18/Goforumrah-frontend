@@ -95,8 +95,8 @@ const BookingDetails = (props: IProps) => {
   const timeCheckout = data.data?.hotel_policies?.checkout_to
 
   const id_hotel = data.data?.id_hotel
-  const checkin = `${dateCheckin} ${timeCheckin}`
-  const checkout = `${dateCheckout} ${timeCheckout}`
+  const checkin = timeCheckin ? `${dateCheckin} ${timeCheckin}` : dateCheckin
+  const checkout = timeCheckout ? `${dateCheckout} ${timeCheckout}` : dateCheckout
 
   const queryParams = `id=${id_hotel}&checkin=${checkin}&checkout=${checkout}`;
   // console.log(queryParams)

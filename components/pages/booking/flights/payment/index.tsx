@@ -9,72 +9,41 @@ import LoadingOverlay from '@/components/loadingOverlay/index'
 import StripePaymentElements from './stripe'
 import { Stripe, loadStripe } from '@stripe/stripe-js'
 
-interface IProps {
-  handleNextStep?: () => void
+interface PassengerData {
+  fullname: string
+  email: string
+  phone: string
+  title: string
+  nationality: string
+  passportNumber: string
+  dateOfBirth: string
+  passportIssued?: string
+  passportCountry?: string
+  passportExpiry?: string
 }
 
-const BookingPayment = ({ handleNextStep }: IProps) => {
+interface IProps {
+  handleNextStep?: () => void
+  passengerData: PassengerData | null
+  selectedFlight: any
+}
+
+const BookingPayment = ({ handleNextStep, passengerData, selectedFlight }: IProps) => {
   const router = useRouter()
   const { data: session, status } = useSession()
-  
-  const { 
-    selectedFlight, 
-    passengerData, 
-    createFlightBooking,
-    setBookingDetails 
-  } = useFlightStore()
 
   const price = selectedFlight?.price?.amount || 0
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(!price ? 'Unknown price' : null)
-  
-  // Stripe states
   const [stripePromise, setStripePromise] = useState<Stripe | null>(null)
   const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null)
-  const [flightBookingId, setFlightBookingId] = useState<number | null>(null)
 
-  // Initialize Stripe
-  const initializeStripe = async () => {
-    if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-      setError('Stripe configuration missing')
-      return
-    }
-
-    try {
-      const [stripe, clientSecret] = await Promise.all([
-        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY),
-        fetch('/api/create-payment-intent', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            amount: Math.round(price * 100), 
-            currency: selectedFlight?.price?.unit?.toLowerCase() || 'idr'
-          }),
-        }).then(res => res.json()).then(data => data.clientSecret)
-      ])
-
-      if (!stripe || !clientSecret) {
-        setError('Failed to initialize payment')
-        return
-      }
-
-      setStripePromise(stripe)
-      setStripeClientSecret(clientSecret)
-    } catch (err) {
-      console.error('❌ Stripe initialization error:', err)
-      setError('Failed to initialize payment')
-    }
-  }
-  
-
-  // Create flight booking on mount
+  // ONLY initialize Stripe - NO booking creation here
   useEffect(() => {
-    const createBooking = async () => {
+    const initStripe = async () => {
       if (status === 'loading') return
-      
+
       if (status === 'unauthenticated') {
         router.push('/login?callbackUrl=/booking/flights')
         return
@@ -92,71 +61,50 @@ const BookingPayment = ({ handleNextStep }: IProps) => {
         return
       }
 
+      if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+        setError('Stripe configuration missing')
+        setLoading(false)
+        return
+      }
+
       setLoading(true)
 
       try {
-        // Create flight booking first
-        const firstSegment = selectedFlight.firstLeg?.segments?.[0]
-        const lastSegment = selectedFlight.firstLeg?.segments?.[selectedFlight.firstLeg.segments.length - 1]
+        console.log('[STRIPE] Initializing Stripe...')
 
-        const bookingPayload = {
-          id_customer: session?.user?.id,
-          mfref: selectedFlight.fareSourceCode || selectedFlight.id,
-          airline_name: selectedFlight.firstLeg?.carriers?.[0]?.name || 'Unknown',
-          flight_number: firstSegment?.airline?.flightNumber || 'N/A',
-          origin: firstSegment?.originIata || '',
-          destination: lastSegment?.destinationIata || '',
-          departure_time: selectedFlight.firstLeg?.departureDateTime || null,
-          arrival_time: selectedFlight.firstLeg?.arrivalDateTime || null,
-          total_price: selectedFlight.price.amount,
-          currency: selectedFlight.price.unit,
-          contact_fullname: passengerData.fullname,
-          contact_email: passengerData.email,
-          contact_phone: passengerData.phone,
-          passengers: [
-            {
-              title: passengerData.title || 'Mr',
-              firstname: passengerData.fullname?.split(' ')[0] || '',
-              lastname: passengerData.fullname?.split(' ').slice(1).join(' ') || '',
-              identity_number: passengerData.passportNumber || '',
-              nationality: passengerData.nationality || 'ID',
-              date_of_birth: passengerData.dateOfBirth || '',
-              passport_expiry: passengerData.passportExpiry || '',
-              passenger_type: 'adult'
-            }
-          ]
+        const [stripe, clientSecret] = await Promise.all([
+          loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY),
+          fetch('/api/create-payment-intent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: Math.round(price * 100),
+              currency: selectedFlight?.price?.unit?.toLowerCase() || 'idr'
+            }),
+          }).then(res => res.json()).then(data => data.clientSecret)
+        ])
+
+        if (!stripe || !clientSecret) {
+          setError('Failed to initialize payment')
+          setLoading(false)
+          return
         }
 
-        console.log('📝 Creating flight booking:', bookingPayload)
-
-        const bookingResult = await createFlightBooking(bookingPayload)
-
-        if (!bookingResult.success) {
-          throw new Error(bookingResult.message || 'Failed to create booking')
-        }
-
-        const bookingId = bookingResult.data?.id_flight_booking
-        console.log('✓ Flight booking created:', bookingId)
-        
-        setFlightBookingId(bookingId)
-
-        // Initialize Stripe after booking is created
-        await initializeStripe()
-
+        console.log('[SUCCESS] Stripe initialized')
+        setStripePromise(stripe)
+        setStripeClientSecret(clientSecret)
+        setLoading(false)
       } catch (err: any) {
-        console.error('❌ Booking creation error:', err)
-        setError(err.message || 'Failed to create booking')
-      } finally {
+        console.error('[ERROR] Stripe initialization error:', err)
+        setError('Failed to initialize payment')
         setLoading(false)
       }
     }
 
-    createBooking()
+    initStripe()
   }, [status, session, selectedFlight, passengerData])
 
-  if (status === 'loading' || loading) {
-    return <LoadingOverlay />
-  }
+  if (status === 'loading' || loading) return <LoadingOverlay />
 
   if (error && !stripePromise) {
     return (
@@ -175,18 +123,16 @@ const BookingPayment = ({ handleNextStep }: IProps) => {
       <div className="container">
         <div className="booking-hotel__wrapper">
           <div className="booking-hotel__inner">
-            {!!(stripePromise && stripeClientSecret && flightBookingId) && (
+            {!!(stripePromise && stripeClientSecret) && (
               <StripePaymentElements
-                flightBookingID={flightBookingId}
                 stripe={stripePromise}
                 clientSecret={stripeClientSecret}
                 price={price}
+                passengerData={passengerData}
+                selectedFlight={selectedFlight}
                 onError={(error) => setError(error)}
                 onSuccess={() => {
-                  // Navigate to confirmation
-                  if (handleNextStep) {
-                    handleNextStep()
-                  }
+                  if (handleNextStep) handleNextStep()
                 }}
               />
             )}
@@ -198,7 +144,6 @@ const BookingPayment = ({ handleNextStep }: IProps) => {
   )
 }
 
-// Timer Section
 const TimerSection = ({ createdAt }: { createdAt: string }) => {
   const MAX_TIME = 30 * 60
 
@@ -215,7 +160,6 @@ const TimerSection = ({ createdAt }: { createdAt: string }) => {
     const timer = setInterval(() => {
       setRemainingTime((prev) => Math.max(prev - 1, 0))
     }, 1000)
-
     return () => clearInterval(timer)
   }, [])
 

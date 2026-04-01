@@ -97,8 +97,8 @@ const SearchTourPackage = () => {
     setLoading(true)
 
     const payload = {
-      search: search,
-      destination: location,
+      search: search || location,
+      destination: null,
       recomended: recomended,
       price: price,
       rating: rating

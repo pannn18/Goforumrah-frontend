@@ -10,9 +10,10 @@ const httpsAgent = new https.Agent({
 const httpAgent = new http.Agent({})
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_DOMAIN
+console.log('🌐 BASE_URL:', BASE_URL)
 
 const AXIOS_CONFIG = {
-  httpsAgent
+  httpsAgent,
 }
 
 type CallAPIReturn = {
@@ -30,14 +31,16 @@ export const callAPI = async (url: string, method: string, data?: any, authorize
   return await axios({
     ...AXIOS_CONFIG,
     headers: {
-      'Content-Type': contentType || 'application/json',
-      'Authorization': accessToken || (authorization && authorization?.user?.accessToken)
-    },
+  'Content-Type': contentType || 'application/json',
+  'Authorization': accessToken || (authorization && authorization?.user?.accessToken),
+  'ngrok-skip-browser-warning': '69420',
+  },
     url: BASE_URL + url,
     method,
     data,
     ...config
   }).then((response) => {
+    console.log('✅ callAPI then:', response.config.url, response.data)
     const { data: { data, errors, error, status_code }, status } = response
 
     if (errors || error) throw { status: status_code || status, message: errors || error }

@@ -531,6 +531,7 @@ const TourTopNav = () => {
 const TourDetailBookingSummary = ({ data, onPlanChange }) => {
   const router = useRouter()
   const date = router.query?.date
+  const [selectedDate, setSelectedDate] = useState<string>(date as string || '')
   const [idTourPlan, setIdTourPlan] = useState<number>(data.tour_plans[0]?.id_tour_plan)
   // const [date, setDate] = useState(null)
   const [ticket, setTicket] = useState<number>(1)
@@ -563,8 +564,8 @@ const TourDetailBookingSummary = ({ data, onPlanChange }) => {
       <div className="tour-booking-details__ticket-block">
         <label htmlFor="payment-date">Date</label>
         <div className="tour-booking-details__payment-input">
-          <input disabled required type="text" value={moment(date).format("MM / DD / YYYY")} name="payment-date" id="payment-date" placeholder="MM / DD / YYYY" />
-          <SVGIcon className="tour-booking-details__payment-input--icon" src={Icons.Calendar} width={20} height={20} />
+          <input required type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} min={moment().format('YYYY-MM-DD')} name="payment-date" id="payment-date" />
+          
         </div>
       </div>
       <div className="tour-booking-details__ticket-block">
@@ -589,11 +590,11 @@ const TourDetailBookingSummary = ({ data, onPlanChange }) => {
           <div className="tour-booking-details__summary-total-price--text">{currencySymbol} {changePrice(totalPrice)}</div>
         </div>
       </div>
-      {!idTourPlan || !date || !ticket ? (
+      {!idTourPlan || !selectedDate || !ticket ? (
         <button disabled className="btn btn-success tour-booking-details__summary-button">Book</button>
       ) : (
         <Link
-          href={`/booking/tour/${data.id_tour_package}?id_plan=${idTourPlan}&start_date=${date}&tickets=${ticket}`}
+          href={`/booking/tour/${data.id_tour_package}?id_plan=${idTourPlan}&start_date=${selectedDate}&tickets=${ticket}`}
           className="btn btn-success tour-booking-details__summary-button"
         >
           Book

@@ -7,7 +7,7 @@ import SVGIcon from "@/components/elements/icons";
 import { Icons, Images, Services } from "@/types/enums";
 import ManageCard from "@/components/pages/manage/manageCard";
 import { useSession } from "next-auth/react";
-import { callAPI, callMystiflyAPI } from "@/lib/axiosHelper";
+import { callAPI, callFlightHistoryAPI, callMystiflyAPI } from "@/lib/axiosHelper";
 import moment from "moment";
 import DropdownMenu from "@/components/elements/dropdownMenu";
 import Link from "next/link";
@@ -36,46 +36,70 @@ const MyBooking = () => {
     if (!mystiflyBookingIDs.length) return;
 
     (async () => {
-      const bookings = await Promise.all(
-        mystiflyBookingIDs
-          .map(async (MFRef) => {
-            const { ok, data, status, error } = await callMystiflyAPI({
-              url: "https://restapidemo.myfarebox.com/api/TripDetails/" + MFRef,
-              method: "GET",
-            });
-
-            return ok && data?.Data ? data.Data : null;
-          })
-          .filter((value) => value)
+      console.log('[MYSTIFLY] Fetching details for mfrefs:', mystiflyBookingIDs)
+      const results = await Promise.all(
+        mystiflyBookingIDs.map(async (MFRef) => {
+          const { ok, data, status, error } = await callMystiflyAPI({
+            url: "https://restapidemo.myfarebox.com/api/TripDetails/" + MFRef,
+            method: "GET",
+          });
+          return ok && data?.Data ? data.Data : null;
+        })
       );
 
-      setMystiflyBookings(bookings);
+      const validResults = results.filter(Boolean);
+      console.log('[MYSTIFLY] Valid results:', validResults.length)
+      setMystiflyBookings(validResults);
     })();
   }, [mystiflyBookingIDs]);
 
   useEffect(() => {
     setLoading(true);
 
-    if (!(status === "authenticated") || !session) return;
+    if (!(status === "authenticated") || !session) {
+      console.log('[AUTH] Not authenticated, status:', status)
+      return;
+    }
 
     (async () => {
       await Promise.all([
         new Promise(async (resolve, reject) => {
           try {
-            const { ok, data, error } = await callAPI(
-              "/flight-booking/show",
+            console.log('[FETCH] Fetching flight bookings for customer:', session.user.id)
+            
+            const { ok, data, error } = await callFlightHistoryAPI(
+              `/flight-booking/show?id_customer=${session.user.id}&sort=${selectedSort}`,
               "POST",
-              { id_customer: session.user.id, sort: selectedSort },
+              null,
               true
             );
 
+            console.log('[FETCH] Response:', { ok, dataLength: data?.length, error })
+            console.log('[DATA] Raw data:', data)
+
             if (ok && data) {
-              setFlightBookings(data);
-              if (data?.length) setMystiflyBookingIDs(data.map((item) => item?.mfref).filter((value) => value));
+              const validBookings = data.filter((item: any) => item.airline_name !== null && item.origin !== null);
+              console.log('[FILTER] Valid bookings:', validBookings.length, 'out of', data.length)
+              console.log('[VALID] Bookings data:', validBookings)
+              
+              setFlightBookings(validBookings);
+
+              if (validBookings?.length) {
+                const uniqueMfrefs = validBookings
+                  .map((item: any) => item?.mfref)
+                  .filter(Boolean)
+                  .filter((value, index, self) => self.indexOf(value) === index) as string[];
+
+                setMystiflyBookingIDs(uniqueMfrefs);
+                console.log('[MFREF] Unique IDs:', uniqueMfrefs)
+              }
+            } else {
+              console.error('[ERROR] Failed to fetch:', error)
             }
 
             resolve(true);
           } catch (error) {
+            console.error('[ERROR] Exception:', error)
             reject(error);
           }
         }),
@@ -144,8 +168,6 @@ const MyBooking = () => {
               setTourBookings(data);
             }
 
-            console.error(error)
-
             resolve(true);
           } catch (error) {
             reject(error);
@@ -183,7 +205,7 @@ const MyBooking = () => {
         type: Services.Flights,
         created_at: item?.created_at,
         image: foundAirline?.image || Images.Placeholder,
-        orderId: item?.id_flight_booking,
+        orderId: item?.passengers?.[0]?.id_flight_booking,
         name: {
           from: item?.origin || "",
           to: item?.destination || "",
@@ -197,8 +219,8 @@ const MyBooking = () => {
           time: item?.departure_time ? moment(item?.departure_time).format("HH:mm") : "",
           people: "1 passenger",
         },
-        linkURL: "#",
-        id_booking: item?.id_flight_booking,
+        linkURL: `/user/booking/flights/${item?.passengers?.[0]?.id_flight_booking}`,
+        id_booking: item?.passengers?.[0]?.id_flight_booking,
       }
     }),
     ...mystiflyBookings.map((data) => {
@@ -299,6 +321,15 @@ const MyBooking = () => {
   });
 
   const totalFlights = flightBookings.length + mystiflyBookings.length;
+
+  console.log('[DEBUG] Booking counts:', {
+    flightBookings: flightBookings.length,
+    mystiflyBookings: mystiflyBookings.length,
+    hotelBookings: hotelBookings.length,
+    carBookings: carBookings.length,
+    tourBookings: tourBookings.length,
+    totalBookings: allBookings.length
+  })
 
   return (
     <Layout>
@@ -442,7 +473,7 @@ const MyBooking = () => {
                             key={`flight-${index}`}
                             type={Services.Flights}
                             image={foundAirline?.image || Images.Placeholder}
-                            orderId={item?.id_flight_booking}
+                            orderId={item?.booking_reference}
                             name={{
                               from: item?.origin || "",
                               to: item?.destination || "",
@@ -454,8 +485,8 @@ const MyBooking = () => {
                               time: item?.departure_time ? moment(item?.departure_time).format("HH:mm") : "",
                               people: "1 passenger",
                             }}
-                            linkURL="#"
-                            id_booking={item?.id_flight_booking}
+                            linkURL={`/user/booking/flights/${item?.passengers?.[0]?.id_flight_booking}`}
+                            id_booking={item?.passengers?.[0]?.id_flight_booking}
                           />
                         )
                       })}
