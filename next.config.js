@@ -21,7 +21,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'agnes-nonfireproof-nondefectively.ngrok-free.dev',
+        hostname: '*.ngrok-free.dev',
         port: '',
         pathname: '/**',
       },
