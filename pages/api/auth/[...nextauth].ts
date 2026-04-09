@@ -46,9 +46,16 @@ export const authOptions: NextAuthOptions = {
             }),
           })
 
-          const { data, errors } = await res.json()
+      const json = await res.json()
 
-          if (errors) throw errors
+      if (!res.ok) {
+        throw new Error(json?.errors || json?.message || 'Login failed')
+      }
+
+      const { data, errors } = json
+
+      if (errors) throw errors
+
 
           if (res.ok && data) {
             console.log('=== LOGIN RESPONSE DATA ===')

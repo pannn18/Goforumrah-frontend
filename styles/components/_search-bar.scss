@@ -72,9 +72,13 @@
     gap: toRem(24);
     padding: toRem(12) toRem(24);
 
+    @include media-breakpoint-down(md) {
+        transform: translate(-10%, -100%);
+    }
+
     @include media-breakpoint-down(xs-2) {
         left: 45px;
-        transform: translate(-5%, -100%);
+        transform: translate(-13%, -100%);
     }
   }
 

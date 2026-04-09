@@ -110,7 +110,7 @@ const Navbar = (props: IProps) => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent" style={{ flex: 'none' }}>
-          <div className="ms-auto d-flex gap-5 align-items-center">
+          <div className="ms-auto d-flex gap-3 align-items-center">
             {(showCurrency && isAuthenticated) && (
               <>
                 <div className={`navbar__selected-option ${lightMode ? 'navbar__selected-option--dark' : ''}`}>
