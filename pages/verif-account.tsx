@@ -61,7 +61,7 @@ const ResetPassword = (props: IProps) => {
 export const getServerSideProps = async ({ query }) => {
   const { email, code, type } = query
 
-  if (!email || !code) {
+  if (!email || !code || !type) {
     return {
       redirect: {
         permanent: true,
@@ -70,11 +70,19 @@ export const getServerSideProps = async ({ query }) => {
     }
   }
 
-  const { ok } = await callAPI(`/${type === 'agent' ? 'agent' : 'customer'}/email-verification/verify`, 'POST', { email, code })
+  const endpointMap = {
+    'agent': 'agent',
+    'customer': 'customer',
+    'hotel-business': 'hotel-business',
+    'car-business': 'car-business',
+  }
+  const endpoint = endpointMap[type] ?? 'customer'
+
+  const { ok } = await callAPI(`/${endpoint}/email-verification/verify`, 'POST', { email, code })
 
   return {
     props: {
-      email, code, type, success: true
+      email, code, type, success: ok ?? false
     }
   }
 }
