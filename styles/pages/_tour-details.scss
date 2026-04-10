@@ -6,6 +6,10 @@
     gap: toRem(20);
     padding-top: toRem(40);
     padding-bottom: toRem(80);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
   }
 
   &__inner {
@@ -14,6 +18,10 @@
     flex-direction: column;
     gap: toRem(40);
     max-width: toRem(736);
+
+    @include media-breakpoint-down(lg) {
+      max-width: 100%;
+    }
   }
 
   &__tours-plan {
@@ -46,6 +54,10 @@
         font-weight: $font-weight-bold;
         color: $neutral-primary;
       }
+    }
+
+      @include media-breakpoint-down(xs-3) {
+      overflow-x: auto;
     }
   }
 
@@ -128,9 +140,101 @@
     gap: toRem(8);
     margin-top: toRem(32);
 
+    &-main{
+      overflow: hidden;
+      object-fit: cover;
+
+      @include media-breakpoint-down(lg) {
+        width: 100% !important;
+      }
+    }
+
     &-src{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      gap: toRem(8);
+
+      img{
+        overflow: hidden;
+        object-fit: cover;
+      }
+
+      @include media-breakpoint-down(xxl) {
+        img {
+          width: 230px !important;
+        }
+      }
+
+      @include media-breakpoint-down(lg) {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(8);
+
+        img {
+          width: 140px !important;
+          height: 140px !important;
+        }
+      }
+
+      @include media-breakpoint-down(md) {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(8);
+
+        img {
+          width: 120px !important;
+          height: 120px !important;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(8);
+
+        img {
+          width: 90px !important;
+          height: 90px !important;
+        }
+      }
+
+      @include media-breakpoint-down(xs-3) {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(8);
+
+        img {
+          width: 78px !important;
+          height: 78px !important;
+        }
+      }
+
+      @include media-breakpoint-down(xs-2) {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(8);
+
+        img {
+          width: 70px !important;
+          height: 70px !important;
+        }
+      }
+
+      @include media-breakpoint-down(xs-1) {
+        display: flex;
+        flex-direction: row;
+        gap: toRem(8);
+
+        img {
+          width: 60px !important;
+          height: 60px !important;
+        }
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      display: flex;
+      flex-direction: column;
       gap: toRem(8);
     }
   }
@@ -1001,6 +1105,11 @@
       width: 100%;
       position: relative;
       
+        @include media-breakpoint-down(md) {
+          flex-direction: column;
+          gap: toRem(12);
+          padding-left: toRem(32);
+      }
 
       &-line-left {
         &::before {
@@ -1036,6 +1145,11 @@
         color: $neutral-primary;
         @extend .fs-xl;
         min-width: toRem(270);
+
+        @include media-breakpoint-down(md) {
+          min-width: unset;
+          width: 100%;
+        }
       }
 
       &-list{
@@ -1053,10 +1167,22 @@
         color: $neutral-secondary;
         @extend .fs-lg;
 
+        @include media-breakpoint-down(md) {
+        flex-direction: column;  
+        align-items: flex-start;
+        gap: toRem(4);
+      }
+
       &-desc {
         min-width: toRem(451);
         padding-bottom: toRem(20);
         color: $neutral-secondary;
+
+        @include media-breakpoint-down(lg) {
+          min-width: unset;
+          width: 100%;
+          padding-bottom: toRem(12);
+        }
       }
 
       &-wrapper {
@@ -1573,6 +1699,11 @@
       &-row {
         display: flex;
         gap: toRem(24);
+
+        @include media-breakpoint-down(md) {
+          display: block;
+          gap: 0;
+        }
       }
 
       &-block {

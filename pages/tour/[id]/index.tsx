@@ -177,7 +177,7 @@ export default function Page({
 
             {/* Image Galleries */}
             <div className="tour-details__imagery">
-              <BlurPlaceholderImage src={data.tour_photos?.[0]?.photo} alt={data.package_name} width={644} height={468} />
+              <BlurPlaceholderImage className="tour-details__imagery-main" src={data.tour_photos?.[0]?.photo} alt={data.package_name} width={644} height={468} />
               <div className="tour-details__imagery-src">
                 <BlurPlaceholderImage src={data.tour_photos?.[1]?.photo} alt={data.package_name} width={230} height={230} />
                 <BlurPlaceholderImage src={data.tour_photos?.[2]?.photo} alt={data.package_name} width={230} height={230} />
