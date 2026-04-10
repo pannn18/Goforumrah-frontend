@@ -1668,7 +1668,7 @@
     gap: toRem(16);
     padding: toRem(24);
 
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(xl) {
     padding: toRem(8);
   }
 

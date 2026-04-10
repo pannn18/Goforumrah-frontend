@@ -111,7 +111,7 @@
     height: fit-content;
     min-width: toRem(360);
 
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(xl) {
       min-width: unset;
       width: 100%;
     }
