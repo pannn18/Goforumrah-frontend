@@ -95,6 +95,10 @@
     display: flex;
     gap: toRem(24);    
     margin-bottom: toRem(160);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;  
+    }
   }
 
   &__brand{
@@ -1108,7 +1112,6 @@
         @include media-breakpoint-down(md) {
           flex-direction: column;
           gap: toRem(12);
-          padding-left: toRem(32);
       }
 
       &-line-left {
@@ -1150,6 +1153,12 @@
           min-width: unset;
           width: 100%;
         }
+
+          &-wrapper {
+            @include media-breakpoint-down(md) {
+              padding-left: toRem(32);
+          }
+        }
       }
 
       &-list{
@@ -1189,6 +1198,10 @@
         display: flex;
         flex-direction: column;
         gap: toRem(16);
+
+          @include media-breakpoint-down(md) {
+            padding-left: toRem(32);
+        }
       }
 
         &--dots{
@@ -1654,6 +1667,10 @@
     flex-direction: column;
     gap: toRem(16);
     padding: toRem(24);
+
+    @include media-breakpoint-down(lg) {
+    padding: toRem(8);
+  }
 
     &.show {
       background-color: $neutral-light;

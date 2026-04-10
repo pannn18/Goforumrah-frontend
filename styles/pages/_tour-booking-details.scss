@@ -109,6 +109,12 @@
     border: toRem(1) solid $neutral-separator;
     min-width: toRem(360);
     height: fit-content;
+    min-width: toRem(360);
+
+    @include media-breakpoint-down(lg) {
+      min-width: unset;
+      width: 100%;
+    }
 
     &-title {
       font-size: $font-size-xl;
