@@ -139,8 +139,8 @@ const CarDetailsImagery = ({ data }) => {
   const firstPhoto = data.photos?.[0]?.photo;
   const restPhotos = data.photos.slice(1, 5);
   return (
-    <div className="hotel-details__imagery hotel-details__imagery-featured">
-      <img src={firstPhoto || carImagery1} alt="Car Photo" width={644} height={468} />
+    <div className="hotel-details__imagery">
+      <img className="hotel-details__imagery-featured" src={firstPhoto || carImagery1} alt="Car Photo" width={644} height={468} />
       <div className="hotel-details__imagery-src">
         {!!restPhotos.length ? (
           restPhotos.map((photo, index) => (

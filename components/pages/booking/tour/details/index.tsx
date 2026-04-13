@@ -325,11 +325,11 @@ const GuestSection = (props: formProps & handleInputChangeProps) => {
       <p className="booking-tour__card-title">Guest Details</p>
       <div className="booking-tour__guest">
         <div className="booking-tour__guest-row">
-          <div className="booking-tour__guest-block w-50">
+          <div className="booking-tour__guest-block w-100">
             <label htmlFor="firstname">First name</label>
             <input type="text" name="firstname" id="firstname" placeholder="Enter your full name" onChange={props.handleInputChange} />
           </div>
-          <div className="booking-tour__guest-block w-50">
+          <div className="booking-tour__guest-block w-100">
             <label htmlFor="lastname">Last name</label>
             <input type="text" name="lastname" id="lastname" placeholder="Enter your full name" onChange={props.handleInputChange} />
           </div>

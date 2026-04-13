@@ -910,7 +910,7 @@
       justify-content: space-between;
       gap: toRem(64);
 
-      @include media-breakpoint-down(xs-3) {
+      @include media-breakpoint-down(lg) {
         flex-direction: column;
         gap: toRem(48);
       }
@@ -1383,6 +1383,12 @@
 }
 .booking-hotel__confirmation-image{
   object-fit: cover;
+  @include media-breakpoint-down(xs-3) {
+    width: 100% !important;
+    img {
+      width: 100% !important;
+    }
+  }
 }
 
 @media screen {

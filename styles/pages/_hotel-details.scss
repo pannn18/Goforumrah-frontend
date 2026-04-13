@@ -561,12 +561,23 @@
     &-list{
       display: flex;
       gap: toRem(20);
+
+      @include media-breakpoint-down(xl) {
+        overflow-x: auto;
+        padding-bottom: toRem(8);
+        -webkit-overflow-scrolling: touch;
+      }
     }
 
     &-card{
       display: flex;
       flex-direction: column;      
       gap: toRem(24);
+      width: toRem(280);
+
+      @include media-breakpoint-down(md) {
+        width: toRem(240); 
+      }
 
       &-image{
         object-fit: cover;

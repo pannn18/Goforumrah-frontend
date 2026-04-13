@@ -10,6 +10,11 @@
       border: toRem(1) solid $neutral-separator;
       border-radius: toRem(16);
       max-width: toRem(360);
+
+      @include media-breakpoint-down(lg) {
+        max-width: 100%;
+        width: 100%;
+      }
     
       &-title{
         font-size: $font-size-xl;
@@ -100,5 +105,42 @@
       }
     }
   }
-}
 
+  &__guest {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(16);
+
+    input {
+      padding: toRem(13) toRem(16);
+      width: 100%;
+    }
+
+    &-toggle {
+      display: flex;
+      gap: toRem(24);
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: toRem(8);
+      width: 100%;
+    }
+
+    &-row {
+      display: flex;
+      gap: toRem(24);
+      width: 100%;
+
+      @include media-breakpoint-down(xs-3) {
+        flex-wrap: wrap; 
+        
+        & > *:nth-child(3) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

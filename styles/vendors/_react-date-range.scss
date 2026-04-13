@@ -1,6 +1,8 @@
 .rdrCalendarWrapper {
   font: $font-family-base;
   position: relative !important;
+  width: 100% !important; // tambah ini
+  
   .rdrDateDisplayWrapper {
     display: none !important;
   }
@@ -30,6 +32,7 @@
   }
 
   .rdrMonth {
+    width: 100% !important; // tambah ini
     padding: 0 toRem(10) toRem(20) !important;
 
     &:first-child {

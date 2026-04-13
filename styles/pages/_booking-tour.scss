@@ -12,6 +12,11 @@
       display: flex;
       justify-content: space-between;
       gap: toRem(120);
+
+      @include media-breakpoint-down(xl) {
+        flex-direction: column;
+        gap: toRem(48);
+      }
     }
 
     &-title {
@@ -76,7 +81,13 @@
         font-size: $font-size-base;
         font-weight: $font-weight-bold;
         color: $neutral-primary;
-        @extend .fs-base
+        @extend .fs-base;
+      }
+
+      @include media-breakpoint-down(xs-3) {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(16);
       }
     }
   }
@@ -87,6 +98,10 @@
     gap: toRem(20);
     padding-top: toRem(40);
     padding-bottom: toRem(80);
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
   }
 
   &__summary {
@@ -99,6 +114,12 @@
     border-radius: toRem(16);
     min-width: toRem(360);
     white-space: nowrap;
+
+    @include media-breakpoint-down(lg) {
+      min-width: 0;
+      width: 100%;
+      white-space: normal;
+    }
 
     &-title {
       font-size: $font-size-xl;
@@ -156,6 +177,17 @@
           background: $neutral-separator;
           border-radius: toRem(100);
         }
+
+        @include media-breakpoint-down(sm) {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      @include media-breakpoint-down(xs-1) {
+        flex-direction: column;
+        gap: toRem(16);
       }
     }
 
@@ -225,6 +257,10 @@
     display: flex;
     flex-direction: column;
     gap: toRem(20);
+
+    @include media-breakpoint-down(xs-2) {
+      width: 100%;
+    }
   }
 
   &__card {
@@ -265,13 +301,17 @@
       display: flex;
       justify-content: space-between;
       gap: toRem(20);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
     }
 
     &-title {
       font-size: $font-size-xl;
       font-weight: $font-weight-bold;
       color: $neutral-primary;
-      @extend .fs-xl
+      @extend .fs-xl;
     }
 
     &-desc {
@@ -308,6 +348,10 @@
     &-row {
       display: flex;
       gap: toRem(24);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
     }
 
     &-combobox {
@@ -368,6 +412,7 @@
     display: flex;
     flex-direction: column;
     gap: toRem(16);
+    width: 100%;
 
     input {
       padding: toRem(13) toRem(16);
@@ -417,11 +462,17 @@
       flex-direction: column;
       align-items: stretch;
       gap: toRem(8);
+      width: 100%;
     }
 
     &-row {
       display: flex;
       gap: toRem(24);
+      width: 100%;
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
     }
   }
 
@@ -445,6 +496,10 @@
       &-row {
         display: flex;
         gap: toRem(24);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+        }
       }
 
       &-block {
@@ -497,6 +552,10 @@
       &-row {
         display: flex;
         gap: toRem(24);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+        }
       }
 
       &-block {
@@ -565,6 +624,11 @@
       font-weight: $font-weight-base;
       color: $neutral-primary;
       @extend .fs-base;
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+        text-align: center;
+      }
     }
 
     &-countdown {
@@ -609,6 +673,10 @@
     &-row {
       display: flex;
       gap: toRem(24);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
     }
 
     &-input {
@@ -640,6 +708,10 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: toRem(32);
+
+      @include media-breakpoint-down(xs-3) {
+        flex-direction: column;
+      }
 
       &-header {
         display: flex;
@@ -675,6 +747,11 @@
       &-buttons {
         display: flex;
         gap: toRem(12);
+
+        @include media-breakpoint-down(xs-3) {
+          flex-direction: column;
+          width: 100%;
+        }
       }
     }
 
@@ -687,6 +764,11 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: toRem(64);
+
+      @include media-breakpoint-down(lg) {
+        flex-direction: column;
+        gap: toRem(48);
+      }
     }
 
     &-content {
@@ -709,12 +791,11 @@
           font-size: $font-size-xl;
           font-weight: $font-weight-base;
 
-          &-text { 
+          &-text {
             font-size: $font-size-lg;
             color: $neutral-secondary;
             @extend .fs-lg;
           }
-
         }
 
         &-pin {
@@ -730,7 +811,7 @@
           color: $warning-main;
         }
 
-        &-brand{
+        &-brand {
           display: flex;
           align-items: center;
           gap: toRem(8);
@@ -738,7 +819,7 @@
           color: $neutral-primary;
           @extend .fs-lg;
 
-          &-image{
+          &-image {
             border-radius: toRem(100);
           }
         }
@@ -824,44 +905,44 @@
       }
     }
 
-    &-preview{
+    &-preview {
       display: flex;
-      flex-direction: column;            
+      flex-direction: column;
       gap: 16px;
 
-      &__booking{
+      &__booking {
         display: flex;
         align-items: flex-start;
         gap: toRem(16);
-      
-        &-image{
+
+        &-image {
           object-fit: cover;
           min-width: toRem(71);
           border-radius: toRem(4);
         }
-      
-        &-desc{
+
+        &-desc {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          gap: toRem(8);        
+          gap: toRem(8);
         }
-      
-        &-tag{
+
+        &-tag {
           font-size: $font-size-sm;
           font-weight: $font-size-base;
           color: $neutral-subtle;
           @extend .fs-sm;
         }
-      
-        &-name{
+
+        &-name {
           font-size: $font-size-base;
           font-weight: $font-weight-bold;
           color: $neutral-primary;
           @extend .fs-base;
         }
-      
-        &-date{
+
+        &-date {
           display: flex;
           align-items: center;
           gap: toRem(12);
@@ -869,8 +950,8 @@
           font-weight: $font-weight-base;
           color: $neutral-secondary;
           @extend .fs-base;
-      
-          &--dots{
+
+          &--dots {
             width: toRem(5);
             height: toRem(5);
             background: $neutral-input;
@@ -885,6 +966,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+      gap: toRem(24);
+    }
 
     &-total {
       display: flex;
@@ -907,9 +993,9 @@
       font-weight: $font-weight-base;
     }
   }
-
 }
-.booking-error-banner{
+
+.booking-error-banner {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -919,6 +1005,14 @@
   background-color: $danger-main;
   color: $white;
 }
-.booking-tour__confirmation-image{
+
+.booking-tour__confirmation-image {
   object-fit: cover;
+  
+  @include media-breakpoint-down(xs-3) {
+    width: 100% !important;
+    img {
+      width: 100% !important;
+    }
+  }
 }

@@ -546,7 +546,7 @@ const PassengerSection = (props) => {
   return (
     <div className="booking-hotel__card">
       <p className="booking-hotel__card-title">Passenger Details</p>
-      <div className="booking-hotel__guest">
+      <div className="booking-transfer__guest">
         <div className="booking-hotel__guest-toggle">
           <input type="checkbox" name="sameIdentityBooking" id="sameIdentityBooking" onChange={(event) => {
             props.handleCheckboxPassengerIdentityChange(event); // Call the first function from props
@@ -596,8 +596,8 @@ const PassengerSection = (props) => {
             </div>
           </div>
         )}
-        <div className="booking-hotel__guest-row">
-          <div className="booking-hotel__guest-block w-100">
+        <div className="booking-transfer__guest-row">
+          <div className="booking-transfer__guest-block w-100">
             <label htmlFor="passengerNationality">Nationality</label>
             <select name="passenger_nationality" id="passengerNationality" placeholder="Select your country" onChange={props.handleSelectChange} value={props.bookingDetailData?.passenger_nationality} defaultValue={'GB'}>
               {getCountries().map((country) => (
@@ -607,7 +607,7 @@ const PassengerSection = (props) => {
               ))}
             </select>
           </div>
-          <div className="booking-hotel__guest-block w-100">
+          <div className="booking-transfer__guest-block w-100">
             <label htmlFor="passenger_datebirth">Date of birth</label>
             <RFHDate date={passengerDateBirth} id='passenger_datebirth' name='passenger_datebirth' onDateChange={(date) => handleDateChange(date, 'passenger_datebirth')} type="text" placeholder="DD / MM / YY" />
           </div>
