@@ -802,7 +802,7 @@ const FlightCard = (props: FlightCardProps) => {
         <div className="flex-grow-1 d-flex flex-column align-items-stretch">
           <div className="d-flex flex-column flex-sm-row align-items-stretch">
             {!!firstLeg.carriers.length && (
-              <div className="flight-card__brand" style={{ flex: 'none', width: 200, textAlign: 'center' }}>
+              <div className="flight-card__brand" style={{ flex: 'none',textAlign: 'center' }}>
                 <div className="flight-card__brand-name">{firstLeg.carriers[0].name}</div>
                 <div className="flight-card__brand-image">
                   <img src={firstLeg.carriers[0].imageUrl || Images.Placeholder} alt={firstLeg.carriers[0].name} width={160} height={48} />
@@ -820,7 +820,10 @@ const FlightCard = (props: FlightCardProps) => {
               <div className="flight-card__route-details">
                 <div className="flight-card__route-details-inner">
                   <div className="flight-card__route-details-duration">{Math.floor(firstLeg.durationInMinutes / 60)}h {moment.duration(firstLeg.durationInMinutes, 'minutes').minutes()}m</div>
+                  <div className="flight-card__route-details-line-wrapper">
                   <SVGIcon src={Icons.AirplaneLine} width={61} height={8} className="flight-card__route-details-line" />
+                  <SVGIcon src={Icons.Airplane} width={16} height={16} className="flight-card__route-details-icon" />
+                  </div>
                   <div className="flight-card__route-details-transit text-center">
                     <span>
                       {firstLeg.stopCount > 0 ? `${firstLeg.stopCount} Transit` : 'Direct'}
@@ -832,7 +835,6 @@ const FlightCard = (props: FlightCardProps) => {
                     )}
                   </div>
                 </div>
-                <SVGIcon src={Icons.Airplane} width={16} height={16} className="flight-card__route-details-icon" />
               </div>
               <div>
                 <div className="flight-card__route-time">{moment(firstLeg.arrivalDateTime).format('HH:mm')}</div>
@@ -841,7 +843,7 @@ const FlightCard = (props: FlightCardProps) => {
             </div>
           </div>
           {props?.secondLeg && (
-            <div className="d-flex flex-row align-items-stretch">
+            <div className="d-flex flex-column flex-sm-row align-items-stretch">
               {!!props.secondLeg.carriers.length && (
                 <div className="flight-card__brand" style={{ flex: 'none', textAlign: 'center' }}>
                   <div className="flight-card__brand-name">{props.secondLeg.carriers[0].name}</div>
@@ -861,7 +863,10 @@ const FlightCard = (props: FlightCardProps) => {
                 <div className="flight-card__route-details">
                   <div className="flight-card__route-details-inner">
                     <div className="flight-card__route-details-duration">{Math.floor(props.secondLeg.durationInMinutes / 60)}h {moment.duration(props.secondLeg.durationInMinutes, 'minutes').minutes()}m</div>
-                    <SVGIcon src={Icons.AirplaneLine} width={61} height={8} className="flight-card__route-details-line" />
+                    <div className="flight-card__route-details-line-wrapper">
+                      <SVGIcon src={Icons.AirplaneLine} width={61} height={8} className="flight-card__route-details-line" />
+                      <SVGIcon src={Icons.Airplane} width={16} height={16} className="flight-card__route-details-icon" />
+                    </div>
                     <div className="flight-card__route-details-transit text-center">
                       <span>
                         {props.secondLeg.stopCount > 0 ? `${props.secondLeg.stopCount} Transit` : 'Direct'}
@@ -873,7 +878,6 @@ const FlightCard = (props: FlightCardProps) => {
                       )}
                     </div>
                   </div>
-                  <SVGIcon src={Icons.Airplane} width={16} height={16} className="flight-card__route-details-icon" />
                 </div>
                 <div>
                   <div className="flight-card__route-time">{moment(props.secondLeg.arrivalDateTime).format('HH:mm')}</div>

@@ -357,7 +357,7 @@ const handleExpiryChange = (date: Date) => {
             <input type="text" name="passenger_lastname" id="passenger-lastname" placeholder="Enter last name" value={props.formData.passenger_lastname} onChange={props.handleInputChange} required />
           </div>
         </div>
-        <div className="booking-hotel__guest-row">
+        <div className="booking-transfer__guest-row">
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-nationality">Nationality</label>
             <select name="passenger_nationality" id="passenger-nationality" value={props.formData.passenger_nationality} onChange={props.handleSelectChange}>
@@ -371,7 +371,7 @@ const handleExpiryChange = (date: Date) => {
             <RFHDate date={passengerDob} id='passenger-dob' name='passenger_datebirth' onDateChange={handleDobChange} type="text" placeholder="DD / MM / YY" />
           </div>
         </div>
-        <div className="booking-hotel__guest-row">
+        <div className="booking-transfer__guest-row">
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-passport">Passport No.</label>
             <input type="text" name="passenger_passport" id="passenger-passport" placeholder="Enter passport number" value={props.formData.passenger_passport} onChange={props.handleInputChange} required />
@@ -381,7 +381,7 @@ const handleExpiryChange = (date: Date) => {
             <RFHDate date={passengerIssued} id="passenger-passport-issued" name="passenger_passport_issued" onDateChange={handleIssuedChange} type="text" placeholder="DD / MM / YY" />
           </div>
         </div>
-        <div className="booking-hotel__guest-row">
+        <div className="booking-transfer__guest-row">
           <div className="booking-hotel__guest-block w-100">
             <label htmlFor="passenger-passport-country">Issuing Country</label>
             <select name="passenger_passport_country" id="passenger-passport-country" value={props.formData.passenger_passport_country} onChange={props.handleSelectChange}>

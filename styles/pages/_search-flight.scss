@@ -261,6 +261,7 @@
       min-width: toRem(57);
       position: relative;
       @include flex(column, center);
+      align-items: center;
       gap: toRem(8);
     }
 
@@ -270,11 +271,16 @@
       color: $primary;
     }
 
+    &__route-details-line-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: toRem(4);
+    }
+
     &__route-details-line {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       color: $primary;
     }
 
