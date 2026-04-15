@@ -486,6 +486,11 @@
       &__flight {
         @include flex(row, flex-start);
         gap: toRem(8);
+
+        @include media-breakpoint-down(sm) {
+          @include flex(column, flex-start);
+          gap: toRem(4);
+        }
       }
 
       &__flight-brand {
@@ -497,6 +502,10 @@
         height: 36px;
         margin-bottom: toRem(8);
 
+        @include media-breakpoint-down(sm) {
+          margin: 0 auto;
+        }
+
         img {
           width: 100%;
           height: auto;
@@ -507,11 +516,19 @@
       &__flight-code {
         @extend .fw-semibold;
         color: $neutral-primary;
+
+        @include media-breakpoint-down(sm) {
+          text-align: center;
+        }
       }
 
       &__flight-class {
         @extend .fs-sm;
         color: $neutral-secondary;
+
+        @include media-breakpoint-down(sm) {
+          text-align: center;
+        }
       }
     }
 
@@ -577,6 +594,11 @@
       gap: toRem(16);
       border: none;
 
+      @include media-breakpoint-down(sm) {
+        @include flex(column, stretch);
+        gap: toRem(12);
+      }
+
       .price {
         @include flex(row);
 
@@ -599,6 +621,10 @@
       .btn {
         padding-right: toRem(40);
         padding-left: toRem(40);
+
+        @include media-breakpoint-down(sm) {
+          width: 100%;
+        }
       }
     }
 

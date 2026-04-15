@@ -375,7 +375,7 @@ export default function Page({
                     <div className="cancelation__flight-summary-duration">
                       <p className='cancelation__flight-summary-duration--text'>{Math.floor(itinerariesNoReturnDuration / 60)}h {moment.duration(itinerariesNoReturnDuration, 'minutes').minutes()}m</p>
                       <div className='cancelation__flight-summary-duration--icon'>
-                        <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} />
+                        <SVGIcon src={Icons.AirplaneLineLong} width={165} height={8} />
                         <SVGIcon src={Icons.Airplane} width={16} height={16} />
                       </div>
                       <p className='cancelation__flight-summary-duration--text'>{itinerariesNoReturn?.length > 1 ? `${itinerariesNoReturn?.length - 1} Transit` : 'Direct'}</p>
@@ -469,7 +469,7 @@ export default function Page({
                       <div className="cancelation__flight-summary-duration">
                         <p className='cancelation__flight-summary-duration--text'>{Math.floor(itinerariesReturnDuration / 60)}h {moment.duration(itinerariesReturnDuration, 'minutes').minutes()}m</p>
                         <div className='cancelation__flight-summary-duration--icon'>
-                          <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} />
+                          <SVGIcon src={Icons.AirplaneLineLong} width={165} height={8} />
                           <SVGIcon src={Icons.Airplane} width={16} height={16} />
                         </div>
                         <p className='cancelation__flight-summary-duration--text'>{itinerariesReturn?.length > 1 ? `${itinerariesReturn?.length - 1} Transit` : 'Direct'}</p>
@@ -871,7 +871,7 @@ function OwnBookingDetail({ uniqueID }: { uniqueID: string }) {
                       <div className="cancelation__flight-summary-duration">
                         <p className='cancelation__flight-summary-duration--text'>{durationMs > 0 ? `${Math.floor(durationMs / 60)}h ${durationMs % 60}m` : ''}</p>
                         <div className='cancelation__flight-summary-duration--icon'>
-                          <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} />
+                          <SVGIcon src={Icons.AirplaneLineLong} width={165} height={8} />
                           <SVGIcon src={Icons.Airplane} width={16} height={16} />
                         </div>
                         <p className='cancelation__flight-summary-duration--text'>Direct</p>

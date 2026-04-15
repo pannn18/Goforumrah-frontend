@@ -253,6 +253,7 @@
     display: flex;
     align-items: center;
     gap: toRem(16);
+    margin: 0 auto;
 
     @include media-breakpoint-down(md) {
       flex-direction: column;
@@ -277,6 +278,7 @@
     flex-direction: column;
     align-items: center;
     gap: toRem(8);
+    flex: 1;
 
     &--text {
       font-size: $font-size-base;
@@ -289,6 +291,21 @@
       align-items: center;
       gap: toRem(4);
       color: $neutral-primary;
+
+        .cancelation__flight-summary-duration--line {
+        svg {
+          width: 347px;
+          height: auto;
+
+          @include media-breakpoint-down(sm) {
+            width: 240px;
+          }
+
+          @include media-breakpoint-down(xs) {
+            width: 165px;
+          }
+        }
+      }
     }
   }
 
@@ -555,6 +572,12 @@
     align-items: flex-start;
     gap: toRem(8);
 
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
     &--type {
       font-size: $font-size-base;
       font-weight: $font-weight-semibold;
@@ -598,6 +621,16 @@
     align-items: center;
     gap: toRem(20);
 
+    @include media-breakpoint-down(md) {
+      flex-wrap: wrap;
+    }
+
+    @include media-breakpoint-down(xs) {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
     &--number {
       font-size: $font-size-base;
       font-weight: $font-weight-semibold;
@@ -614,6 +647,11 @@
       padding: toRem(3) toRem(16);
       background: $info-surface;
       border-radius: toRem(32);
+
+      @include media-breakpoint-down(md) {
+        width: 100%;
+        order: 1;
+      }
     }
 
     &--name {
@@ -1885,6 +1923,14 @@
         display: flex;
         gap: toRem(12);
 
+        @include media-breakpoint-down(md) {
+        width: 100%;
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+        }
+      }
         @include media-breakpoint-down(xs-3) {
           flex-direction: column;
         }
@@ -1913,6 +1959,11 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: toRem(64);
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+        gap: toRem(24);
+      }
     }
 
     &-content {
@@ -1986,6 +2037,10 @@
   &__confirmation-item {
     @include flex(row);
     gap: toRem(24);
+
+     @include media-breakpoint-down(xs-3) {
+      flex-direction: column;
+    }
   }
 
   &__confirmation-preview-title {
@@ -2120,6 +2175,11 @@
     @extend .fs-lg;
     color: $neutral-secondary;
     margin-top: toRem(12);
+
+      @include media-breakpoint-down(xs-3) {
+      flex-wrap: wrap;
+      gap: toRem(8);
+    }
   }
 
   &__confirmation-item-details-bullet {

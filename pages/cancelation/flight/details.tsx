@@ -210,7 +210,7 @@ const FlightDetail = () => {
             <div className="cancelation__flight-summary-duration">
               <p className='cancelation__flight-summary-duration--text'>2 Days 12 Hours</p>
               <div className='cancelation__flight-summary-duration--icon'>
-                <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} />              
+                <SVGIcon src={Icons.AirplaneLineLong} width={347} height={8} className='cancelation__flight-summary-duration--line'/>              
                 <SVGIcon src={Icons.Airplane} width={16} height={16} />
               </div>
               <p className='cancelation__flight-summary-duration--text'>2 Transit</p>

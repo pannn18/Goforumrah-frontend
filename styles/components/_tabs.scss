@@ -5,6 +5,20 @@
     z-index: 1;
     width: 100%;
 
+    @include media-breakpoint-down(sm) {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
     &::before {
       content: "";
       position: absolute;
@@ -25,6 +39,10 @@
       font-size: $font-size-base;
       font-weight: $font-weight-base;
       color: $blue-whale-01;
+
+      @include media-breakpoint-down(sm) {
+        flex-shrink: 0;
+      }
 
       &:not(.active):hover {
         background-color: shade-color(transparent, $btn-hover-bg-shade-amount);
