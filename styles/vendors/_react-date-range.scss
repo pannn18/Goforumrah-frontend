@@ -1,7 +1,11 @@
 .rdrCalendarWrapper {
   font: $font-family-base;
   position: relative !important;
-  width: 100% !important; // tambah ini
+
+    @include media-breakpoint-down(md) {
+    font-size: 10px !important;
+  }
+
   
   .rdrDateDisplayWrapper {
     display: none !important;
@@ -20,6 +24,10 @@
       left: 0 !important;
       width: 100% !important;
       padding: 0 !important;
+
+      @include media-breakpoint-down(md) {
+        position: relative !important;
+      }
     }
 
     .rdrMonthAndYearPickers {
@@ -32,7 +40,6 @@
   }
 
   .rdrMonth {
-    width: 100% !important; // tambah ini
     padding: 0 toRem(10) toRem(20) !important;
 
     &:first-child {

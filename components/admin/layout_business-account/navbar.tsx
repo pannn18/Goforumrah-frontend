@@ -113,7 +113,7 @@ const Navbar = (props: IProps) => {
                   <div onClick={() => setShowRatingDropdown(true)} className="navbar__user">
                     <SVGIcon src={Icons.User} className="navbar__user-icon" height={20} width={20} />
                   </div>
-                  <DropdownMenu show={showRatingDropdown} setShow={setShowRatingDropdown} className="navbar__dropdown" style={{ marginTop: 28, width: 396 }}>
+                  <DropdownMenu show={showRatingDropdown} setShow={setShowRatingDropdown} className="navbar__dropdown" style={{ marginTop: 28, width: 396, left: typeof window !== 'undefined' && window.innerWidth <= 425 ? '50%' : 'auto',}}>
                     <div className="navbar__dropdown-profile">
                       <div className="navbar__dropdown-avatar">
                         <SVGIcon src={Icons.User} width={20} height={20} />
