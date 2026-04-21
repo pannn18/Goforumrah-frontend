@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
 import SVGIcon from '../elements/icons'
 import { Icons } from '@/types/enums'
-import DropdownMenu from '../elements/dropdownMenu'
-import { Calendar } from 'react-date-range'
 import moment from 'moment'
 
 interface RFHInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -146,32 +144,26 @@ interface RFHDateProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const RFHDate = ({ date, onDateChange, register, error, success, info, customClasses, ...props }: RFHDateProps) => {
-  const [showDateDropdown, setShowDateDropdown] = useState<boolean>(false)
-
   return (
-    <div className="custom-dropdown">
-      <div className="form-control-wrapper" onClick={() => setShowDateDropdown(true)}>
-        <div className={`form-control-field form-control-field--has-icon ${error ? 'form-control-field--error' : (success ? 'form-control-field--success' : '')}`}>
-          <input {...props} {...register} type="text" className={`${customClasses !== undefined ? customClasses : 'form-control'}`} value={date ? moment(date).format('DD / MM / YY') : ''} readOnly />
-          <div className="form-control-icon">
-            <SVGIcon src={Icons.Calendar} color="#1CB78D" width={20} height={20} />
-          </div>
-        </div>
-
-        {error ? (
-          <div className="form-control-message form-control-message--error">{error}</div>
-        ) : (success ? (
-          <div className="form-control-message form-control-message--success">{success}</div>
-        ) : (info && (
-          <div className="form-control-message">{info}</div>
-        )))}
-      </div>
-      <DropdownMenu show={showDateDropdown} setShow={setShowDateDropdown} style={{ overflow: 'hidden' }}>
-        <Calendar
-          date={date}
-          onChange={onDateChange}
+    <div className="form-control-wrapper">
+      <div className={`form-control-field ${error ? 'form-control-field--error' : (success ? 'form-control-field--success' : '')}`}>
+        <input
+          {...props}
+          {...register}
+          type="date"
+          className={`${customClasses !== undefined ? customClasses : 'form-control'}`}
+          value={date ? moment(date).format('YYYY-MM-DD') : ''}
+          onChange={(e) => onDateChange(new Date(e.target.value))}
         />
-      </DropdownMenu>
+      </div>
+
+      {error ? (
+        <div className="form-control-message form-control-message--error">{error}</div>
+      ) : (success ? (
+        <div className="form-control-message form-control-message--success">{success}</div>
+      ) : (info && (
+        <div className="form-control-message">{info}</div>
+      )))}
     </div>
   )
 }

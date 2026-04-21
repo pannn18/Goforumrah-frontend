@@ -441,11 +441,22 @@
       align-items: stretch;
       gap: toRem(8);
       cursor: pointer;
+
+      @include media-breakpoint-down(md) {
+          select {
+          width: 100%;
+          display: block;
+        }
+      }
     }
 
     &-row {
       display: flex;
       gap: toRem(24);
+
+      @include media-breakpoint-down(md) {
+    flex-direction: column; // ⬅️ INI YANG PENTING
+  }
     }
   }
 
@@ -470,7 +481,7 @@
         display: flex;
         gap: toRem(24);
 
-        @include media-breakpoint-down(xs-3) {
+        @include media-breakpoint-down(md) {
           flex-direction: column;
         }
       }

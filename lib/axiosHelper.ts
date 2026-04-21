@@ -60,8 +60,8 @@ export const callAPI = async (url: string, method: string, data?: any, authorize
     return {
       status: error.status || 'Unknown status',
       data: null,
-      ok: false,
-      error: typeof error === 'string' ? error || 'Unknown error' : (error?.message.toString() || error?.response?.data?.detail.toString() || error?.response.toString() || error?.status.toString() || 'Unknown error')
+      ok: false,error: typeof error === 'string' ? error || 'Unknown error' : (error?.message?.toString() || error?.response?.data?.detail?.toString() || error?.response?.toString() || error?.status?.toString() || 'Unknown error')
+      
     }
   })
 }
@@ -149,7 +149,7 @@ export const callSkyscannerAPI = async (config: AxiosRequestConfig, origin?: str
       status: error.status || 'Unknown status',
       data: null,
       ok: false,
-      error: typeof error === 'string' ? error || 'Unknown error' : (error?.message.toString() || error?.response?.data?.detail.toString() || error?.response.toString() || error?.status.toString() || 'Unknown error')
+      error: typeof error === 'string' ? error || 'Unknown error' : (error?.message?.toString() || error?.response?.data?.detail?.toString() || error?.response?.toString() || error?.status?.toString() || 'Unknown error')
     }
   })
 }
@@ -176,7 +176,7 @@ export const callMystiflyAPI = async (config: AxiosRequestConfig, origin?: strin
       status: error.status || 'Unknown status',
       data: null,
       ok: false,
-      error: typeof error === 'string' ? error || 'Unknown error' : (error?.message.toString() || error?.response?.data?.detail.toString() || error?.response.toString() || error?.status.toString() || 'Unknown error')
+      error: typeof error === 'string' ? error || 'Unknown error' : (error?.message?.toString() || error?.response?.data?.detail?.toString() || error?.response?.toString() || error?.status?.toString() || 'Unknown error')
     }
   })
 }
