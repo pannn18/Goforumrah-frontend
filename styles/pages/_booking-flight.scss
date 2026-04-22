@@ -2,6 +2,11 @@
   &__summary-item {
     @include flex(row);
     gap: toRem(16);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: center;
+    } 
   }
 
   &__summary-item-brand {
