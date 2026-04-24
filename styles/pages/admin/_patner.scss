@@ -368,6 +368,7 @@
 
     @include media-breakpoint-down(sm){
       padding: toRem(16);
+      min-width: unset;
     }
 
     &--main{
@@ -397,11 +398,13 @@
   &__detail-hotel__content{
     @include flex(column, stretch);    
     gap: toRem(16);
-    width: 100%;
   }
   &__detail-hotel__row{    
     @include flex(row, stretch);    
     gap: toRem(16);
+      @include media-breakpoint-down(md){
+      flex-direction: column;
+    }
 
     @include media-breakpoint-down(md){
       flex-wrap: wrap;
@@ -820,6 +823,10 @@
       &>*{
         flex: 1;
         max-width: toRem(120);
+
+        @include media-breakpoint-down(sm){
+          max-width: unset;
+        }
       }
 
       @include media-breakpoint-down(xs-3){
@@ -857,12 +864,21 @@
     display: flex;
     flex-direction: column;
     gap: toRem(8);
-    flex: 1 1 0;    
+    flex: 1 1 0; 
+    
+      @include media-breakpoint-down(sm){
+      gap: toRem(24);
+      }
     .language-field{
       display: grid;
       grid-template-columns: 1fr max-content;
       gap: toRem(24);
       align-items: center;
+
+      @include media-breakpoint-down(sm){
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
   &__basic-card__input{
@@ -1097,6 +1113,11 @@
   &__photos-header{
     @include flex(row, center, space-between);
     gap: toRem(16);
+
+    @include media-breakpoint-down(sm){
+      display: flex;
+      flex-direction: column;
+    }
   }
   &__photos-header-title{
     font-size: $font-size-xl;
@@ -1106,6 +1127,10 @@
   &__photos-header-buttons{
     @include flex(row);
     gap: toRem(16);
+    @include media-breakpoint-down(sm){
+      display: flex;
+      flex-direction: column;
+    }
   }
   &__photos-list{
     @include flex(row);

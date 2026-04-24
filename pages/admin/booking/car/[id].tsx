@@ -69,7 +69,7 @@ const BookingCarDetails = (props) => {
           {isComplete && <BannerComplete />}
           {isSuspended && <BannerSuspended />}
           {isCanceled && <BannerCanceled />}
-          <div className="admin-booking-car-details">
+          <div className="admin-booking-hotel-details">
             <MainSection carData={carData} />
             <CarAdditionalDetailsSummary carData={carData} isComplete={isComplete} isSuspended={isSuspended} isCanceled={isCanceled} />
           </div>

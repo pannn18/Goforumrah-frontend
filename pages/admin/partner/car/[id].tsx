@@ -206,12 +206,12 @@ const PartnerCarDetailContent = (props: CarProps) => {
             </div>
           </div>
         </div>
-        <div className="admin-partner__detail-hotel__owner">
-          <div className="admin-partner__detail-hotel__owner-header">
+        <div className="admin-booking-hotel-details__summary-box">
+          <div className="admin-booking-hotel-details__summary-row">
             <h5 className="admin-partner__detail-hotel__owner-header-title">Owner</h5>
             <Link href="#" className="admin-partner__detail-hotel__owner-header-link">See Details</Link>
           </div>
-          <div className="admin-partner__detail-hotel__owner-content">
+          <div className="admin-booking-hotel-details__summary-content">
             <BlurPlaceholderImage src={profilePlaceholder} className="admin-partner__detail-hotel__owner-photo" alt="Profile Picture" width={64} height={64} />
             <div className="admin-partner__detail-hotel__owner-detail">
               <p className="admin-partner__detail-hotel__owner-detail--name">John Doe</p>
