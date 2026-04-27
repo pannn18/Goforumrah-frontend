@@ -965,6 +965,10 @@
         border: toRem(1) solid $neutral-input;
         border-radius: toRem(16);
 
+        @include media-breakpoint-down(md) {
+          margin-left: 15px;
+        }
+
         &-title{
           display: flex;          
           justify-content: center;

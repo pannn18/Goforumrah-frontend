@@ -1136,6 +1136,10 @@
     @include flex(row);
     flex-wrap: wrap !important;
     gap: toRem(16);
+
+    @include media-breakpoint-down(lg){
+      justify-content: center;
+    }
   }
 
   &__policies{    
